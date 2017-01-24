@@ -1,0 +1,6 @@
+/Debug/
+/bin/
+*.class
+*.classpath
+*.jar
+*.xml
