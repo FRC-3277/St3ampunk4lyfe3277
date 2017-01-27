@@ -13,7 +13,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 }
 
 void DriveTrain::InitDefaultCommand() {
-        SetDefaultCommand(new DriveWithJoysticks());
+       void SetDefaultCommand(frc::DriveWithJoysticks());
 }
 
 void DriveTrain::setdrive(float speedleft, float speedright){
@@ -22,11 +22,11 @@ void DriveTrain::setdrive(float speedleft, float speedright){
 }
 
 void DriveTrain::openmotors(){
-	rightMotor.get()->SetControlMode(PWMSpeedController::kPercentVbus);
-	rightMotor.get()->EnableControl();
-	rightMotor.get()->Set(0.0f);
-
-	leftMotor.get()->SetControlMode(CANSpeedController::kPercentVbus);
-	leftMotor.get()->EnableControl();
-	leftMotor.get()->Set(0.0f);
+//	rightMotor.get()->SetControlMode(PWMSpeedController::kPercentVbus);
+//	rightMotor.get()->EnableControl();
+//	rightMotor.get()->Set(0.0f);
+//
+//	leftMotor.get()->SetControlMode(PWMSpeedController::kPercentVbus);
+//	leftMotor.get()->EnableControl();
+//	leftMotor.get()->Set(0.0f);
 }
