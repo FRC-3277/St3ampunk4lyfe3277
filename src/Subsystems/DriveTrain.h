@@ -8,8 +8,8 @@
 class DriveTrain: public Subsystem {
 private:
 	std::shared_ptr<Motor> leftMotor;
-	std::shared_ptr<Motor()> rightMotor;
-	std::shared_ptr<RobotDrive> robotDrive25;
+	std::shared_ptr<Motor> rightMotor;
+	std::shared_ptr<RobotDrive> motorRobotDrive25;
 
 public:
 	DriveTrain();
