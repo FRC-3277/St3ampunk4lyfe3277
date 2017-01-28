@@ -3,12 +3,14 @@
 //#include "Commands/Subsystem.h"
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
+#include "Subsystems/Motor.h"
 
 class DriveTrain: public Subsystem {
 private:
 	std::shared_ptr<Motor> leftMotor;
-	std::shared_ptr<Motor> rightMotor;
+	std::shared_ptr<Motor()> rightMotor;
 	std::shared_ptr<RobotDrive> robotDrive25;
+
 public:
 	DriveTrain();
 	void InitDefaultCommand();

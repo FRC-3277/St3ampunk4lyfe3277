@@ -25,8 +25,8 @@
 class RobotMap {
 public:
 
-	static const int PORT_PROPELLER_LEFT_MOTOR = 22;
-	static const int STARBOARD_PROPELLER_RIGHT_MOTOR = 23;
+	static const int PORT_PROPELLER_LEFT_MOTOR = 2;
+	static const int STARBOARD_PROPELLER_RIGHT_MOTOR = 3;
 	static const int TOGGLE_STATUS_SHOOTA_MOTOR = 24;
 	static const int TOGGLE_STATUS_DEPLOY_GEAR_MOTOR = 25;
 	static const int TOGGLE_STATUS_PICKA_MOTOR = 26;

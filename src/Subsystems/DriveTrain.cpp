@@ -4,7 +4,6 @@
 #include "../RobotMap.h"
 //#include "../Commands/DriveWithJoysticks.h"
 
-using namespace frc;
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     leftMotor = RobotMap::motorSpeedControllerLeft;
