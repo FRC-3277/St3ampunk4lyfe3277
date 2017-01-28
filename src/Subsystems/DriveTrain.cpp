@@ -1,13 +1,13 @@
 
-
+#include "WPILib.h"
 #include "DriveTrain.h"
 #include "../RobotMap.h"
 //#include "../Commands/DriveWithJoysticks.h"
 
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
-    leftMotor = RobotMap::motorSpeedControllerLeft;
-    rightMotor = RobotMap::motorSpeedControllerRight;
+	portMotor = RobotMap::motorSpeedControllerLeft;
+	starboardMotor = RobotMap::motorSpeedControllerRight;
     motorRobotDrive25 = RobotMap::motorRobotDrive25;
 }
 
