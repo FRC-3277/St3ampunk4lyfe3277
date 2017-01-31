@@ -34,7 +34,7 @@ OI::OI()
 	//buttonO_Matic->WhenPressed(new Command());
 
     // SmartDashboard Buttons
-    SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
+    //SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
 
 }
 
