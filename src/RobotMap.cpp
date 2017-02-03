@@ -12,14 +12,17 @@
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
 #include "CANTalon.h"
-
+//Drivetrain
 std::shared_ptr<CANTalon> RobotMap::driveTrainPortTalon;
 std::shared_ptr<CANTalon> RobotMap::driveTrainStarboardTalon;
 std::shared_ptr<RobotDrive> RobotMap::driveTrainSteamEngineRobotDrive;
 
+//Picker
+std::shared_ptr<Relay> RobotMap::pickerSpike;
+
 void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
-
+    //Drivetrain
     driveTrainPortTalon.reset(new CANTalon(PORT_PROPELLER_LEFT_MOTOR));
     lw->AddActuator("DriveTrain", "PortTalon", driveTrainPortTalon);
     
@@ -34,4 +37,10 @@ void RobotMap::init() {
 	driveTrainSteamEngineRobotDrive->SetMaxOutput(1.0);
 	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
 	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
+
+	//Picker
+	//TOGGLE_STATUS_PICKA_MOTOR
+	pickerSpike.reset(new Relay(0, Relay::kForwardOnly));
+	lw->AddActuator("Picker", "Picker", pickerSpike);
+
 }
