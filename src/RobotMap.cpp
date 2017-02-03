@@ -33,5 +33,5 @@ void RobotMap::init() {
 	driveTrainSteamEngineRobotDrive->SetSensitivity(0.5);
 	driveTrainSteamEngineRobotDrive->SetMaxOutput(1.0);
 	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
-
+	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 }
