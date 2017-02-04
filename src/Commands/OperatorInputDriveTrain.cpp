@@ -30,7 +30,7 @@ void OperatorInputDriveTrain::Execute() {
 		//posAllAheadFlank = Clamp(posAllAheadFlank);
 		//posFullAstern = Clamp(posFullAstern);
 
-		printf("Flank: %f Astern: %f\n", abs(posAllAheadFlank), abs(posFullAstern));
+		//printf("Flank: %f Astern: %f\n", abs(posAllAheadFlank), abs(posFullAstern));
 		if(fabs(posAllAheadFlank) >= (posFullAstern))
 		{
 			//If the trigger value exceeds either of the joystick values then it will supersede.

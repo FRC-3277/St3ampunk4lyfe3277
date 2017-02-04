@@ -16,6 +16,8 @@
 
 
 Auger::Auger() : Subsystem("Auger") {
+	augerSpike = RobotMap::augerSpike;
+
 }
 
 void Auger::InitDefaultCommand() {
@@ -24,7 +26,12 @@ void Auger::InitDefaultCommand() {
 
 }
 
+void Auger::RivetOn() {
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+	augerSpike.get()->Set(Relay::kOn);
+}
 
+void Auger::RivetOff() {
+
+	augerSpike.get()->Set(Relay::kOff);
+}

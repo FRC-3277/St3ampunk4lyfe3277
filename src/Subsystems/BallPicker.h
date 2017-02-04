@@ -24,13 +24,13 @@ private:
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
 	std::shared_ptr<Relay> pickerSpike;
+
 public:
 	BallPicker();
 	void InitDefaultCommand();
 
 	void FuelRiserBeltOn();
 	void FuelRiserBeltOff();
-
 };
 
 #endif

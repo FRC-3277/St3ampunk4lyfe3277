@@ -1,43 +1,51 @@
-#include "OperatorInputBallPicker.h"
+#include "OperatorInputAuger.h"
 
-OperatorInputBallPicker::OperatorInputBallPicker() {
+OperatorInputAuger::OperatorInputAuger() {
+	Requires(Robot::auger.get());
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(Robot::ballPicker.get());
 }
 
 // Called just before this Command runs the first time
-void OperatorInputBallPicker::Initialize() {
+void OperatorInputAuger::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void OperatorInputBallPicker::Execute() {
+void OperatorInputAuger::Execute() {
+//	if(Robot::auger->GetButtonState() == false)
+//	{
+//		Robot::auger->SetButtonState(true);
+//	}
+//	else
+//	{
+//		Robot::auger->SetButtonState(false);
+//	}
 
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::ballPicker->FuelRiserBeltOn();
+		Robot::auger->RivetOn();
 	}
-
-
 }
 
+
 // Make this return true when this Command no longer needs to run execute()
-bool OperatorInputBallPicker::IsFinished() {
+bool OperatorInputAuger::IsFinished() {
 
 	return false;
 }
 
 // Called once after isFinished returns true
-void OperatorInputBallPicker::End() {
+void OperatorInputAuger::End() {
+
 
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void OperatorInputBallPicker::Interrupted() {
+void OperatorInputAuger::Interrupted() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::ballPicker->FuelRiserBeltOff();
+		Robot::auger->RivetOff();
 	}
 }

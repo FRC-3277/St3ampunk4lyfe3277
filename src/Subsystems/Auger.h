@@ -21,11 +21,14 @@
  */
 class Auger: public Subsystem {
 private:
-	// It's desirable that everything possible is private except
-	// for methods that implement subsystem capabilities
+	std::shared_ptr<Relay> augerSpike;
+
 public:
 	Auger();
 	void InitDefaultCommand();
+
+	void RivetOn();
+	void RivetOff();
 };
 
 #endif

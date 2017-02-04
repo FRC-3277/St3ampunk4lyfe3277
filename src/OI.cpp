@@ -14,6 +14,8 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/OperatorInputClimber.h"
+#include "Commands/OperatorInputBallPicker.h"
+#include "Commands/OperatorInputAuger.h"
 
 
 OI::OI()
@@ -34,10 +36,13 @@ OI::OI()
 
 	//Alternate Controller
 	JoystickButton* buttonEnableClimber = new JoystickButton(xBoxControllerAlternate.get(), ENABLE_CLIMBER);
+	JoystickButton* buttonToggleStatusAuger = new JoystickButton(xBoxControllerAlternate.get(), TOGGLE_STATUS_AUGER);
 
 	//Button trigger and command mappings
 	//buttonO_Matic->WhenPressed(new Command());
 	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
+	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
+	buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());

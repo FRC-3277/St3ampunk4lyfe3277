@@ -25,7 +25,7 @@ Climber::Climber() : Subsystem("Climber") {
 }
 
 void Climber::InitDefaultCommand() {
-	SetDefaultCommand(new OperatorInputClimber());
+	//SetDefaultCommand(new OperatorInputClimber());
 }
 
 /********* BEGIN METHODS CALLED BY COMMANDS **********/

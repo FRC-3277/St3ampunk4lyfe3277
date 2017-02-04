@@ -23,6 +23,7 @@ BallPicker::BallPicker() : Subsystem("BallPicker") {
 void BallPicker::InitDefaultCommand() {
     // Set the default command for a subsystem here.
     // SetDefaultCommand(new MySpecialCommand());
+	//SetDefaultCommand(new OperatorInputBallPicker());
 
 }
 
@@ -35,3 +36,5 @@ void BallPicker::FuelRiserBeltOff()
 {
 	pickerSpike.get()->Set(Relay::kOff);
 }
+
+
