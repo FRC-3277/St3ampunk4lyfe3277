@@ -44,9 +44,6 @@ public:
 	static const int TOGGLE_STATUS_PICKA_MOTOR = 27;
 	static std::shared_ptr<Relay> pickerSpike;
 
-
-
-
 	static void init();
 };
 #endif

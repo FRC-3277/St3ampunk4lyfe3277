@@ -1,4 +1,5 @@
 #include "OperatorInputDriveTrain.h"
+#include <algorithm>
 
 OperatorInputDriveTrain::OperatorInputDriveTrain() {
 	Requires(Robot::driveTrain.get());
@@ -6,6 +7,8 @@ OperatorInputDriveTrain::OperatorInputDriveTrain() {
 
 // Called just before this Command runs the first time
 void OperatorInputDriveTrain::Initialize() {
+	//TODO: It was noticed that when driving forward the motors don't achieve 100% maximum .999 or so value.  We need to add
+	//a multiplier
 
 }
 
@@ -15,13 +18,23 @@ void OperatorInputDriveTrain::Execute() {
 		double
 			yPosPort = Robot::oi->getXBoxControllerDriver()->GetRawAxis(PORT_PROPELLER),
 			yPosStarboard = Robot::oi->getXBoxControllerDriver()->GetRawAxis(STARBOARD_PROPELLER),
-			posAllAheadFlank = Robot::oi->getXBoxControllerDriver()->GetRawAxis(ALL_AHEAD_FLANK),
+			//Needs to be the inverse
+			posAllAheadFlank = Robot::oi->getXBoxControllerDriver()->GetRawAxis(ALL_AHEAD_FLANK)*-1,
 			posFullAstern = Robot::oi->getXBoxControllerDriver()->GetRawAxis(FULL_ASTERN);
 
-		if(posAllAheadFlank >= posFullAstern)
+		//printf ("All Ahead: %f  Full Astern: %f\n", posAllAheadFlank, posFullAstern);
+
+		//Prevent the Vanelllope effect
+		yPosPort = Clamp(yPosPort);
+		yPosStarboard = Clamp(yPosStarboard);
+		//posAllAheadFlank = Clamp(posAllAheadFlank);
+		//posFullAstern = Clamp(posFullAstern);
+
+		printf("Flank: %f Astern: %f\n", abs(posAllAheadFlank), abs(posFullAstern));
+		if(fabs(posAllAheadFlank) >= (posFullAstern))
 		{
 			//If the trigger value exceeds either of the joystick values then it will supersede.
-			if(posAllAheadFlank > abs(yPosPort) || posAllAheadFlank > abs(yPosStarboard))
+			if(fabs(posAllAheadFlank) > fabs(yPosPort) || fabs(posAllAheadFlank) > fabs(yPosStarboard))
 			{
 				yPosPort = posAllAheadFlank;
 				yPosStarboard = posAllAheadFlank;
@@ -30,12 +43,14 @@ void OperatorInputDriveTrain::Execute() {
 		else
 		{
 			//If the trigger value exceeds either of the joystick values then it will supersede.
-			if(posFullAstern > abs(yPosPort) || posFullAstern > abs(yPosStarboard))
+			if(posFullAstern > fabs(yPosPort) || posFullAstern > fabs(yPosStarboard))
 			{
 				yPosPort = posFullAstern;
 				yPosStarboard = posFullAstern;
 			}
 		}
+
+
 
 		Robot::driveTrain.get()->controllerInputToSteamEngine(yPosPort, yPosStarboard);
 	}
@@ -56,3 +71,18 @@ void OperatorInputDriveTrain::End() {
 void OperatorInputDriveTrain::Interrupted() {
 
 }
+
+double OperatorInputDriveTrain::Clamp(double joystickRawAxis)
+{
+	if(joystickRawAxis <= -1)
+	{
+		joystickRawAxis = -0.999;
+	}
+	else if(joystickRawAxis >= 1)
+	{
+		joystickRawAxis = 0.999;
+	}
+
+	return joystickRawAxis;
+}
+
