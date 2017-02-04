@@ -21,11 +21,14 @@
  */
 class Climber: public Subsystem {
 private:
-	// It's desirable that everything possible is private except
-	// for methods that implement subsystem capabilities
+	std::shared_ptr<CANTalon> climberTalon;
+
 public:
 	Climber();
 	void InitDefaultCommand();
+
+	void climberEngineAscend();
+	void climberEngineStop();
 };
 
 #endif

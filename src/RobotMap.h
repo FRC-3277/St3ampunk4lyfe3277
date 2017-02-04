@@ -31,18 +31,27 @@ public:
 	static std::shared_ptr<CANTalon> driveTrainStarboardTalon;
 	static std::shared_ptr<RobotDrive> driveTrainSteamEngineRobotDrive;
 
-	//Shooter
-	static const int TOGGLE_STATUS_SHOOTA_MOTOR = 24;
+	//Picker
+	static const int PICKA_MOTOR = 27;
+	static std::shared_ptr<Relay> pickerSpike;
 
-	//Hopper
+	//Auger
+	static const int HOPPA_AUGA_MOTOR = 25;
+
+	//Climber
+	static const int CLIMBA_MOTOR = 25;
+	static const int CLIMBER_SPEED = 0.4;
+
+	static std::shared_ptr<CANTalon> climberTalon;
+
+	//Shooter
+	static const int SHOOTA_MOTOR = 24;
 
 	//Gear
-	static const int TOGGLE_STATUS_DEPLOY_GEAR_MOTOR = 25;
 	static const int DEPLOY_GEAR_MOTOR = 26;
 
-	//Picker
-	static const int TOGGLE_STATUS_PICKA_MOTOR = 27;
-	static std::shared_ptr<Relay> pickerSpike;
+	//All
+	static const int STOP_SPEED = 0;
 
 	static void init();
 };
