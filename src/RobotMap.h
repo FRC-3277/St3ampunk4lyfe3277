@@ -52,9 +52,6 @@ public:
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 
-	//Gear
-	static const int DEPLOY_GEAR_MOTOR = 26;
-
 	//All
 	static const int STOP_SPEED = 0;
 

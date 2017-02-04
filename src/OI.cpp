@@ -26,18 +26,12 @@ OI::OI()
 
 	//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
 	//Driver Controller
-	JoystickButton* buttonAllAheadFlank = new JoystickButton(xBoxControllerDriver.get(), ALL_AHEAD_FLANK);
-	JoystickButton* buttonFullAstern = new JoystickButton(xBoxControllerDriver.get(), FULL_ASTERN);
-	JoystickButton* buttonPortPropeller = new JoystickButton(xBoxControllerDriver.get(), PORT_PROPELLER);
-	JoystickButton* buttonStarboardPropeller = new JoystickButton(xBoxControllerDriver.get(), STARBOARD_PROPELLER);
 	JoystickButton* buttonToggleStatusShoota = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_SHOOTA);
-	JoystickButton* buttonToggleStatusDeployGear = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_DEPLOY_GEAR);
 	JoystickButton* buttonToggleStatusPicka = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_PICKA);
-	JoystickButton* buttonDeployGear = new JoystickButton(xBoxControllerDriver.get(), DEPLOY_GEAR);
+	JoystickButton* buttonEnableClimber = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER);
+	JoystickButton* buttonToggleStatusAuger = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER);
 
 	//Alternate Controller
-	JoystickButton* buttonEnableClimber = new JoystickButton(xBoxControllerAlternate.get(), ENABLE_CLIMBER);
-	JoystickButton* buttonToggleStatusAuger = new JoystickButton(xBoxControllerAlternate.get(), TOGGLE_STATUS_AUGER);
 
 	//Button trigger and command mappings
 	//buttonO_Matic->WhenPressed(new Command());

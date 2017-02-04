@@ -8,23 +8,35 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
-
+#include "CANTalon.h"
+#include "CANSpeedController.h"
 
 #include "Shooter.h"
 #include "../RobotMap.h"
 
-
 Shooter::Shooter() : Subsystem("Shooter") {
+	shooterTalon = RobotMap::shooterTalon;
+
+	shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	shooterTalon->EnableControl();
+	shooterTalon->Set(0.0f);
 }
 
 void Shooter::InitDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // SetDefaultCommand(new MySpecialCommand());
-
 }
 
+void Shooter::SetShooterSpeed(double argShooterSpeed)
+{
+	shooterSpeed = argShooterSpeed;
+}
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+double Shooter::GetShooterSpeed()
+{
+	return shooterSpeed;
+}
+
+void Shooter::SpeedControlShooter(double speedControlValue)
+{
+	shooterTalon->Set(speedControlValue);
+}
 

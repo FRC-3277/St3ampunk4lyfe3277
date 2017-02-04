@@ -25,11 +25,15 @@ class Shooter: public Subsystem {
 private:
 	std::shared_ptr<CANTalon> shooterTalon;
 
+	double shooterSpeed = 0;
+
 public:
 	Shooter();
 	void InitDefaultCommand();
 
-	void speedControlShooter(double speedControlValue);
+	void SetShooterSpeed(double speedControlValue);
+	double GetShooterSpeed();
+	void SpeedControlShooter(double speedControlValue);
 };
 
 #endif
