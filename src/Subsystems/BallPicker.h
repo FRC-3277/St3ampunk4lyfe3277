@@ -23,9 +23,16 @@ class BallPicker: public Subsystem {
 private:
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
+	std::shared_ptr<Relay> pickerSpike;
+	bool buttonState = false;
 public:
 	BallPicker();
 	void InitDefaultCommand();
+
+	void FuelRiserBeltOn();
+	void FuelRiserBeltOff();
+	bool GetButtonState();
+	void SetButtonState(bool argButtonState);
 };
 
 #endif

@@ -13,18 +13,37 @@
 
 #include "BallPicker.h"
 #include "../RobotMap.h"
+#include "Commands/OperatorInputBallPicker.h"
 
 
 BallPicker::BallPicker() : Subsystem("BallPicker") {
+	pickerSpike = RobotMap::pickerSpike;
+
 }
 
 void BallPicker::InitDefaultCommand() {
     // Set the default command for a subsystem here.
     // SetDefaultCommand(new MySpecialCommand());
+	//SetDefaultCommand(new OperatorInputBallPicker());
 
 }
 
+void BallPicker::FuelRiserBeltOn()
+{
+	pickerSpike.get()->Set(Relay::kOn);
+}
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+void BallPicker::FuelRiserBeltOff()
+{
+	pickerSpike.get()->Set(Relay::kOff);
+}
 
+bool BallPicker::GetButtonState()
+{
+	return buttonState;
+}
+
+void BallPicker::SetButtonState(bool argButtonState)
+{
+	buttonState = argButtonState;
+}

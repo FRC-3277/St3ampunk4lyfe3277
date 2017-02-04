@@ -52,8 +52,7 @@ void RobotMap::init() {
 	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 
 	//Picker
-	//TOGGLE_STATUS_PICKA_MOTOR
-	pickerSpike.reset(new Relay(0, Relay::kForwardOnly));
+	pickerSpike.reset(new Relay(PICKA_RELAY, Relay::kForwardOnly));
 	lw->AddActuator("Picker", "Picker", pickerSpike);
 
 	//Auger
