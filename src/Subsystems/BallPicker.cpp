@@ -13,7 +13,6 @@
 
 #include "BallPicker.h"
 #include "../RobotMap.h"
-#include "Commands/OperatorInputBallPicker.h"
 
 
 BallPicker::BallPicker() : Subsystem("BallPicker") {
@@ -38,12 +37,4 @@ void BallPicker::FuelRiserBeltOff()
 	pickerSpike.get()->Set(Relay::kOff);
 }
 
-bool BallPicker::GetButtonState()
-{
-	return buttonState;
-}
 
-void BallPicker::SetButtonState(bool argButtonState)
-{
-	buttonState = argButtonState;
-}

@@ -48,6 +48,7 @@
 
 // Alternate Controller
 #define ENABLE_CLIMBER XBOX_B_BUTTON
+#define TOGGLE_STATUS_AUGER XBOX_X_BUTTON
 
 class OI {
 private:
