@@ -23,6 +23,7 @@
 #include "Subsystems/Climber.h"
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Shooter.h"
+#include "Subsystems/VisionLumination.h"
 
 #include "OI.h"
 
@@ -36,6 +37,7 @@ public:
     static std::shared_ptr<BallPicker> ballPicker;
     static std::shared_ptr<Climber> climber;
     static std::shared_ptr<Auger> auger;
+    static std::shared_ptr<VisionLumination> vision;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
