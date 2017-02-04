@@ -37,7 +37,7 @@ void DriveTrain::InitDefaultCommand() {
 
 /********* BEGIN METHODS CALLED BY COMMANDS **********/
 void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStarboard){
-	printf("Left: %f\tRight: %f\n", speedPort, speedStarboard);
+	printf("DriveTrain - Left: %f\tRight: %f\n", speedPort, speedStarboard);
 	steamEngineRobotDrive.get()->TankDrive(speedPort, speedStarboard);
 }
 
