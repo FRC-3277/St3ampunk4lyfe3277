@@ -40,7 +40,7 @@ OI::OI()
 	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
 
     // SmartDashboard Buttons
-    //SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
+    SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
 
 }
 
