@@ -21,8 +21,6 @@
  */
 class DriveTrain: public Subsystem {
 private:
-	// It's desirable that everything possible is private except
-	// for methods that implement subsystem capabilities
 	std::shared_ptr<CANTalon> portTalon;
 	std::shared_ptr<CANTalon> starboardTalon;
 	std::shared_ptr<RobotDrive> steamEngineRobotDrive;
