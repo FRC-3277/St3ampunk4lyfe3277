@@ -26,6 +26,9 @@ private:
 public:
 	Auger();
 	void InitDefaultCommand();
+
+	void RivetOn();
+	void RivetOff();
 };
 
 #endif
