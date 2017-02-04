@@ -16,6 +16,8 @@
 
 
 Auger::Auger() : Subsystem("Auger") {
+	augerSpike = RobotMap::augerSpike;
+
 }
 
 void Auger::InitDefaultCommand() {

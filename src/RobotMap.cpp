@@ -22,7 +22,7 @@ std::shared_ptr<RobotDrive> RobotMap::driveTrainSteamEngineRobotDrive;
 std::shared_ptr<Relay> RobotMap::pickerSpike;
 
 //Auger
-//TODO: Uses Spike
+std::shared_ptr<Relay> RobotMap::augerSpike;
 
 //Climber
 std::shared_ptr<CANTalon> RobotMap::climberTalon;
@@ -57,6 +57,8 @@ void RobotMap::init() {
 	lw->AddActuator("Picker", "Picker", pickerSpike);
 
 	//Auger
+	augerSpike.reset(new Relay(HOPPA_AUGA_RELAY, Relay::kForwardOnly));
+	lw->AddActuator("Auger", "Auger", augerSpike);
 
 	//Climber
 	climberTalon.reset(new CANTalon(CLIMBA_MOTOR));
