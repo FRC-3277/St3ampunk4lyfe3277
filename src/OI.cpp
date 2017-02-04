@@ -16,6 +16,7 @@
 #include "Commands/OperatorInputClimber.h"
 #include "Commands/OperatorInputBallPicker.h"
 #include "Commands/OperatorInputAuger.h"
+#include "Commands/OperatorInputShooter.h"
 
 
 OI::OI()
@@ -43,6 +44,12 @@ OI::OI()
 	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());
+	/*The shooter is enabled manually by the operator.  This enables
+	  both the shooter motor and also the vision tracking feedback helper
+	  functions which positions the robot and sets the speed of the
+	  motor.
+	*/
+	buttonToggleStatusShoota->ToggleWhenPressed(new OperatorInputShooter());
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());

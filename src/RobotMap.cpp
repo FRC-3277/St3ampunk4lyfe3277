@@ -64,7 +64,7 @@ void RobotMap::init() {
 	lw->AddActuator("Climber", "Climber", climberTalon);
 
 	//Shooter
-	shooterTalon.reset(new CANTalon(TOGGLE_STATUS_SHOOTA));
+	shooterTalon.reset(new CANTalon(SHOOTA_MOTOR));
 	lw->AddActuator("Shooter", "Shooter", shooterTalon);
 
 	//Vision Light Control
