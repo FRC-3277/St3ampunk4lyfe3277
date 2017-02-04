@@ -3,6 +3,7 @@
 
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
+#include "../OI.h"
 
 class OperatorInputClimber :  public Command {
 public:
