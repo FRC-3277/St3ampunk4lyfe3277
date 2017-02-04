@@ -16,6 +16,8 @@
 
 
 BallPicker::BallPicker() : Subsystem("BallPicker") {
+	pickerSpike = RobotMap::pickerSpike;
+	pickerSpike = RobotMap::pickerSpike;
 }
 
 void BallPicker::InitDefaultCommand() {
