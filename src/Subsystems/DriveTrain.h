@@ -16,7 +16,6 @@
 
 /**
  *
- *
  * @author ExampleAuthor
  */
 class DriveTrain: public Subsystem {

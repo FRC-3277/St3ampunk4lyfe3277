@@ -47,6 +47,8 @@ public:
 	//Shooter
 	static const int SHOOTA_MOTOR = 24;
 
+	static std::shared_ptr<CANTalon> shooterTalon;
+
 	//Gear
 	static const int DEPLOY_GEAR_MOTOR = 26;
 

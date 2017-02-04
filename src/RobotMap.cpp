@@ -28,7 +28,7 @@ std::shared_ptr<Relay> RobotMap::pickerSpike;
 std::shared_ptr<CANTalon> RobotMap::climberTalon;
 
 //Shooter
-//TODO: Uses Talon
+std::shared_ptr<CANTalon> RobotMap::shooterTalon;
 
 //Vision Light Control
 //TODO: Uses Spike
@@ -62,6 +62,8 @@ void RobotMap::init() {
 	lw->AddActuator("Climber", "Climber", climberTalon);
 
 	//Shooter
+	shooterTalon.reset(new CANTalon(TOGGLE_STATUS_SHOOTA));
+	lw->AddActuator("Shooter", "Shooter", shooterTalon);
 
 	//Vision Light Control
 }
