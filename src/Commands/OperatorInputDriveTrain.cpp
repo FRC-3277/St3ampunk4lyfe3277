@@ -24,13 +24,13 @@ void OperatorInputDriveTrain::Execute() {
 
 		//printf ("All Ahead: %f  Full Astern: %f\n", posAllAheadFlank, posFullAstern);
 
-		//Prevent the Vanellope effect
+		//Prevent the Vanelllope effect
 		yPosPort = Clamp(yPosPort);
 		yPosStarboard = Clamp(yPosStarboard);
 		//posAllAheadFlank = Clamp(posAllAheadFlank);
 		//posFullAstern = Clamp(posFullAstern);
 
-		printf("Flank: %f Astern: %f\n", fabs(posAllAheadFlank), fabs(posFullAstern));
+		//printf("Flank: %f Astern: %f\n", abs(posAllAheadFlank), abs(posFullAstern));
 		if(fabs(posAllAheadFlank) >= (posFullAstern))
 		{
 			//If the trigger value exceeds either of the joystick values then it will supersede.
