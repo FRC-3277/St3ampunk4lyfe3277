@@ -52,6 +52,10 @@ public:
 	//Gear
 	static const int DEPLOY_GEAR_MOTOR = 26;
 
+	//Vision
+	static const int VISION_TRACKA_RELAY = 2;
+	static std::shared_ptr<Relay> visionSpike;
+
 	//All
 	static const int STOP_SPEED = 0;
 

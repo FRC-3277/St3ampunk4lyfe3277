@@ -31,7 +31,7 @@ std::shared_ptr<CANTalon> RobotMap::climberTalon;
 //TODO: Uses Talon
 
 //Vision Light Control
-//TODO: Uses Spike
+std::shared_ptr<Relay> RobotMap::visionSpike;
 
 void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
@@ -66,4 +66,6 @@ void RobotMap::init() {
 	//Shooter
 
 	//Vision Light Control
+	visionSpike.reset(new Relay(VISION_TRACKA_RELAY, Relay::kForwardOnly));
+	lw->AddActuator("Vision", "Vision", visionSpike);
 }
