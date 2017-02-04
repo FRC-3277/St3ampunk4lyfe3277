@@ -14,6 +14,7 @@
 #include "SmartDashboard/SmartDashboard.h"
 #include "Commands/AutonomousCommand.h"
 #include "Commands/OperatorInputClimber.h"
+#include "Commands/OperatorInputBallPicker.h"
 
 
 OI::OI()
@@ -38,6 +39,7 @@ OI::OI()
 	//Button trigger and command mappings
 	//buttonO_Matic->WhenPressed(new Command());
 	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
+	buttonToggleStatusPicka->WhenPressed(new OperatorInputBallPicker());
 
     // SmartDashboard Buttons
     SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());

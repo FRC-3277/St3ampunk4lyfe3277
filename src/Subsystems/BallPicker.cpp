@@ -13,6 +13,7 @@
 
 #include "BallPicker.h"
 #include "../RobotMap.h"
+#include "Commands/OperatorInputBallPicker.h"
 
 
 BallPicker::BallPicker() : Subsystem("BallPicker") {
@@ -23,6 +24,7 @@ BallPicker::BallPicker() : Subsystem("BallPicker") {
 void BallPicker::InitDefaultCommand() {
     // Set the default command for a subsystem here.
     // SetDefaultCommand(new MySpecialCommand());
+	//SetDefaultCommand(new OperatorInputBallPicker());
 
 }
 
@@ -34,4 +36,14 @@ void BallPicker::FuelRiserBeltOn()
 void BallPicker::FuelRiserBeltOff()
 {
 	pickerSpike.get()->Set(Relay::kOff);
+}
+
+bool BallPicker::GetButtonState()
+{
+	return buttonState;
+}
+
+void BallPicker::SetButtonState(bool argButtonState)
+{
+	buttonState = argButtonState;
 }

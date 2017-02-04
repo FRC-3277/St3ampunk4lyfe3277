@@ -32,7 +32,7 @@ public:
 	static std::shared_ptr<RobotDrive> driveTrainSteamEngineRobotDrive;
 
 	//Picker
-	static const int PICKA_MOTOR = 27;
+	static const int PICKA_RELAY = 0;
 	static std::shared_ptr<Relay> pickerSpike;
 
 	//Auger
