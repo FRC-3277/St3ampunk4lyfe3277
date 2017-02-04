@@ -28,7 +28,7 @@ std::shared_ptr<Relay> RobotMap::augerSpike;
 std::shared_ptr<CANTalon> RobotMap::climberTalon;
 
 //Shooter
-//TODO: Uses Talon
+std::shared_ptr<CANTalon> RobotMap::shooterTalon;
 
 //Vision Light Control
 std::shared_ptr<Relay> RobotMap::visionSpike;
@@ -64,6 +64,8 @@ void RobotMap::init() {
 	lw->AddActuator("Climber", "Climber", climberTalon);
 
 	//Shooter
+	shooterTalon.reset(new CANTalon(SHOOTA_MOTOR));
+	lw->AddActuator("Shooter", "Shooter", shooterTalon);
 
 	//Vision Light Control
 	visionSpike.reset(new Relay(VISION_TRACKA_RELAY, Relay::kForwardOnly));

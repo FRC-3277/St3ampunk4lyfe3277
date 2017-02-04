@@ -48,9 +48,9 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 24;
+	static constexpr double SHOOTA_STARTING_SPEED = 0.2;
 
-	//Gear
-	static const int DEPLOY_GEAR_MOTOR = 26;
+	static std::shared_ptr<CANTalon> shooterTalon;
 
 	//Vision
 	static const int VISION_TRACKA_RELAY = 2;

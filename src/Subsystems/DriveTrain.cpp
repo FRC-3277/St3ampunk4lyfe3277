@@ -22,13 +22,13 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     starboardTalon = RobotMap::driveTrainStarboardTalon;
     steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
 
-    portTalon.get()->SetControlMode(CANSpeedController::kPercentVbus);
-    portTalon.get()->EnableControl();
-    portTalon.get()->Set(0.0f);
+    portTalon->SetControlMode(CANSpeedController::kPercentVbus);
+    portTalon->EnableControl();
+    portTalon->Set(0.0f);
 
-    starboardTalon.get()->SetControlMode(CANSpeedController::kPercentVbus);
-    starboardTalon.get()->EnableControl();
-    starboardTalon.get()->Set(0.0f);
+    starboardTalon->SetControlMode(CANSpeedController::kPercentVbus);
+    starboardTalon->EnableControl();
+    starboardTalon->Set(0.0f);
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -38,7 +38,7 @@ void DriveTrain::InitDefaultCommand() {
 /********* BEGIN METHODS CALLED BY COMMANDS **********/
 void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStarboard){
 	//printf("DriveTrain - Left: %f\tRight: %f\n", speedPort, speedStarboard);
-	steamEngineRobotDrive.get()->TankDrive(speedPort, speedStarboard);
+	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
 
 

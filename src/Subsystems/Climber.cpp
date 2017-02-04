@@ -12,16 +12,15 @@
 #include "CANSpeedController.h"
 
 #include "Climber.h"
-#include "../RobotMap.h"
 #include "../Commands/OperatorInputClimber.h"
 
 
 Climber::Climber() : Subsystem("Climber") {
 	climberTalon = RobotMap::climberTalon;
 
-	climberTalon.get()->SetControlMode(CANSpeedController::kPercentVbus);
-	climberTalon.get()->EnableControl();
-	climberTalon.get()->Set(0.0f);
+	climberTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	climberTalon->EnableControl();
+	climberTalon->Set(0.0f);
 }
 
 void Climber::InitDefaultCommand() {
