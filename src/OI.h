@@ -32,7 +32,11 @@
 #define XBOX_RIGHT_STICK_X_AXIS 4
 #define XBOX_RIGHT_STICK_Y_AXIS 5
 
+#define DRIVER_CONTROLLER 0
+#define ALTERNATE_CONTROLLER 1
+
 /* Team Named Human Friendly Buttons Steam Punk Style */
+// Driver Controller
 #define ALL_AHEAD_FLANK XBOX_RIGHT_TRIGGER_AXIS
 #define FULL_ASTERN XBOX_LEFT_TRIGGER_AXIS
 #define PORT_PROPELLER XBOX_LEFT_STICK_Y_AXIS//Left motor solo
@@ -41,6 +45,9 @@
 #define TOGGLE_STATUS_DEPLOY_GEAR XBOX_X_BUTTON
 #define TOGGLE_STATUS_PICKA XBOX_A_BUTTON
 #define DEPLOY_GEAR XBOX_B_BUTTON
+
+// Alternate Controller
+#define ENABLE_CLIMBER XBOX_B_BUTTON
 
 class OI {
 private:

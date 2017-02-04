@@ -16,6 +16,8 @@ public:
 
 private:
 	static std::shared_ptr<bool> isOperatorControlOperatorInput;
+
+	double Clamp(double joystickRawAxis);
 };
 
 #endif  // OperatorInputDriveTrain_H

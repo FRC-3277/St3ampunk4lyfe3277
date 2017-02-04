@@ -25,7 +25,7 @@ std::shared_ptr<Relay> RobotMap::pickerSpike;
 //TODO: Uses Spike
 
 //Climber
-//TODO: Uses Talon
+std::shared_ptr<CANTalon> RobotMap::climberTalon;
 
 //Shooter
 //TODO: Uses Talon
@@ -59,6 +59,8 @@ void RobotMap::init() {
 	//Auger
 
 	//Climber
+	climberTalon.reset(new CANTalon(CLIMBA_MOTOR));
+	lw->AddActuator("Climber", "Climber", climberTalon);
 
 	//Shooter
 

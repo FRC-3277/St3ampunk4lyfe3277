@@ -8,23 +8,37 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
-
+#include "CANTalon.h"
+#include "CANSpeedController.h"
 
 #include "Climber.h"
 #include "../RobotMap.h"
+#include "../Commands/OperatorInputClimber.h"
 
 
 Climber::Climber() : Subsystem("Climber") {
+	climberTalon = RobotMap::climberTalon;
+
+	climberTalon.get()->SetControlMode(CANSpeedController::kPercentVbus);
+	climberTalon.get()->EnableControl();
+	climberTalon.get()->Set(0.0f);
 }
 
 void Climber::InitDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // SetDefaultCommand(new MySpecialCommand());
-
+	SetDefaultCommand(new OperatorInputClimber());
 }
 
+/********* BEGIN METHODS CALLED BY COMMANDS **********/
+void Climber::climberEngineAscend(){
+	double
+		speedOfAscent = RobotMap::CLIMBER_SPEED;
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
+	climberTalon->Set(speedOfAscent);
+}
 
+void Climber::climberEngineStop(){
+	double
+		stop = RobotMap::STOP_SPEED;
+
+	climberTalon->Set(stop);
+}
