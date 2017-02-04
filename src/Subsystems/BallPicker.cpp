@@ -17,7 +17,7 @@
 
 BallPicker::BallPicker() : Subsystem("BallPicker") {
 	pickerSpike = RobotMap::pickerSpike;
-	pickerSpike = RobotMap::pickerSpike;
+
 }
 
 void BallPicker::InitDefaultCommand() {
@@ -26,7 +26,12 @@ void BallPicker::InitDefaultCommand() {
 
 }
 
+void BallPicker::FuelRiserBeltOn()
+{
+	pickerSpike.get()->Set(Relay::kOn);
+}
 
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
-
+void BallPicker::FuelRiserBeltOff()
+{
+	pickerSpike.get()->Set(Relay::kOff);
+}
