@@ -57,6 +57,14 @@ public:
 	static std::shared_ptr<Relay> visionSpike;
 
 	//All
+	static const bool
+		isInfoLoggingEnabled = false,
+		isDebugLoggingEnabled = true,
+		isErrorLoggingEnabled = true,
+		isWarningLoggingEnabled = false,
+		isFatalLoggingEnabled = true,
+		isTraceLoggingEnabled = false;
+
 	static const int STOP_SPEED = 0;
 
 	static void init();
