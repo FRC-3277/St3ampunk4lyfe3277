@@ -10,25 +10,22 @@ BallPicker::BallPicker() : Subsystem("BallPicker") {
 	pickerTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	pickerTalon->EnableControl();
 	pickerTalon->SetInverted(true);
-	pickerTalon->Set(0.0f);
+	pickerTalon->Set(RobotMap::ALL_STOP);
 
 }
 
 void BallPicker::InitDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // SetDefaultCommand(new MySpecialCommand());
-	//SetDefaultCommand(new OperatorInputBallPicker());
 }
 
 void BallPicker::FuelRiserBeltOn()
 {
-	pickerTalon->Set(0.5);
+	pickerTalon->Set(RobotMap::BALL_PICKA_SPEED);
 
 }
 
 void BallPicker::FuelRiserBeltOff()
 {
-	pickerTalon->Set(0.0);
+	pickerTalon->Set(RobotMap::ALL_STOP);
 }
 
 

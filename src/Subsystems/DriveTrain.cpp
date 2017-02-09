@@ -12,11 +12,11 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
-    portTalon->Set(0.0f);
+    portTalon->Set(RobotMap::ALL_STOP);
 
     starboardTalon->SetControlMode(CANSpeedController::kPercentVbus);
     starboardTalon->EnableControl();
-    starboardTalon->Set(0.0f);
+    starboardTalon->Set(RobotMap::ALL_STOP);
 }
 
 void DriveTrain::InitDefaultCommand() {

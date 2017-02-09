@@ -10,7 +10,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	shooterTalon->EnableControl();
 	shooterTalon->SetInverted(true);
-	shooterTalon->Set(0.0f);
+	shooterTalon->Set(RobotMap::ALL_STOP);
 }
 
 void Shooter::InitDefaultCommand() {

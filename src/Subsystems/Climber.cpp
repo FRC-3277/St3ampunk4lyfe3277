@@ -10,7 +10,7 @@ Climber::Climber() : Subsystem("Climber") {
 
 	climberTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	climberTalon->EnableControl();
-	climberTalon->Set(0.0f);
+	climberTalon->Set(RobotMap::ALL_STOP);
 }
 
 void Climber::InitDefaultCommand() {
@@ -26,8 +26,5 @@ void Climber::climberEngineAscend(){
 }
 
 void Climber::climberEngineStop(){
-	double
-		stop = RobotMap::STOP_SPEED;
-
-	climberTalon->Set(stop);
+	climberTalon->Set(RobotMap::ALL_STOP);
 }

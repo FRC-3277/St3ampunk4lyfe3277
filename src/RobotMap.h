@@ -22,6 +22,7 @@ public:
 
 	//Picker
 	static const int PICKA_MOTOR = 4;
+	static constexpr double BALL_PICKA_SPEED = 0.5;
 	static std::shared_ptr<CANTalon> pickerTalon;
 
 	//Auger
@@ -55,6 +56,7 @@ public:
 		isTraceLoggingEnabled = false;
 
 	static const int STOP_SPEED = 0;
+	static constexpr float ALL_STOP = 0.0f;
 
 	static void init();
 };
