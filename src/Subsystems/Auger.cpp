@@ -11,11 +11,11 @@ void Auger::InitDefaultCommand() {
 
 }
 
-void Auger::RivetOn() {
+void Auger::AugerAllShesGotCaptain() {
 	augerSpike.get()->Set(Relay::kOn);
 }
 
-void Auger::RivetOff() {
+void Auger::AugerStopScotty() {
 
 	augerSpike.get()->Set(Relay::kOff);
 }

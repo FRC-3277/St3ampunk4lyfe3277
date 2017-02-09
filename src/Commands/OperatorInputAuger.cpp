@@ -24,7 +24,7 @@ void OperatorInputAuger::Execute() {
 
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::auger->RivetOn();
+		Robot::auger->AugerAllShesGotCaptain();
 	}
 }
 
@@ -46,6 +46,6 @@ void OperatorInputAuger::End() {
 void OperatorInputAuger::Interrupted() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::auger->RivetOff();
+		Robot::auger->AugerStopScotty();
 	}
 }

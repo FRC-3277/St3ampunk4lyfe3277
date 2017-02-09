@@ -5,7 +5,6 @@
 #include "../RobotMap.h"
 #include "../Commands/OperatorInputDriveTrain.h"
 
-
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     portTalon = RobotMap::driveTrainPortTalon;
     starboardTalon = RobotMap::driveTrainStarboardTalon;

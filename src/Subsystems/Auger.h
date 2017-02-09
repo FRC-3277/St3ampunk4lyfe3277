@@ -16,8 +16,8 @@ public:
 	Auger();
 	void InitDefaultCommand();
 
-	void RivetOn();
-	void RivetOff();
+	void AugerAllShesGotCaptain();
+	void AugerStopScotty();
 };
 
 #endif
