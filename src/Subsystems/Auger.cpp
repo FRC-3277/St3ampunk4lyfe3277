@@ -23,11 +23,12 @@ Auger::Auger() : Subsystem("Auger") {
 void Auger::InitDefaultCommand() {
     // Set the default command for a subsystem here.
     // SetDefaultCommand(new MySpecialCommand());
+	//SetDefaultCommand(new OperatorInputAuger());
 
 }
 
 void Auger::RivetOn() {
-
+	printf("Spike\n");
 	augerSpike.get()->Set(Relay::kOn);
 }
 

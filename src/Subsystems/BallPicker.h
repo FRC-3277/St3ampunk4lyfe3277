@@ -23,7 +23,7 @@ class BallPicker: public Subsystem {
 private:
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
-	std::shared_ptr<Relay> pickerSpike;
+	std::shared_ptr<CANTalon> pickerTalon;
 
 public:
 	BallPicker();

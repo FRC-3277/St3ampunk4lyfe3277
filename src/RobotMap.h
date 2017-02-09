@@ -24,36 +24,36 @@
 class RobotMap {
 public:
 	// DriveTrain
-	static const int PORT_PROPELLER_LEFT_MOTOR = 2;
-	static const int STARBOARD_PROPELLER_RIGHT_MOTOR = 3;
+	static const int PORT_PROPELLER_LEFT_MOTOR = 1;
+	static const int STARBOARD_PROPELLER_RIGHT_MOTOR = 2;
 
 	static std::shared_ptr<CANTalon> driveTrainPortTalon;
 	static std::shared_ptr<CANTalon> driveTrainStarboardTalon;
 	static std::shared_ptr<RobotDrive> driveTrainSteamEngineRobotDrive;
 
 	//Picker
-	static const int PICKA_RELAY = 0;
-	static std::shared_ptr<Relay> pickerSpike;
+	static const int PICKA_MOTOR = 4;
+	static std::shared_ptr<CANTalon> pickerTalon;
 
 	//Auger
-	static const int HOPPA_AUGA_RELAY = 1;
+	static const int HOPPA_AUGA_RELAY = 0;
 	static std::shared_ptr<Relay> augerSpike;
 
 
 	//Climber
-	static const int CLIMBA_MOTOR = 25;
+	static const int CLIMBA_MOTOR = 3;
 	static const int CLIMBER_SPEED = 0.4;
 
 	static std::shared_ptr<CANTalon> climberTalon;
 
 	//Shooter
-	static const int SHOOTA_MOTOR = 24;
+	static const int SHOOTA_MOTOR = 6;
 	static constexpr double SHOOTA_STARTING_SPEED = 0.2;
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 
 	//Vision
-	static const int VISION_TRACKA_RELAY = 2;
+	static const int VISION_TRACKA_RELAY = 7;
 	static std::shared_ptr<Relay> visionSpike;
 
 	//All

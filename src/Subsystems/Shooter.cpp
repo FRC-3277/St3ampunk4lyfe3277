@@ -20,9 +20,11 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	shooterTalon->EnableControl();
 	shooterTalon->Set(0.0f);
+	shooterTalon->SetInverted(true);
 }
 
 void Shooter::InitDefaultCommand() {
+	//SetDefaultCommand(new OperatorInputShooter());
 }
 
 void Shooter::SetShooterSpeed(double argShooterSpeed)
