@@ -29,7 +29,6 @@ public:
 	static const int HOPPA_AUGA_RELAY = 0;
 	static std::shared_ptr<Relay> augerSpike;
 
-
 	//Climber
 	static const int CLIMBA_MOTOR = 3;
 	static const int CLIMBER_SPEED = 0.4;

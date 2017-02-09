@@ -18,7 +18,6 @@
 #include "Commands/OperatorInputAuger.h"
 #include "Commands/OperatorInputShooter.h"
 
-
 OI::OI()
 {
 	xBoxControllerDriver.reset(new Joystick(DRIVER_CONTROLLER));
@@ -34,7 +33,6 @@ OI::OI()
 	//Alternate Controller
 
 	//Button trigger and command mappings
-	//buttonO_Matic->WhenPressed(new Command());
 	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());

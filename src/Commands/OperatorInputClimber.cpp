@@ -11,7 +11,6 @@ void OperatorInputClimber::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputClimber::Execute() {
-	printf("Climber\n");
 	//The button was pressed which got us here so just enable the climber.
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
