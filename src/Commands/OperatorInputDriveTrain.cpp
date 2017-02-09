@@ -49,9 +49,6 @@ void OperatorInputDriveTrain::Execute() {
 				yPosStarboard = posFullAstern;
 			}
 		}
-
-
-
 		Robot::driveTrain.get()->controllerInputToSteamEngine(yPosPort, yPosStarboard);
 	}
 }
