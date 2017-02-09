@@ -18,11 +18,13 @@
 #include "Commands/OperatorInputAuger.h"
 #include "Commands/OperatorInputShooter.h"
 
-
 OI::OI()
 {
 	xBoxControllerDriver.reset(new Joystick(DRIVER_CONTROLLER));
-	xBoxControllerAlternate.reset(new Joystick(ALTERNATE_CONTROLLER));
+	if(RobotMap::ALTERNATE_CONTROLLER_ENABLED)
+	{
+		xBoxControllerAlternate.reset(new Joystick(ALTERNATE_CONTROLLER));
+	}
 
 	//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
 	//Driver Controller
@@ -34,7 +36,6 @@ OI::OI()
 	//Alternate Controller
 
 	//Button trigger and command mappings
-	//buttonO_Matic->WhenPressed(new Command());
 	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());
