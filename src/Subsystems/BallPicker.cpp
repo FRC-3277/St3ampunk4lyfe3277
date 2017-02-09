@@ -8,7 +8,8 @@
 // update. Deleting the comments indicating the section will prevent
 // it from being updated in the future.
 
-
+#include "CANTalon.h"
+#include "CANSpeedController.h"
 
 
 #include "BallPicker.h"
@@ -16,7 +17,12 @@
 
 
 BallPicker::BallPicker() : Subsystem("BallPicker") {
-	pickerSpike = RobotMap::pickerSpike;
+	pickerTalon = RobotMap::pickerTalon;
+
+	pickerTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	pickerTalon->EnableControl();
+	pickerTalon->SetInverted(true);
+	pickerTalon->Set(0.0f);
 
 }
 
@@ -24,17 +30,17 @@ void BallPicker::InitDefaultCommand() {
     // Set the default command for a subsystem here.
     // SetDefaultCommand(new MySpecialCommand());
 	//SetDefaultCommand(new OperatorInputBallPicker());
-
 }
 
 void BallPicker::FuelRiserBeltOn()
 {
-	pickerSpike.get()->Set(Relay::kOn);
+	pickerTalon->Set(0.5);
+
 }
 
 void BallPicker::FuelRiserBeltOff()
 {
-	pickerSpike.get()->Set(Relay::kOff);
+	pickerTalon->Set(0.0);
 }
 
 

@@ -19,7 +19,7 @@ std::shared_ptr<CANTalon> RobotMap::driveTrainStarboardTalon;
 std::shared_ptr<RobotDrive> RobotMap::driveTrainSteamEngineRobotDrive;
 
 //Picker
-std::shared_ptr<Relay> RobotMap::pickerSpike;
+std::shared_ptr<CANTalon> RobotMap::pickerTalon;
 
 //Auger
 std::shared_ptr<Relay> RobotMap::augerSpike;
@@ -52,11 +52,11 @@ void RobotMap::init() {
 	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 
 	//Picker
-	pickerSpike.reset(new Relay(PICKA_RELAY, Relay::kForwardOnly));
-	lw->AddActuator("Picker", "Picker", pickerSpike);
+	pickerTalon.reset(new CANTalon(PICKA_MOTOR));
+	lw->AddActuator("Picker", "Picker", pickerTalon);
 
 	//Auger
-	augerSpike.reset(new Relay(HOPPA_AUGA_RELAY, Relay::kForwardOnly));
+	augerSpike.reset(new Relay(HOPPA_AUGA_RELAY, Relay::kReverseOnly));
 	lw->AddActuator("Auger", "Auger", augerSpike);
 
 	//Climber
