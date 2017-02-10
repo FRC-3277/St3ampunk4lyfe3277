@@ -22,7 +22,7 @@ public:
 
 	//Picker
 	static const int PICKA_MOTOR = 4;
-	static constexpr double BALL_PICKA_SPEED = 0.5;
+	static constexpr double BALL_PICKA_SPEED = 0.375;
 	static std::shared_ptr<CANTalon> pickerTalon;
 
 	//Auger
