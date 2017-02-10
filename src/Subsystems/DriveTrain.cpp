@@ -10,6 +10,32 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     starboardTalon = RobotMap::driveTrainStarboardTalon;
     steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
 
+    //Encoder portTalon
+    portTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
+    portTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
+    portTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
+	/*
+	 * Sets control values for closed loop control.
+	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
+	 */
+    portTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+    portTalon->SetIzone(TALON_IZONE);
+    portTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+
+	//Encoder starboardTalon
+    starboardTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
+    starboardTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
+    starboardTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
+	/*
+	 * Sets control values for closed loop control.
+	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
+	 */
+    starboardTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+    starboardTalon->SetIzone(TALON_IZONE);
+    starboardTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+
+    starboardTalon->
+
     portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
