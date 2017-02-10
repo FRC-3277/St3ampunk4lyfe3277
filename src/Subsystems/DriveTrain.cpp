@@ -19,6 +19,13 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     starboardTalon->SetControlMode(CANSpeedController::kPercentVbus);
     starboardTalon->EnableControl();
     starboardTalon->Set(RobotMap::ALL_STOP);
+
+    steamEngineRobotDrive->SetSafetyEnabled(false);
+    steamEngineRobotDrive->SetExpiration(0.1);
+    steamEngineRobotDrive->SetSensitivity(0.5);
+    steamEngineRobotDrive->SetMaxOutput(1.0);
+    steamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
+    steamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 }
 
 void DriveTrain::InitDefaultCommand() {
@@ -30,8 +37,4 @@ void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStar
 	printf("DriveTrain - Left: %f\tRight: %f\n", speedPort, speedStarboard);
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
-
-
-// Put methods for controlling this subsystem
-// here. Call these from Commands.
 

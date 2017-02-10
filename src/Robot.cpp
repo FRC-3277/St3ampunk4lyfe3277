@@ -1,5 +1,4 @@
 #include "Robot.h"
-#include "LumberJack.h"
 
 std::shared_ptr<DriveTrain> Robot::driveTrain;
 std::shared_ptr<Shooter> Robot::shooter;
@@ -10,9 +9,6 @@ std::shared_ptr<VisionLumination> Robot::vision;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
-	LumberJack logger;
-
-	logger.iLog("RobotInit Test Log");
 	RobotMap::init();
     driveTrain.reset(new DriveTrain());
     shooter.reset(new Shooter());
