@@ -10,10 +10,12 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     starboardTalon = RobotMap::driveTrainStarboardTalon;
     steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
 
+    portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
     portTalon->Set(RobotMap::ALL_STOP);
 
+    starboardTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     starboardTalon->SetControlMode(CANSpeedController::kPercentVbus);
     starboardTalon->EnableControl();
     starboardTalon->Set(RobotMap::ALL_STOP);
