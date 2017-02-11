@@ -14,6 +14,8 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/VisionLumination.h"
 
+#include "LumberJack.h"
+
 #include "OI.h"
 
 class Robot : public IterativeRobot {
@@ -27,6 +29,7 @@ public:
     static std::shared_ptr<Climber> climber;
     static std::shared_ptr<Auger> auger;
     static std::shared_ptr<VisionLumination> vision;
+    static std::shared_ptr<LumberJack> lumberJack;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();

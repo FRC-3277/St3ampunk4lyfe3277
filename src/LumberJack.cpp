@@ -1,10 +1,3 @@
-/*
- * LumberJack.cpp
- *
- *  Created on: Feb 5, 2017
- *      Author: Pete
- */
-
 #include <LumberJack.h>
 INITIALIZE_EASYLOGGINGPP
 
@@ -58,32 +51,32 @@ void LumberJack::tLog(char* msg)
 	LOG_IF(isTraceLoggingEnabled, TRACE) << msg;
 }
 
-void LumberJack::iLog(string& msg)
+void LumberJack::iLog(const string& msg)
 {
 	LOG_IF(isInfoLoggingEnabled, INFO) << msg;
 }
 
-void LumberJack::dLog(string& msg)
+void LumberJack::dLog(const string& msg)
 {
 	LOG_IF(isDebugLoggingEnabled, DEBUG) << msg;
 }
 
-void LumberJack::eLog(string& msg)
+void LumberJack::eLog(const string& msg)
 {
 	LOG_IF(isErrorLoggingEnabled, ERROR) << msg;
 }
 
-void LumberJack::wLog(string& msg)
+void LumberJack::wLog(const string& msg)
 {
 	LOG_IF(isWarningLoggingEnabled, WARNING) << msg;
 }
 
-void LumberJack::fLog(string& msg)
+void LumberJack::fLog(const string& msg)
 {
 	LOG_IF(isFatalLoggingEnabled, FATAL) << msg;
 }
 
-void LumberJack::tLog(string& msg)
+void LumberJack::tLog(const string& msg)
 {
 	LOG_IF(isTraceLoggingEnabled, TRACE) << msg;
 }
