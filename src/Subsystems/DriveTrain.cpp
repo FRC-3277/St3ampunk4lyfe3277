@@ -34,8 +34,6 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     starboardTalon->SetIzone(TALON_IZONE);
     starboardTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
 
-    starboardTalon->
-
     portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
@@ -64,3 +62,22 @@ void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStar
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
 
+void DriveTrain::dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon)
+{
+	double currentAmps = argTalon->GetOutputCurrent();
+	double outputVolts = argTalon->GetOutputVoltage();
+	double busVoltage = argTalon->GetBusVoltage();
+
+	int quadEncoderPos = argTalon->GetEncPosition();
+	int quadEncoderVelocity = argTalon->GetEncVel();
+
+	int analogPos = argTalon->GetAnalogIn();
+	int analogVelocity = argTalon->GetAnalogInVel();
+
+	int selectedSensorPos = argTalon->GetPosition();
+	int selectedSensorSpeed = argTalon->GetSpeed();
+
+	int closedLoopErr = argTalon->GetClosedLoopError();
+
+
+}

@@ -8,8 +8,12 @@
 #ifndef SRC_LUMBERJACK_H_
 #define SRC_LUMBERJACK_H_
 
+#include <iostream>
+
 #include "RobotMap.h"
 #include "easylogging++.h"
+
+using namespace std;
 
 /*
  * Logging with printf is great and all, but when something
@@ -53,6 +57,12 @@ public:
 	void wLog(char* msg);
 	void fLog(char* msg);
 	void tLog(char* msg);
+	void iLog(string& msg);
+	void dLog(string& msg);
+	void eLog(string& msg);
+	void wLog(string& msg);
+	void fLog(string& msg);
+	void tLog(string& msg);
 };
 
 #endif /* SRC_LUMBERJACK_H_ */

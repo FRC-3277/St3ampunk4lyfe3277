@@ -57,3 +57,33 @@ void LumberJack::tLog(char* msg)
 {
 	LOG_IF(isTraceLoggingEnabled, TRACE) << msg;
 }
+
+void LumberJack::iLog(string& msg)
+{
+	LOG_IF(isInfoLoggingEnabled, INFO) << msg;
+}
+
+void LumberJack::dLog(string& msg)
+{
+	LOG_IF(isDebugLoggingEnabled, DEBUG) << msg;
+}
+
+void LumberJack::eLog(string& msg)
+{
+	LOG_IF(isErrorLoggingEnabled, ERROR) << msg;
+}
+
+void LumberJack::wLog(string& msg)
+{
+	LOG_IF(isWarningLoggingEnabled, WARNING) << msg;
+}
+
+void LumberJack::fLog(string& msg)
+{
+	LOG_IF(isFatalLoggingEnabled, FATAL) << msg;
+}
+
+void LumberJack::tLog(string& msg)
+{
+	LOG_IF(isTraceLoggingEnabled, TRACE) << msg;
+}
