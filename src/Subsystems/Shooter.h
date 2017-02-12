@@ -5,6 +5,7 @@
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "./RobotMap.h"
+#include "LumberJack.h"
 
 /**
  *
@@ -14,6 +15,7 @@
 class Shooter: public Subsystem {
 private:
 	std::shared_ptr<CANTalon> shooterTalon;
+	std::shared_ptr<LumberJack> lumberJack;
 
 	double shooterSpeed = 0;
 
@@ -32,6 +34,8 @@ private:
 	const float TALON_COUNTS_PER_REV =	RobotMap::TALON_COUNTS_PER_REV_BASE;
 	const float REVS_PER_FOOT = 		RobotMap::REVS_PER_FOOT_BASE;
 	const double METERS_PER_COUNT = 	RobotMap::METERS_PER_COUNT_BASE;
+
+	void dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon);
 
 public:
 	Shooter();
