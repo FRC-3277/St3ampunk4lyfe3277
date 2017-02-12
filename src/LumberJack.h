@@ -1,15 +1,12 @@
-/*
- * LumberJack.h
- *
- *  Created on: Feb 5, 2017
- *      Author: Pete
- */
-
 #ifndef SRC_LUMBERJACK_H_
 #define SRC_LUMBERJACK_H_
 
+#include <iostream>
+
 #include "RobotMap.h"
 #include "easylogging++.h"
+
+using namespace std;
 
 /*
  * Logging with printf is great and all, but when something
@@ -53,6 +50,12 @@ public:
 	void wLog(char* msg);
 	void fLog(char* msg);
 	void tLog(char* msg);
+	void iLog(const string& msg);
+	void dLog(const string& msg);
+	void eLog(const string& msg);
+	void wLog(const string& msg);
+	void fLog(const string& msg);
+	void tLog(const string& msg);
 };
 
 #endif /* SRC_LUMBERJACK_H_ */

@@ -71,7 +71,7 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-	static constexpr double SHOOTA_STARTING_SPEED = 0.2;
+	static constexpr double SHOOTA_STARTING_SPEED = 0.3;
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 

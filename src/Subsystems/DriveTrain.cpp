@@ -1,3 +1,6 @@
+#include <iostream>
+#include <string>
+
 #include "CANTalon.h"
 #include "CANSpeedController.h"
 
@@ -34,8 +37,6 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     starboardTalon->SetIzone(TALON_IZONE);
     starboardTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
 
-    starboardTalon->
-
     portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
@@ -64,3 +65,31 @@ void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStar
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
 
+void DriveTrain::dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon)
+{
+	double currentAmps = argTalon->GetOutputCurrent();
+	double outputVolts = argTalon->GetOutputVoltage();
+	double busVoltage = argTalon->GetBusVoltage();
+
+	int quadEncoderPos = argTalon->GetEncPosition();
+	int quadEncoderVelocity = argTalon->GetEncVel();
+
+	int analogPos = argTalon->GetAnalogIn();
+	int analogVelocity = argTalon->GetAnalogInVel();
+
+	int selectedSensorPos = argTalon->GetPosition();
+	int selectedSensorSpeed = argTalon->GetSpeed();
+
+	int closedLoopErr = argTalon->GetClosedLoopError();
+
+	lumberJack->dLog("Current Amps: " + to_string(currentAmps));
+	lumberJack->dLog("Output Volts: " + to_string(outputVolts));
+	lumberJack->dLog("Bus Voltage: " + to_string(busVoltage));
+	lumberJack->dLog("Quad Encoder Pos: " + to_string(quadEncoderPos));
+	lumberJack->dLog("Quad Encoder Velocity: " + to_string(quadEncoderVelocity));
+	lumberJack->dLog("Analog Pos: " + to_string(analogPos));
+	lumberJack->dLog("Analog Velocity: " + to_string(analogVelocity));
+	lumberJack->dLog("Selected Sensor Pos: " + to_string(selectedSensorPos));
+	lumberJack->dLog("Selected Sensor Speed: " + to_string(selectedSensorSpeed));
+	lumberJack->dLog("Closed Loop Err: " + to_string(closedLoopErr));
+}

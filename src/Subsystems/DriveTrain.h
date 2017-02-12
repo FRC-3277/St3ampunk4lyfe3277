@@ -1,14 +1,17 @@
 #ifndef DRIVETRAIN_H
 #define DRIVETRAIN_H
+
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "./RobotMap.h"
+#include "LumberJack.h"
 
 class DriveTrain: public Subsystem {
 private:
 	std::shared_ptr<CANTalon> portTalon;
 	std::shared_ptr<CANTalon> starboardTalon;
 	std::shared_ptr<RobotDrive> steamEngineRobotDrive;
+	std::shared_ptr<LumberJack> lumberJack;
 
 	// Localized versions of talon calibration
 	const float FULL_SPEED_FROM_TALONS=	RobotMap::FULL_SPEED_FROM_TALONS_BASE;
@@ -25,6 +28,8 @@ private:
 	const float TALON_COUNTS_PER_REV =	RobotMap::TALON_COUNTS_PER_REV_BASE;
 	const float REVS_PER_FOOT = 		RobotMap::REVS_PER_FOOT_BASE;
 	const double METERS_PER_COUNT = 	RobotMap::METERS_PER_COUNT_BASE;
+
+	void dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon);
 
 public:
 	DriveTrain();
