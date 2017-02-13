@@ -29,6 +29,8 @@ private:
 	//This is the severity level that will be represented
 	el::Level severityLevelChosen;
 
+	el::Logger* defaultLogger;
+
 public:
 	LumberJack();
 	virtual ~LumberJack();
