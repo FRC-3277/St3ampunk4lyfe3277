@@ -35,7 +35,7 @@ private:
 	const float REVS_PER_FOOT = 		RobotMap::REVS_PER_FOOT_BASE;
 	const double METERS_PER_COUNT = 	RobotMap::METERS_PER_COUNT_BASE;
 
-	void dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon);
+	void dumpEncoderLogging();
 
 public:
 	Shooter();

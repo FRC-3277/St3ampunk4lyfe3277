@@ -8,6 +8,8 @@
 #include "../RobotMap.h"
 
 Shooter::Shooter() : Subsystem("Shooter") {
+	lumberJack.reset(new LumberJack());
+
 	shooterTalon = RobotMap::shooterTalon;
 
 	//Encoder
@@ -47,34 +49,43 @@ double Shooter::GetShooterSpeed()
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
 	shooterTalon->Set(speedControlValue);
+	dumpEncoderLogging();
 }
 
-void Shooter::dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon)
+void Shooter::dumpEncoderLogging()
 {
-	double currentAmps = argTalon->GetOutputCurrent();
-	double outputVolts = argTalon->GetOutputVoltage();
-	double busVoltage = argTalon->GetBusVoltage();
+	try
+	{
+		double currentAmps = shooterTalon->GetOutputCurrent();
+		double outputVolts = shooterTalon->GetOutputVoltage();
+		double busVoltage = shooterTalon->GetBusVoltage();
 
-	int quadEncoderPos = argTalon->GetEncPosition();
-	int quadEncoderVelocity = argTalon->GetEncVel();
+		int quadEncoderPos = shooterTalon->GetEncPosition();
+		int quadEncoderVelocity = shooterTalon->GetEncVel();
 
-	int analogPos = argTalon->GetAnalogIn();
-	int analogVelocity = argTalon->GetAnalogInVel();
+		int analogPos = shooterTalon->GetAnalogIn();
+		int analogVelocity = shooterTalon->GetAnalogInVel();
 
-	int selectedSensorPos = argTalon->GetPosition();
-	int selectedSensorSpeed = argTalon->GetSpeed();
+		int selectedSensorPos = shooterTalon->GetPosition();
+		int selectedSensorSpeed = shooterTalon->GetSpeed();
 
-	int closedLoopErr = argTalon->GetClosedLoopError();
+		int closedLoopErr = shooterTalon->GetClosedLoopError();
 
-	lumberJack->dLog("Current Amps: " + to_string(currentAmps));
-	lumberJack->dLog("Output Volts: " + to_string(outputVolts));
-	lumberJack->dLog("Bus Voltage: " + to_string(busVoltage));
-	lumberJack->dLog("Quad Encoder Pos: " + to_string(quadEncoderPos));
-	lumberJack->dLog("Quad Encoder Velocity: " + to_string(quadEncoderVelocity));
-	lumberJack->dLog("Analog Pos: " + to_string(analogPos));
-	lumberJack->dLog("Analog Velocity: " + to_string(analogVelocity));
-	lumberJack->dLog("Selected Sensor Pos: " + to_string(selectedSensorPos));
-	lumberJack->dLog("Selected Sensor Speed: " + to_string(selectedSensorSpeed));
-	lumberJack->dLog("Closed Loop Err: " + to_string(closedLoopErr));
+		lumberJack->dLog("Current Amps: " + to_string(currentAmps));
+		lumberJack->dLog("Output Volts: " + to_string(outputVolts));
+		lumberJack->dLog("Bus Voltage: " + to_string(busVoltage));
+		lumberJack->dLog("Quad Encoder Pos: " + to_string(quadEncoderPos));
+		lumberJack->dLog("Quad Encoder Velocity: " + to_string(quadEncoderVelocity));
+		lumberJack->dLog("Analog Pos: " + to_string(analogPos));
+		lumberJack->dLog("Analog Velocity: " + to_string(analogVelocity));
+		lumberJack->dLog("Selected Sensor Pos: " + to_string(selectedSensorPos));
+		lumberJack->dLog("Selected Sensor Speed: " + to_string(selectedSensorSpeed));
+		lumberJack->dLog("Closed Loop Err: " + to_string(closedLoopErr));
+	}
+	catch (const std::exception& e)
+	{
+		lumberJack->dLog(e.what());
+		printf("%s", e.what());
+	}
 }
 
