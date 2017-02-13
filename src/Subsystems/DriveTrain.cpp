@@ -9,6 +9,8 @@
 #include "../Commands/OperatorInputDriveTrain.h"
 
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
+	lumberJack.reset(new LumberJack());
+
     portTalon = RobotMap::driveTrainPortTalon;
     starboardTalon = RobotMap::driveTrainStarboardTalon;
     steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
@@ -61,7 +63,9 @@ void DriveTrain::InitDefaultCommand() {
 
 /********* BEGIN METHODS CALLED BY COMMANDS **********/
 void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStarboard){
-	printf("DriveTrain - Left: %f\tRight: %f\n", speedPort, speedStarboard);
+	string left = "DriveTrain - Left: " + to_string(speedPort),
+			right = "\tRight: " + to_string(speedStarboard);
+	lumberJack->dLog(left + right);
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
 
