@@ -1,3 +1,5 @@
+#include <thread>
+
 #include "Robot.h"
 #include "LumberJack.h"
 
@@ -7,6 +9,7 @@ std::shared_ptr<BallPicker> Robot::ballPicker;
 std::shared_ptr<Climber> Robot::climber;
 std::shared_ptr<Auger> Robot::auger;
 std::shared_ptr<VisionLumination> Robot::vision;
+std::shared_ptr<LIDARUpdater> Robot::lidar;
 std::unique_ptr<OI> Robot::oi;
 
 void Robot::RobotInit() {
@@ -20,6 +23,7 @@ void Robot::RobotInit() {
     climber.reset(new Climber());
     auger.reset(new Auger());
     vision.reset(new VisionLumination());
+    lidar.reset(new LIDARUpdater());
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
 	// which commands extend), subsystems are not guaranteed to be
@@ -29,6 +33,10 @@ void Robot::RobotInit() {
 
 	// instantiate the command used for the autonomous period
 	autonomousCommand.reset(new AutonomousCommand());
+
+	//Lidar updater new thread to keep the robot unencumbered by sleeps
+	std::thread worker(&LIDARUpdater::neverEndingUpdater, lidar);
+	//TODO:: Add Lidar to dashboard
   }
 
 /**

@@ -13,6 +13,7 @@
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/VisionLumination.h"
+#include "Subsystems/InTheRearWithTheGearLidar.h"
 
 #include "OI.h"
 
@@ -27,6 +28,7 @@ public:
     static std::shared_ptr<Climber> climber;
     static std::shared_ptr<Auger> auger;
     static std::shared_ptr<VisionLumination> vision;
+    static std::shared_ptr<LIDARUpdater> lidar;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
