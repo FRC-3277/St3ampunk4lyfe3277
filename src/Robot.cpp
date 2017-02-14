@@ -1,5 +1,4 @@
 #include "Robot.h"
-#include "LumberJack.h"
 
 std::shared_ptr<DriveTrain> Robot::driveTrain;
 std::shared_ptr<Shooter> Robot::shooter;
@@ -8,11 +7,9 @@ std::shared_ptr<Climber> Robot::climber;
 std::shared_ptr<Auger> Robot::auger;
 std::shared_ptr<VisionLumination> Robot::vision;
 std::unique_ptr<OI> Robot::oi;
+std::shared_ptr<LumberJack> Robot::lumberJack;
 
 void Robot::RobotInit() {
-	LumberJack logger;
-
-	logger.iLog("RobotInit Test Log");
 	RobotMap::init();
     driveTrain.reset(new DriveTrain());
     shooter.reset(new Shooter());
@@ -26,6 +23,8 @@ void Robot::RobotInit() {
 	// yet. Thus, their requires() statements may grab null pointers. Bad
 	// news. Don't move it.
 	oi.reset(new OI());
+
+	lumberJack.reset(new LumberJack());
 
 	// instantiate the command used for the autonomous period
 	autonomousCommand.reset(new AutonomousCommand());
@@ -43,6 +42,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	lumberJack->dLog("Begin Autonomous");
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }
@@ -52,6 +52,7 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
+	lumberJack->dLog("Begin Teleop");
 	// This makes sure that the autonomous stops running when
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove

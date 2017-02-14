@@ -32,13 +32,6 @@ void RobotMap::init() {
     lw->AddActuator("DriveTrain", "StarboardTalon", driveTrainStarboardTalon);
     
     driveTrainSteamEngineRobotDrive.reset(new RobotDrive(driveTrainPortTalon, driveTrainStarboardTalon));
-    
-    driveTrainSteamEngineRobotDrive->SetSafetyEnabled(false);
-	driveTrainSteamEngineRobotDrive->SetExpiration(0.5);
-	driveTrainSteamEngineRobotDrive->SetSensitivity(0.5);
-	driveTrainSteamEngineRobotDrive->SetMaxOutput(1.0);
-	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
-	driveTrainSteamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
 
 	//Picker
 	pickerTalon.reset(new CANTalon(PICKA_MOTOR));
