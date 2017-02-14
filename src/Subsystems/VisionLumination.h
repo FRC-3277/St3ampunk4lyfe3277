@@ -1,14 +1,14 @@
 #ifndef VisionLumination_H
 #define VisionLumination_H
 
+#include "./LumberJack.h"
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
 class VisionLumination : public Subsystem {
 private:
-	// It's desirable that everything possible under private except
-	// for methods that implement subsystem capabilities
 	std::shared_ptr<Relay> visionSpike;
+	std::shared_ptr<LumberJack> lumberJack;
 
 public:
 	VisionLumination();

@@ -3,7 +3,6 @@
 #include <thread>
 
 #include "Robot.h"
-#include "LumberJack.h"
 
 std::shared_ptr<DriveTrain> Robot::driveTrain;
 std::shared_ptr<Shooter> Robot::shooter;
@@ -31,6 +30,8 @@ void Robot::RobotInit() {
 	// news. Don't move it.
 	oi.reset(new OI());
 
+	lumberJack.reset(new LumberJack());
+
 	// instantiate the command used for the autonomous period
 	autonomousCommand.reset(new AutonomousCommand());
 
@@ -51,6 +52,7 @@ void Robot::DisabledPeriodic() {
 }
 
 void Robot::AutonomousInit() {
+	lumberJack->dLog("Begin Autonomous");
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Start();
 }
@@ -60,6 +62,7 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
+	lumberJack->dLog("Begin Teleop");
 	// This makes sure that the autonomous stops running when
 	// teleop starts running. If you want the autonomous to
 	// continue until interrupted by another command, remove

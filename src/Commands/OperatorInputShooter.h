@@ -1,12 +1,14 @@
 #ifndef OperatorInputShooter_H
 #define OperatorInputShooter_H
 
+#include "./LumberJack.h"
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
 class OperatorInputShooter : public Command {
 private:
 	double shooterSpeed = 0;
+	std::shared_ptr<LumberJack> lumberJack;
 
 public:
 	OperatorInputShooter();

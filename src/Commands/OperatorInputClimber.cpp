@@ -2,6 +2,7 @@
 
 OperatorInputClimber::OperatorInputClimber() {
 	Requires(Robot::climber.get());
+	lumberJack.reset(new LumberJack());
 }
 
 // Called just before this Command runs the first time
