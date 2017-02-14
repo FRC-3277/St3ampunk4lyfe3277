@@ -6,6 +6,7 @@
 
 BallPicker::BallPicker() : Subsystem("BallPicker") {
 	pickerTalon = RobotMap::pickerTalon;
+	lumberJack.reset(new LumberJack());
 
 	//Encoder
 	pickerTalon->SetFeedbackDevice(CANTalon::QuadEncoder);

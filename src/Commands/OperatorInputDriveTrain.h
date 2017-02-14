@@ -1,6 +1,7 @@
 #ifndef OperatorInputDriveTrain_H
 #define OperatorInputDriveTrain_H
 
+#include "./LumberJack.h"
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
@@ -15,7 +16,7 @@ public:
 	void Interrupted();
 
 private:
-	static std::shared_ptr<bool> isOperatorControlOperatorInput;
+	std::shared_ptr<LumberJack> lumberJack;
 
 	double Clamp(double joystickRawAxis);
 };

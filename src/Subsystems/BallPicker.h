@@ -1,5 +1,6 @@
 #ifndef BALLPICKER_H
 #define BALLPICKER_H
+#include "./LumberJack.h"
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "./RobotMap.h"
@@ -14,6 +15,7 @@ private:
 	// It's desirable that everything possible is private except
 	// for methods that implement subsystem capabilities
 	std::shared_ptr<CANTalon> pickerTalon;
+	std::shared_ptr<LumberJack> lumberJack;
 
 	// Localized versions of talon calibration and encoder
 	const float FULL_SPEED_FROM_TALONS=	RobotMap::FULL_SPEED_FROM_TALONS_BASE;

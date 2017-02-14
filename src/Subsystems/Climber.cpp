@@ -7,6 +7,7 @@
 
 Climber::Climber() : Subsystem("Climber") {
 	climberTalon = RobotMap::climberTalon;
+	lumberJack.reset(new LumberJack());
 
 	//Encoder
 	climberTalon->SetFeedbackDevice(CANTalon::QuadEncoder);

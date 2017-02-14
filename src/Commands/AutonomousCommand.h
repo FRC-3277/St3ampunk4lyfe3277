@@ -1,5 +1,6 @@
 #ifndef AUTONOMOUS_COMMAND_H
 #define AUTONOMOUS_COMMAND_H
+#include "./LumberJack.h"
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
 
@@ -19,6 +20,7 @@ public:
 	virtual void Interrupted();
 
 private:
+	std::shared_ptr<LumberJack> lumberJack;
 
 };
 

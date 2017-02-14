@@ -8,9 +8,9 @@
 #include "../RobotMap.h"
 
 Shooter::Shooter() : Subsystem("Shooter") {
-	lumberJack.reset(new LumberJack());
-
 	shooterTalon = RobotMap::shooterTalon;
+
+	lumberJack.reset(new LumberJack());
 
 	//Encoder
 	shooterTalon->SetFeedbackDevice(CANTalon::QuadEncoder);

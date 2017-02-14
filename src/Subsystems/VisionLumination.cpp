@@ -3,6 +3,7 @@
 
 VisionLumination::VisionLumination() : Subsystem("ExampleSubsystem") {
 	visionSpike = RobotMap::visionSpike;
+	lumberJack.reset(new LumberJack());
 }
 
 void VisionLumination::InitDefaultCommand() {

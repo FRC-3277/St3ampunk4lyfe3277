@@ -1,5 +1,6 @@
 #ifndef CLIMBER_H
 #define CLIMBER_H
+#include "./LumberJack.h"
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 #include "./RobotMap.h"
@@ -12,6 +13,7 @@
 class Climber: public Subsystem {
 private:
 	std::shared_ptr<CANTalon> climberTalon;
+	std::shared_ptr<LumberJack> lumberJack;
 
 	// Localized versions of talon calibration
 	const float FULL_SPEED_FROM_TALONS=	RobotMap::FULL_SPEED_FROM_TALONS_BASE;
