@@ -74,9 +74,7 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
 	distance = lidar->getDistance();
-	printf("Distance: %d\n", distance);
-	//TODO: Fix after merge of Encoders
-	//lumberJack->dLog(to_string(distance));
+	lumberJack->dLog("Distance: " + to_string(distance));
 }
 
 void Robot::TestPeriodic() {

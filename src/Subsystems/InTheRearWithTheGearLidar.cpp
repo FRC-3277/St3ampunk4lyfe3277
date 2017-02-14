@@ -29,8 +29,7 @@ int InTheRearWithTheGearLidar::updateDistance()
 
 	if(loVal == -1 || hiVal == -1)
 	{
-		//TODO: Enable once merged with Encoder branch
-		//lumberJack->eLog("Lidar distance failure");
+		lumberJack->eLog("Lidar distance failure");
 	}
 	distance = (hiVal << 8) + loVal;
 	lumberJack->dLog("updateDistance");
@@ -50,8 +49,7 @@ void InTheRearWithTheGearLidar::neverEndingUpdater()
 		}
 		catch (exception& e)
 		{
-			//TODO: Enable this once merged with Encoder Branch
-			//lumberJack->eLog((string&)e.what());
+			lumberJack->eLog((string&)e.what());
 		}
 	}
 }
