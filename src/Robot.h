@@ -28,7 +28,7 @@ public:
     static std::shared_ptr<Climber> climber;
     static std::shared_ptr<Auger> auger;
     static std::shared_ptr<VisionLumination> vision;
-    static std::shared_ptr<LIDARUpdater> lidar;
+    static std::shared_ptr<InTheRearWithTheGearLidar> lidar;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
@@ -38,5 +38,9 @@ public:
 	virtual void TeleopInit();
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
+private:
+	int distance = 0;
+
+	static std::shared_ptr<LumberJack> lumberJack;
 };
 #endif

@@ -35,25 +35,9 @@ private:
 public:
 	InTheRearWithTheGearLidar();
 	void InitDefaultCommand();
-	void updateDistance();
+	int updateDistance();
+	void neverEndingUpdater();
+	int getDistance();
 };
 
 #endif  // InTheRearWithTheGearLidar_H
-
-#ifndef LIDARUpdater_H
-#define LIDARUpdater_H
-// Timer task to keep distance updated
-class LIDARUpdater : InTheRearWithTheGearLidar
-{
-private:
-	std::shared_ptr<LumberJack> lumberJack;
-	std::shared_ptr<InTheRearWithTheGearLidar> lidar;
-
-public:
-	LIDARUpdater();
-	void neverEndingUpdater();
-	void launchLidarThread();
-
-};
-
-#endif // LIDARUpdater_H

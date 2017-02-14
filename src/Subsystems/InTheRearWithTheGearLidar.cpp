@@ -1,3 +1,6 @@
+#include <string>
+#include <iostream>
+
 #include "InTheRearWithTheGearLidar.h"
 #include "../RobotMap.h"
 
@@ -5,13 +8,14 @@ InTheRearWithTheGearLidar::InTheRearWithTheGearLidar() : Subsystem("InTheRearWit
 	lumberJack.reset(new LumberJack());
 	// initialize the LidarLite
 	i2c.reset(new I2C(I2C::Port::kOnboard, LIDAR_ADDR));
+	lumberJack->dLog("Constructor");
 }
 
 void InTheRearWithTheGearLidar::InitDefaultCommand() {
 }
 
 // Update distance variable. See the Quick Start Guide for documentation
-void InTheRearWithTheGearLidar::updateDistance()
+int InTheRearWithTheGearLidar::updateDistance()
 {
 	int loVal = 0, hiVal = 0;
 
@@ -29,21 +33,19 @@ void InTheRearWithTheGearLidar::updateDistance()
 		//lumberJack->eLog("Lidar distance failure");
 	}
 	distance = (hiVal << 8) + loVal;
+	lumberJack->dLog("updateDistance");
+
+	return distance;
 }
 
-LIDARUpdater::LIDARUpdater()
+void InTheRearWithTheGearLidar::neverEndingUpdater()
 {
-	lumberJack.reset(new LumberJack());
-	lidar.reset(new InTheRearWithTheGearLidar());
-}
-
-void LIDARUpdater::neverEndingUpdater()
-{
+	lumberJack->dLog("neverEndingUpdater");
 	while (true)
 	{
 		try
 		{
-			lidar->updateDistance();
+			distance = updateDistance();
 			this_thread::sleep_for(10ms);
 		}
 		catch (exception& e)
@@ -54,3 +56,7 @@ void LIDARUpdater::neverEndingUpdater()
 	}
 }
 
+int InTheRearWithTheGearLidar::getDistance()
+{
+	return distance;
+}

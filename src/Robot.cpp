@@ -1,3 +1,5 @@
+#include <string>
+#include <stdio.h>
 #include <thread>
 
 #include "Robot.h"
@@ -9,13 +11,11 @@ std::shared_ptr<BallPicker> Robot::ballPicker;
 std::shared_ptr<Climber> Robot::climber;
 std::shared_ptr<Auger> Robot::auger;
 std::shared_ptr<VisionLumination> Robot::vision;
-std::shared_ptr<LIDARUpdater> Robot::lidar;
+std::shared_ptr<InTheRearWithTheGearLidar> Robot::lidar;
 std::unique_ptr<OI> Robot::oi;
+std::shared_ptr<LumberJack> Robot::lumberJack;
 
 void Robot::RobotInit() {
-	LumberJack logger;
-
-	logger.iLog("RobotInit Test Log");
 	RobotMap::init();
     driveTrain.reset(new DriveTrain());
     shooter.reset(new Shooter());
@@ -23,7 +23,7 @@ void Robot::RobotInit() {
     climber.reset(new Climber());
     auger.reset(new Auger());
     vision.reset(new VisionLumination());
-    lidar.reset(new LIDARUpdater());
+    lidar.reset(new InTheRearWithTheGearLidar());
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
 	// which commands extend), subsystems are not guaranteed to be
@@ -35,7 +35,7 @@ void Robot::RobotInit() {
 	autonomousCommand.reset(new AutonomousCommand());
 
 	//Lidar updater new thread to keep the robot unencumbered by sleeps
-	std::thread worker(&LIDARUpdater::neverEndingUpdater, lidar);
+	std::thread worker(&InTheRearWithTheGearLidar::neverEndingUpdater, lidar);
 	//TODO:: Add Lidar to dashboard
   }
 
@@ -70,6 +70,10 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+	distance = lidar->getDistance();
+	printf("Distance: %d\n", distance);
+	//TODO: Fix after merge of Encoders
+	//lumberJack->dLog(to_string(distance));
 }
 
 void Robot::TestPeriodic() {
