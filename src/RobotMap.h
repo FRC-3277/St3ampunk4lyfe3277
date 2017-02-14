@@ -38,7 +38,7 @@ public:
 
 	//Picker
 	static const int PICKA_MOTOR = 4;
-	static constexpr double BALL_PICKA_SPEED = 0.375;
+	static constexpr double BALL_PICKA_SPEED = 0.6;
 	static std::shared_ptr<CANTalon> pickerTalon;
 
 	//Auger
@@ -53,7 +53,7 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-	static constexpr double SHOOTA_STARTING_SPEED = 0.3;
+	static constexpr double SHOOTA_STARTING_SPEED = 0.5;
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 
