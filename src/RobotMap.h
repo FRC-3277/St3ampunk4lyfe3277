@@ -18,7 +18,7 @@ public:
 
 	static const bool
 		isInfoLoggingEnabled = false,
-		isDebugLoggingEnabled = false,
+		isDebugLoggingEnabled = true,
 		isErrorLoggingEnabled = true,
 		isWarningLoggingEnabled = false,
 		isFatalLoggingEnabled = true,

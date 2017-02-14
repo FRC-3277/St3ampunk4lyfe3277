@@ -18,21 +18,26 @@ void InTheRearWithTheGearLidar::InitDefaultCommand() {
 int InTheRearWithTheGearLidar::updateDistance()
 {
 	int loVal = 0, hiVal = 0;
-
+	lumberJack->dLog("updateDistance1");
 	i2c->Write(LIDAR_CONFIG_REGISTER, (uint8_t)0x04); // Initiate measurement
-	this_thread::sleep_for(40ms); // Delay for measurement to be taken
+	this_thread::sleep_for(chrono::milliseconds(40)); // Delay for measurement to be taken
+	lumberJack->dLog("updateDistance1_1");
 	//i2c->Read(LIDAR_DISTANCE_REGISTER, 2, &distance); // Read in
+	lumberJack->dLog("updateDistance2");
 	i2c->Read(LO_DISTANCE_REGISTER, 1, (uint8_t*)&loVal);
-	this_thread::sleep_for(10ms); // Delay to prevent over polling
+	this_thread::sleep_for(chrono::milliseconds(10)); // Delay to prevent over polling
+	lumberJack->dLog("updateDistance3");
 	i2c->Read(HIGH_DISTANCE_REGISTER, 1, (uint8_t*)&loVal);
-	this_thread::sleep_for(10ms); // Delay to prevent over polling
+	this_thread::sleep_for(chrono::milliseconds(10)); // Delay to prevent over polling
 
+	lumberJack->dLog("updateDistance4");
 	if(loVal == -1 || hiVal == -1)
 	{
 		lumberJack->eLog("Lidar distance failure");
 	}
+	lumberJack->dLog("updateDistance5");
 	distance = (hiVal << 8) + loVal;
-	lumberJack->dLog("updateDistance");
+	lumberJack->dLog("updateDistance6");
 
 	return distance;
 }
@@ -45,11 +50,11 @@ void InTheRearWithTheGearLidar::neverEndingUpdater()
 		try
 		{
 			distance = updateDistance();
-			this_thread::sleep_for(10ms);
+			//this_thread::sleep_for(chrono::milliseconds(10));
 		}
 		catch (exception& e)
 		{
-			lumberJack->eLog((string&)e.what());
+			lumberJack->eLog(e.what());
 		}
 	}
 }
