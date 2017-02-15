@@ -20,7 +20,7 @@ int InTheRearWithTheGearLidar::updateDistance()
 	int loVal = 0, hiVal = 0;
 	lumberJack->dLog("updateDistance1");
 	i2c->Write(LIDAR_CONFIG_REGISTER, (uint8_t)0x04); // Initiate measurement
-	this_thread::sleep_for(chrono::milliseconds(40)); // Delay for measurement to be taken
+	//this_thread::sleep_for(chrono::milliseconds(40)); // Delay for measurement to be taken
 	lumberJack->dLog("updateDistance1_1");
 	//i2c->Read(LIDAR_DISTANCE_REGISTER, 2, &distance); // Read in
 	lumberJack->dLog("updateDistance2");
