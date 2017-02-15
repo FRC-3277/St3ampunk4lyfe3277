@@ -4,6 +4,7 @@
 
 Auger::Auger() : Subsystem("Auger") {
 	augerSpike = RobotMap::augerSpike;
+	lumberJack.reset(new LumberJack());
 
 }
 
