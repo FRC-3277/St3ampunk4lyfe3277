@@ -3,6 +3,7 @@
 
 OperatorInputDriveTrain::OperatorInputDriveTrain() {
 	Requires(Robot::driveTrain.get());
+	lumberJack.reset(new LumberJack());
 }
 
 // Called just before this Command runs the first time
@@ -19,12 +20,12 @@ void OperatorInputDriveTrain::Execute() {
 			yPosPort = Robot::oi->getXBoxControllerDriver()->GetRawAxis(PORT_PROPELLER),
 			yPosStarboard = Robot::oi->getXBoxControllerDriver()->GetRawAxis(STARBOARD_PROPELLER),
 			//Needs to be the inverse
-			posAllAheadFlank = Robot::oi->getXBoxControllerDriver()->GetRawAxis(ALL_AHEAD_FLANK)*-1,
+			posAllAheadFlank = -Robot::oi->getXBoxControllerDriver()->GetRawAxis(ALL_AHEAD_FLANK),
 			posFullAstern = Robot::oi->getXBoxControllerDriver()->GetRawAxis(FULL_ASTERN);
 
 		//printf ("All Ahead: %f  Full Astern: %f\n", posAllAheadFlank, posFullAstern);
 
-		//Prevent the Vanelllope effect
+		//Prevent the Vanellope effect
 		yPosPort = Clamp(yPosPort);
 		yPosStarboard = Clamp(yPosStarboard);
 		//posAllAheadFlank = Clamp(posAllAheadFlank);
@@ -49,9 +50,6 @@ void OperatorInputDriveTrain::Execute() {
 				yPosStarboard = posFullAstern;
 			}
 		}
-
-
-
 		Robot::driveTrain.get()->controllerInputToSteamEngine(yPosPort, yPosStarboard);
 	}
 }

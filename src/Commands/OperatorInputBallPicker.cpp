@@ -1,9 +1,8 @@
 #include "OperatorInputBallPicker.h"
 
 OperatorInputBallPicker::OperatorInputBallPicker() {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
 	Requires(Robot::ballPicker.get());
+	lumberJack.reset(new LumberJack());
 }
 
 // Called just before this Command runs the first time
@@ -18,8 +17,6 @@ void OperatorInputBallPicker::Execute() {
 	{
 		Robot::ballPicker->FuelRiserBeltOn();
 	}
-
-
 }
 
 // Make this return true when this Command no longer needs to run execute()

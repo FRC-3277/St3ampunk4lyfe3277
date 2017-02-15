@@ -2,8 +2,7 @@
 
 OperatorInputAuger::OperatorInputAuger() {
 	Requires(Robot::auger.get());
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+	lumberJack.reset(new LumberJack());
 }
 
 // Called just before this Command runs the first time
@@ -13,18 +12,9 @@ void OperatorInputAuger::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputAuger::Execute() {
-//	if(Robot::auger->GetButtonState() == false)
-//	{
-//		Robot::auger->SetButtonState(true);
-//	}
-//	else
-//	{
-//		Robot::auger->SetButtonState(false);
-//	}
-
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::auger->RivetOn();
+		Robot::auger->AugerAllShesGotCaptain();
 	}
 }
 
@@ -46,6 +36,6 @@ void OperatorInputAuger::End() {
 void OperatorInputAuger::Interrupted() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::auger->RivetOff();
+		Robot::auger->AugerStopScotty();
 	}
 }
