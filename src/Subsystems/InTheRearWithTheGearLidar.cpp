@@ -7,7 +7,7 @@
 InTheRearWithTheGearLidar::InTheRearWithTheGearLidar() : Subsystem("InTheRearWithTheGearLidar") {
 	lumberJack.reset(new LumberJack());
 	// initialize the LidarLite
-	i2c.reset(new I2C(I2C::Port::kOnboard, LIDAR_ADDR));
+	i2c.reset(new I2C(I2C::Port::kMXP, LIDAR_ADDR));
 	lumberJack->dLog("Constructor");
 }
 
