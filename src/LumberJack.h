@@ -3,8 +3,12 @@
 
 #include <iostream>
 
+#include "WPILib.h"
 #include "RobotMap.h"
+#include "LiveWindow/LiveWindow.h"
+#include <LiveWindow/LiveWindowSendable.h>
 #include "easylogging++.h"
+
 
 using namespace std;
 
@@ -58,6 +62,9 @@ public:
 	void wLog(const string& msg);
 	void fLog(const string& msg);
 	void tLog(const string& msg);
+	void dashLogData(llvm::StringRef key, Sendable* data);
+	void dashLogNumber(llvm::StringRef key, double value);
+	void dashLogString(llvm::StringRef key, llvm::StringRef message);
 };
 
 #endif /* SRC_LUMBERJACK_H_ */

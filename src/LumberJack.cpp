@@ -93,3 +93,30 @@ void LumberJack::tLog(const string& msg)
 	LOG_IF(isTraceLoggingEnabled, TRACE) << msg;
 	//defaultLogger->trace("%v\n", msg);
 }
+
+/**
+ * The log method puts "data"... information of interest from the subsystem
+ * to the SmartDashboard. Useful in dashLog() methods.
+ */
+void LumberJack::dashLogData(llvm::StringRef key, Sendable* data)
+{
+	SmartDashboard::PutData(key, data);
+}
+
+/**
+ * The log method puts Numerical information of interest from the subsystem
+ * to the SmartDashboard. Useful in dashLog() methods.
+ */
+void LumberJack::dashLogNumber(llvm::StringRef key, double value)
+{
+	SmartDashboard::PutNumber(key, value);
+}
+
+/**
+ * The log method puts String information of interest from the subsystem to
+ * the SmartDashboard. Useful in dashLog() methods.
+ */
+void LumberJack::dashLogString(llvm::StringRef key, llvm::StringRef message)
+{
+	SmartDashboard::PutString(key, message);
+}
