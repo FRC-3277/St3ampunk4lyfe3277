@@ -21,7 +21,7 @@ void Auger::AugerStopScotty() {
 	augerSpike.get()->Set(Relay::kOff);
 }
 
-void Auger::AugerDelay() {
+void Auger::AugerForwardAndReverse() {
 	endTime = std::chrono::system_clock::now();
 	elapsedSeconds = endTime-startTime;
 
@@ -43,6 +43,33 @@ void Auger::AugerDelay() {
 			startTime = std::chrono::system_clock::now();
 			goForward = true;
 			goReverse = false;
+		}
+	}
+}
+
+void Auger::AugerDelay() {
+	endTime = std::chrono::system_clock::now();
+	elapsedSeconds = endTime-startTime;
+	numberSecondsElapsed = std::chrono::duration_cast<std::chrono::seconds>(sec).count();
+
+	if(goForward)
+	{
+		augerSpike.get()->Set(Relay::kReverse);
+		if(elapsedSeconds > goForwardNumberSeconds)
+		{
+				startTime = std::chrono::system_clock::now();
+				goForward = false;
+				delayAuger = true;
+		}
+	}
+	if(delayAuger)
+	{
+		augerSpike.get()->Set(Relay::kOff);
+		if(elapsedSeconds > delayAugerNumberSeconds)
+		{
+			startTime = std::chrono::system_clock::now();
+			goForward = true;
+			delayAuger = false;
 		}
 	}
 }

@@ -17,12 +17,17 @@ private:
 	std::shared_ptr<LumberJack> lumberJack;
 	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
 	std::chrono::duration<double> elapsedSeconds;
+	int numberSecondsElapsed = 0;
 
 	bool goReverse = false,
-			goForward = true;
+			goForward = true,
+			delayAuger = false;
 
 	double goForwardNumberSeconds = 2;
 	double goBackwardsNumberSeconds = 0.25;
+	double delayAugerNumberSeconds = 0.8;
+
+	std::chrono::seconds sec(goForwardNumberSeconds);
 
 public:
 	Auger();
@@ -30,6 +35,7 @@ public:
 
 	void AugerAllShesGotCaptain();
 	void AugerStopScotty();
+	void AugerForwardAndReverse();
 	void AugerDelay();
 };
 
