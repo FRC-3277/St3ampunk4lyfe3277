@@ -16,7 +16,7 @@ private:
 	std::shared_ptr<Relay> augerSpike;
 	std::shared_ptr<LumberJack> lumberJack;
 	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
-	std::chrono::duration<double> elapsedSeconds;
+	std::chrono::duration<float> elapsedTime;
 	int numberSecondsElapsed = 0;
 
 	bool goReverse = false,
@@ -26,8 +26,6 @@ private:
 	double goForwardNumberSeconds = 2;
 	double goBackwardsNumberSeconds = 0.25;
 	double delayAugerNumberSeconds = 0.8;
-
-	std::chrono::seconds sec(goForwardNumberSeconds);
 
 public:
 	Auger();

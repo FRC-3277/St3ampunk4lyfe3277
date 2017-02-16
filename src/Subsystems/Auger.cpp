@@ -5,7 +5,7 @@
 Auger::Auger() : Subsystem("Auger") {
 	augerSpike = RobotMap::augerSpike;
 	lumberJack.reset(new LumberJack());
-
+	startTime = std::chrono::system_clock::now();
 }
 
 void Auger::InitDefaultCommand() {
@@ -13,22 +13,23 @@ void Auger::InitDefaultCommand() {
 }
 
 void Auger::AugerAllShesGotCaptain() {
-	augerSpike.get()->Set(Relay::kReverse);
+	augerSpike->Set(Relay::kReverse);
 }
 
 void Auger::AugerStopScotty() {
 
-	augerSpike.get()->Set(Relay::kOff);
+	augerSpike->Set(Relay::kOff);
 }
 
 void Auger::AugerForwardAndReverse() {
 	endTime = std::chrono::system_clock::now();
-	elapsedSeconds = endTime-startTime;
+	elapsedTime = endTime - startTime;
+	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
 
 	if(goForward)
 	{
-		augerSpike.get()->Set(Relay::kReverse);
-		if(elapsedSeconds > goForwardNumberSeconds)
+		augerSpike->Set(Relay::kReverse);
+		if(f_secs.count() > goForwardNumberSeconds)
 		{
 			startTime = std::chrono::system_clock::now();
 			goForward = false;
@@ -37,8 +38,8 @@ void Auger::AugerForwardAndReverse() {
 	}
 	if(goReverse)
 	{
-		augerSpike.get()->Set(Relay::kForward);
-		if(elapsedSeconds > goBackwardsNumberSeconds)
+		augerSpike->Set(Relay::kForward);
+		if(f_secs.count() > goBackwardsNumberSeconds)
 		{
 			startTime = std::chrono::system_clock::now();
 			goForward = true;
@@ -49,13 +50,13 @@ void Auger::AugerForwardAndReverse() {
 
 void Auger::AugerDelay() {
 	endTime = std::chrono::system_clock::now();
-	elapsedSeconds = endTime-startTime;
-	numberSecondsElapsed = std::chrono::duration_cast<std::chrono::seconds>(sec).count();
+	elapsedTime = endTime - startTime;
+	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
 
 	if(goForward)
 	{
-		augerSpike.get()->Set(Relay::kReverse);
-		if(elapsedSeconds > goForwardNumberSeconds)
+		augerSpike->Set(Relay::kReverse);
+		if(f_secs.count() > goForwardNumberSeconds)
 		{
 				startTime = std::chrono::system_clock::now();
 				goForward = false;
@@ -64,8 +65,8 @@ void Auger::AugerDelay() {
 	}
 	if(delayAuger)
 	{
-		augerSpike.get()->Set(Relay::kOff);
-		if(elapsedSeconds > delayAugerNumberSeconds)
+		augerSpike->Set(Relay::kOff);
+		if(f_secs.count() > delayAugerNumberSeconds)
 		{
 			startTime = std::chrono::system_clock::now();
 			goForward = true;
