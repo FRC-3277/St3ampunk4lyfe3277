@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string>
 
-#include "CANTalon.h"
-#include "CANSpeedController.h"
-
 #include "Shooter.h"
 #include "../RobotMap.h"
 
@@ -13,6 +10,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	lumberJack.reset(new LumberJack());
 
 	//Encoder
+	// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
 	shooterTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
 	shooterTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
 	shooterTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
@@ -23,10 +21,16 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
 	shooterTalon->SetIzone(TALON_IZONE);
 	shooterTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+	shooterTalon->ConfigNominalOutputVoltage(0, 0);
+	shooterTalon->ConfigPeakOutputVoltage(+12, -12);
+
+	//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
+	shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
+	shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
 
 	//Everything else
 	shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-	shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	shooterTalon->SetControlMode(CANSpeedController::kSpeed);
 	shooterTalon->EnableControl();
 	shooterTalon->SetInverted(true);
 	shooterTalon->Set(RobotMap::ALL_STOP);
@@ -48,6 +52,12 @@ double Shooter::GetShooterSpeed()
 
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
+	double quadEncoderPos = shooterTalon->GetEncPosition();
+	double quadEncoderVelocity = shooterTalon->GetEncVel();
+
+	lumberJack->dashLogNumber("Shooter Position", quadEncoderPos);
+	lumberJack->dashLogNumber("Shooter Velocity", quadEncoderVelocity);
+
 	shooterTalon->Set(speedControlValue);
 	dumpEncoderLogging();
 }
