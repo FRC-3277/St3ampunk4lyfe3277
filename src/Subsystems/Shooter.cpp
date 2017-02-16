@@ -20,6 +20,10 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	 */
 	shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
 	shooterTalon->SetIzone(TALON_IZONE);
+	/*
+	 * Limits the rate at which the throttle will change.
+     * Only affects position and speed closed loop modes.
+	 */
 	shooterTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
 	shooterTalon->ConfigNominalOutputVoltage(0, 0);
 	shooterTalon->ConfigPeakOutputVoltage(+12, -12);

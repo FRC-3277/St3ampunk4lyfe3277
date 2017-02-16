@@ -72,7 +72,8 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-	static constexpr double SHOOTA_STARTING_SPEED = 0.375;
+	static constexpr double SHOOTA_STARTING_SPEED = 1200;
+	static constexpr double SHOOTA_MAX_CALIBRATION_SPEED = 3000;
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 
