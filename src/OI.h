@@ -40,16 +40,21 @@
 
 // Alternate Controller
 
+// Logitech Extreme 3D Pro
+#define SHOOTA_CALIBRATION_SLIDER 3
+
 
 class OI {
 private:
 	std::shared_ptr<Joystick> xBoxControllerDriver;
 	std::shared_ptr<Joystick> xBoxControllerAlternate;
+	std::shared_ptr<Joystick> logitechExtreme;
 
 public:
 	OI();
 	std::shared_ptr<Joystick> getXBoxControllerDriver();
 	std::shared_ptr<Joystick> getXBoxControllerAlternate();
+	std::shared_ptr<Joystick> getLogitechExtreme();
 
 };
 

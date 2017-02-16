@@ -14,7 +14,8 @@ class RobotMap {
 public:
 
 	// All
-	static const bool ALTERNATE_CONTROLLER_ENABLED = true;
+	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
+	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = true;
 
 	static const bool
 		isInfoLoggingEnabled = false,
