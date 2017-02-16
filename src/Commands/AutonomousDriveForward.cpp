@@ -18,7 +18,11 @@ void AutonomousDriveForward::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousDriveForward::Execute() {
+	//portTalon Encoder Stuff
+	int quadEncoderPos = DriveTrain::portTalon->GetEncPosition();
 
+	//starboardTalon Encoder Stuff
+	int quadEncoderPos = DriveTrain::starboardTalon->GetEncPosition();
 }
 
 // Make this return true when this Command no longer needs to run execute()
