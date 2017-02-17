@@ -8,7 +8,8 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon = RobotMap::shooterTalon;
 
 	lumberJack.reset(new LumberJack());
-	shooterTalon->Reset();
+
+	shooterTalon->SetControlMode(CANSpeedController::kSpeed);
 
 	//Encoder
 	// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
@@ -23,14 +24,14 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	//shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
 	//shooterTalon->SetIzone(TALON_IZONE);
 	shooterTalon->SetPID(0, 0, 0, 0);
-	shooterTalon->SetIzone(0);
+	shooterTalon->SetIzone(300);
 	/*
 	 * Limits the rate at which the throttle will change.
      * Only affects position and speed closed loop modes.
 	 */
 	shooterTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
-	shooterTalon->ConfigNominalOutputVoltage(0, 0);
-	shooterTalon->ConfigPeakOutputVoltage(+12, -12);
+	shooterTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
+	shooterTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
 
 	//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
 	//shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
@@ -38,8 +39,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
 	//Everything else
 	//shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-	shooterTalon->SetControlMode(CANSpeedController::kSpeed);
-	shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	//shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	shooterTalon->SetInverted(true);
 	shooterTalon->SetPosition(0);
 	shooterTalon->EnableControl();
