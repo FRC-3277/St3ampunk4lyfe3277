@@ -24,12 +24,10 @@ void Auger::AugerStopScotty() {
 void Auger::AugerForwardAndReverse() {
 	endTime = std::chrono::system_clock::now();
 	elapsedTime = endTime - startTime;
-	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
-
 	if(goForward)
 	{
 		augerSpike->Set(Relay::kReverse);
-		if(f_secs.count() > goForwardNumberSeconds)
+		if(elapsedTime.count() > goForwardNumberSeconds)
 		{
 			startTime = std::chrono::system_clock::now();
 			goForward = false;
@@ -39,7 +37,7 @@ void Auger::AugerForwardAndReverse() {
 	else if(goReverse)
 	{
 		augerSpike->Set(Relay::kForward);
-		if(f_secs.count() > goBackwardsNumberSeconds)
+		if(elapsedTime.count() > goBackwardsNumberSeconds)
 		{
 			startTime = std::chrono::system_clock::now();
 			goForward = true;
@@ -47,7 +45,7 @@ void Auger::AugerForwardAndReverse() {
 		}
 	}
 
-	lumberJack->dLog("Seconds: " + to_string(f_secs.count()));
+	lumberJack->dLog("Seconds: " + to_string(elapsedTime.count()));
 
 }
 

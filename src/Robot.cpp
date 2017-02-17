@@ -36,7 +36,7 @@ void Robot::RobotInit() {
 	autonomousCommand.reset(new AutonomousCommand());
 
 	//Lidar updater new thread to keep the robot unencumbered by sleeps
-	std::thread worker(&InTheRearWithTheGearLidar::neverEndingUpdater, lidar);
+	//std::thread worker(&InTheRearWithTheGearLidar::neverEndingUpdater, lidar);
 	//TODO:: Add Lidar to dashboard
   }
 
@@ -73,6 +73,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
+	lidar->updateDistance();
 	distance = lidar->getDistance();
 	lumberJack->dLog("Distance: " + to_string(distance));
 }

@@ -19,7 +19,6 @@
 
 using namespace std;
 using  ms = chrono::milliseconds;
-using get_time = chrono::steady_clock;
 
 class InTheRearWithTheGearLidar : public Subsystem {
 private:
@@ -31,10 +30,11 @@ private:
 	static const int HIGH_DISTANCE_REGISTER = 0x0f;
 	static const int LO_DISTANCE_REGISTER = 0x10;
 
-	chrono::steady_clock::time_point start_time = get_time::now();
-	chrono::steady_clock::time_point end_time = get_time::now();
-	int diff_time = chrono::duration_cast<ms>(end_time - start_time).count();
-
+	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
+	std::chrono::duration<float> elapsedTime;
+	int numberMillisecondsElapsed = 0;
+	int loVal = 0, hiVal = 0;
+	int lidarStep = 1;
 	int distance = 0;
 
 	std::shared_ptr<LumberJack> lumberJack;

@@ -19,30 +19,44 @@ int InTheRearWithTheGearLidar::updateDistance()
 {
 	try
 	{
-		int loVal = 0, hiVal = 0;
 		lumberJack->dLog("updateDistance1");
 		i2c->Write(LIDAR_CONFIG_REGISTER, (uint8_t)0x04); // Initiate measurement
-		//this_thread::sleep_for(chrono::milliseconds(40)); // Delay for measurement to be taken
-		//Sleep(40);
-		lumberJack->dLog("updateDistance1_1");
-		//i2c->Read(LIDAR_DISTANCE_REGISTER, 2, &distance); // Read in
-		lumberJack->dLog("updateDistance2");
-		i2c->Read(LO_DISTANCE_REGISTER, 1, (uint8_t*)&loVal);
-		//this_thread::sleep_for(chrono::milliseconds(10)); // Delay to prevent over polling
-		//Sleep(10);
-		lumberJack->dLog("updateDistance3");
-		i2c->Read(HIGH_DISTANCE_REGISTER, 1, (uint8_t*)&loVal);
-		//this_thread::sleep_for(chrono::milliseconds(10)); // Delay to prevent over polling
-		//Sleep(10);
-
-		lumberJack->dLog("updateDistance4");
-		if(loVal == -1 || hiVal == -1)
+		endTime = std::chrono::system_clock::now();
+		elapsedTime = endTime - startTime;
+		numberMillisecondsElapsed = chrono::duration_cast<ms>(elapsedTime).count();
+		if(numberMillisecondsElapsed > 40 && lidarStep == 1)
 		{
-			lumberJack->eLog("Lidar distance failure");
+			lumberJack->dLog("updateDistance2");
+			i2c->Read(LO_DISTANCE_REGISTER, 1, (uint8_t*)&loVal);
+			lidarStep += 1;
 		}
-		lumberJack->dLog("updateDistance5");
-		distance = (hiVal << 8) + loVal;
-		lumberJack->dLog("updateDistance6");
+		else if(numberMillisecondsElapsed > 60 && lidarStep == 2)
+		{
+			lumberJack->dLog("updateDistance3");
+			i2c->Read(HIGH_DISTANCE_REGISTER, 1, (uint8_t*)&hiVal);
+			lidarStep += 1;
+		}
+
+		if(lidarStep == 3)
+		{
+			lumberJack->dLog("updateDistance4");
+			if(loVal == -1 || hiVal == -1)
+			{
+				lumberJack->eLog("Lidar distance failure");
+			}
+			lumberJack->dLog("updateDistance5");
+			distance = (hiVal << 8) + loVal;
+			lumberJack->dLog("updateDistance6");
+			lidarStep = 1;
+			startTime = std::chrono::system_clock::now();
+		}
+
+		if(numberMillisecondsElapsed > 200)
+		{
+			// Reset if things go terribly wrong
+			lidarStep = 1;
+			startTime = std::chrono::system_clock::now();
+		}
 	}
 	catch (exception& e)
 	{
@@ -60,9 +74,6 @@ void InTheRearWithTheGearLidar::neverEndingUpdater()
 		try
 		{
 			distance = updateDistance();
-			lumberJack->dLog("Distance: " + to_string(distance));
-			//this_thread::sleep_for(chrono::milliseconds(10));
-			//Sleep(10);
 		}
 		catch (exception& e)
 		{
