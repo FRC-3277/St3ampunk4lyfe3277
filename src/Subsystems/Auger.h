@@ -32,6 +32,7 @@ public:
 	void InitDefaultCommand();
 
 	void AugerAllShesGotCaptain();
+	void AugerCleanAndSweepReverse();
 	void AugerStopScotty();
 	void AugerForwardAndReverse();
 	void AugerDelay();

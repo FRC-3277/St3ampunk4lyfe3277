@@ -14,7 +14,14 @@ void OperatorInputAuger::Initialize() {
 void OperatorInputAuger::Execute() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::auger->AugerForwardAndReverse();
+		if(Robot::oi->getXBoxControllerAlternate()->GetRawButton(TOGGLE_STATUS_AUGER_REVERSE) == true)
+		{
+			Robot::auger->AugerCleanAndSweepReverse();
+		}
+		else
+		{
+			Robot::auger->AugerForwardAndReverse();
+		}
 	}
 }
 
