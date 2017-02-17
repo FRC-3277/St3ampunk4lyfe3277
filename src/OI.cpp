@@ -30,7 +30,7 @@ OI::OI()
 		JoystickButton* buttonEnableClimberDown = new JoystickButton(xBoxControllerAlternate.get(), TOGGLE_CLIMBER_DOWN);
 
 		buttonEnableClimberDown->WhenPressed(new OperatorInputClimber());
-		buttonToggleStatusAugerReverse->WhenPressed(new OperatorInputAuger());
+		buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
 	}
 
 	//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
@@ -43,7 +43,7 @@ OI::OI()
 	//Button trigger and command mappings
 	buttonEnableClimberUp->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
-	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger());
+	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_FORWARD));
 	/*The shooter is enabled manually by the operator.  This enables
 	  both the shooter motor and also the vision tracking feedback helper
 	  functions which positions the robot and sets the speed of the

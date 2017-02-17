@@ -1,8 +1,9 @@
 #include "OperatorInputAuger.h"
 
-OperatorInputAuger::OperatorInputAuger() {
+OperatorInputAuger::OperatorInputAuger(int argDirection) {
 	Requires(Robot::auger.get());
 	lumberJack.reset(new LumberJack());
+	direction = argDirection;
 }
 
 // Called just before this Command runs the first time
@@ -14,11 +15,11 @@ void OperatorInputAuger::Initialize() {
 void OperatorInputAuger::Execute() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		if(Robot::oi->getXBoxControllerAlternate()->GetRawButton(TOGGLE_STATUS_AUGER_REVERSE) == true)
+		if(direction == 1)
 		{
 			Robot::auger->AugerCleanAndSweepReverse();
 		}
-		else
+		else if(direction == 0)
 		{
 			Robot::auger->AugerForwardAndReverse();
 		}

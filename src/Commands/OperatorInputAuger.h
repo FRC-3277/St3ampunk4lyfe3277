@@ -7,7 +7,7 @@
 
 class OperatorInputAuger : public Command {
 public:
-	OperatorInputAuger();
+	OperatorInputAuger(int argDirection);
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -16,6 +16,8 @@ public:
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
+	// 0 forward, 1 reverse
+	int direction = 0;
 };
 
 #endif  // OperatorInputAuger_H

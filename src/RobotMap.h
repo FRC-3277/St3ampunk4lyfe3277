@@ -27,6 +27,9 @@ public:
 	static const int STOP_SPEED = 0;
 	static constexpr float ALL_STOP = 0.0f;
 
+	static const int DIRECTION_FORWARD = 0;
+	static const int DIRECTION_REVERSE = 1;
+
 	// Talon and Encoder
 	//TODO: Adjust these values http://www.ctr-electronics.com/downloads/pdf/Talon%20SRX%20Software%20Reference%20Manual.pdf
 	static constexpr float FULL_SPEED_FROM_TALONS_BASE = 	0.0;	// measured on the robot in RPMs
