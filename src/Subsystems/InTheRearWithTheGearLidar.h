@@ -5,6 +5,13 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+// Chrono lib thread sleep made crashy bot for unknown reasons.  This is a cross platform alternative.
+#ifdef __linux__
+#include <unistd.h>
+#define Sleep(x) usleep((x)*1000)
+#else
+#include <windows.h>
+#endif
 
 #include <Commands/Subsystem.h>
 #include "WPILib.h"
