@@ -18,10 +18,10 @@ public:
 
 	static const bool
 		isInfoLoggingEnabled = false,
-		isDebugLoggingEnabled = false,
-		isErrorLoggingEnabled = true,
+		isDebugLoggingEnabled = true,
+		isErrorLoggingEnabled = false,
 		isWarningLoggingEnabled = false,
-		isFatalLoggingEnabled = true,
+		isFatalLoggingEnabled = false,
 		isTraceLoggingEnabled = false;
 
 	static const int STOP_SPEED = 0;

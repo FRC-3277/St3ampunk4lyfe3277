@@ -38,7 +38,8 @@ void RobotMap::init() {
 	lw->AddActuator("Picker", "Picker", pickerTalon);
 
 	//Auger
-	augerSpike.reset(new Relay(HOPPA_AUGA_RELAY, Relay::kReverseOnly));
+	//Reverse travel is toward the shoota.
+	augerSpike.reset(new Relay(HOPPA_AUGA_RELAY, Relay::kBothDirections));
 	lw->AddActuator("Auger", "Auger", augerSpike);
 
 	//Climber

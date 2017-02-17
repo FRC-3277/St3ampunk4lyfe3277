@@ -49,7 +49,7 @@ double Shooter::GetShooterSpeed()
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
 	shooterTalon->Set(speedControlValue);
-	dumpEncoderLogging();
+	//dumpEncoderLogging();
 }
 
 void Shooter::dumpEncoderLogging()
