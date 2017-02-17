@@ -14,7 +14,7 @@ void OperatorInputAuger::Initialize() {
 void OperatorInputAuger::Execute() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		Robot::auger->AugerDelay();
+		Robot::auger->AugerForwardAndReverse();
 	}
 }
 
@@ -31,11 +31,9 @@ void OperatorInputAuger::End() {
 
 }
 
-// Called when another command which requires one or more of the same
-// subsystems is scheduled to run
 void OperatorInputAuger::Interrupted() {
-//	if(DriverStation::GetInstance().IsOperatorControl())
-//	{
-//		Robot::auger->AugerStopScotty();
-//	}
+	if(DriverStation::GetInstance().IsOperatorControl())
+	{
+		Robot::auger->AugerStopScotty();
+	}
 }

@@ -23,8 +23,8 @@ private:
 			goForward = true,
 			delayAuger = false;
 
-	double goForwardNumberSeconds = 2;
-	double goBackwardsNumberSeconds = 0.25;
+	double goForwardNumberSeconds = 1;
+	double goBackwardsNumberSeconds = 0.15;
 	double delayAugerNumberSeconds = 0.8;
 
 public:

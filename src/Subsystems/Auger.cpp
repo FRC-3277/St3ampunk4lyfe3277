@@ -36,7 +36,7 @@ void Auger::AugerForwardAndReverse() {
 			goReverse = true;
 		}
 	}
-	if(goReverse)
+	else if(goReverse)
 	{
 		augerSpike->Set(Relay::kForward);
 		if(f_secs.count() > goBackwardsNumberSeconds)
@@ -46,6 +46,9 @@ void Auger::AugerForwardAndReverse() {
 			goReverse = false;
 		}
 	}
+
+	lumberJack->dLog("Seconds: " + to_string(f_secs.count()));
+
 }
 
 void Auger::AugerDelay() {
@@ -63,7 +66,7 @@ void Auger::AugerDelay() {
 				delayAuger = true;
 		}
 	}
-	if(delayAuger)
+	else if(delayAuger)
 	{
 		augerSpike->Set(Relay::kOff);
 		if(f_secs.count() > delayAugerNumberSeconds)
