@@ -19,9 +19,9 @@ public:
 	static const bool
 		isInfoLoggingEnabled = false,
 		isDebugLoggingEnabled = true,
-		isErrorLoggingEnabled = true,
+		isErrorLoggingEnabled = false,
 		isWarningLoggingEnabled = false,
-		isFatalLoggingEnabled = true,
+		isFatalLoggingEnabled = false,
 		isTraceLoggingEnabled = false;
 
 	static const int STOP_SPEED = 0;

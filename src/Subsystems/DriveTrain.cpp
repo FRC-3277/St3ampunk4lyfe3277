@@ -65,7 +65,7 @@ void DriveTrain::InitDefaultCommand() {
 void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStarboard){
 	string left = "DriveTrain - Left: " + to_string(speedPort),
 			right = "\tRight: " + to_string(speedStarboard);
-	lumberJack->dLog(left + right);
+	//lumberJack->dLog(left + right);
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
 
