@@ -8,18 +8,22 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon = RobotMap::shooterTalon;
 
 	lumberJack.reset(new LumberJack());
+	shooterTalon->Reset();
 
 	//Encoder
 	// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
 	shooterTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
 	shooterTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
 	shooterTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
+	shooterTalon->SetSensorDirection(true);
 	/*
 	 * Sets control values for closed loop control.
 	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
 	 */
-	shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
-	shooterTalon->SetIzone(TALON_IZONE);
+	//shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+	//shooterTalon->SetIzone(TALON_IZONE);
+	shooterTalon->SetPID(0, 0, 0, 0);
+	shooterTalon->SetIzone(0);
 	/*
 	 * Limits the rate at which the throttle will change.
      * Only affects position and speed closed loop modes.
@@ -29,14 +33,16 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon->ConfigPeakOutputVoltage(+12, -12);
 
 	//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
-	shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
-	shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
+	//shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
+	//shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
 
 	//Everything else
-	shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	//shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 	shooterTalon->SetControlMode(CANSpeedController::kSpeed);
-	shooterTalon->EnableControl();
+	shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	shooterTalon->SetInverted(true);
+	shooterTalon->SetPosition(0);
+	shooterTalon->EnableControl();
 	shooterTalon->Set(RobotMap::ALL_STOP);
 }
 
@@ -62,6 +68,7 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 	lumberJack->dashLogNumber("Shooter Position", quadEncoderPos);
 	lumberJack->dashLogNumber("Shooter Velocity", quadEncoderVelocity);
 
+	lumberJack->dLog("Shooter Speed" + to_string(speedControlValue));
 	shooterTalon->Set(speedControlValue);
 	dumpEncoderLogging();
 }
