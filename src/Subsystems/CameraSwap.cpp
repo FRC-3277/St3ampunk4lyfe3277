@@ -36,6 +36,7 @@ void CameraSwap::GetCamera() {
 	cvSinkForward = CameraServer::GetInstance()->GetVideo("USB Camera Forward");
 	cvSinkReverse = CameraServer::GetInstance()->GetVideo("USB Camera Reverse");
 	cvSource = CameraServer::GetInstance()->PutVideo("Current View", highResolutionX, highResolutionY);
+
 		while(true) {
 			if (swapCamera) {
 				if(swapCameraOneTimeAction)
@@ -68,6 +69,7 @@ void CameraSwap::GetCamera() {
 
 			cvSource.PutFrame(output);
 		}
+		lumberJack->dLog("Marking Here:");
 }
 
 void CameraSwap::SetJustSwappedOneTimeAction()

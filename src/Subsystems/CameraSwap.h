@@ -7,12 +7,14 @@
 #include "LumberJack.h"
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/core/core.hpp>
+#include "LumberJack.h"
 
 class CameraSwap : public Subsystem {
 private:
 	cs::UsbCamera cameraForward, cameraReverse;
 	cs::CvSink cvSinkForward, cvSinkReverse;
 	cs::CvSource cvSource;
+	std::shared_ptr<LumberJack> lumberJack;
 	cv::Mat source, output;
 	int deviceIdCameraForward = 0;
 	int deviceIdCameraReverse = 1;
