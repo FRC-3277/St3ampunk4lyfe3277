@@ -16,6 +16,7 @@
 #include "Subsystems/CameraSwap.h"
 
 #include "LumberJack.h"
+#include <thread>
 
 #include "OI.h"
 

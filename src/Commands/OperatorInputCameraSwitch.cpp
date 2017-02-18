@@ -1,8 +1,7 @@
 #include "OperatorInputCameraSwitch.h"
 
 OperatorInputCameraSwitch::OperatorInputCameraSwitch() {
-	// Use Requires() here to declare subsystem dependencies
-	// eg. Requires(Robot::chassis.get());
+	Requires(Robot::cameraSwap.get());
 }
 
 // Called just before this Command runs the first time
@@ -12,8 +11,8 @@ void OperatorInputCameraSwitch::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputCameraSwitch::Execute() {
+	Robot::cameraSwap->SetJustSwappedOneTimeAction();
 	Robot::cameraSwap->SwapCameraView();
-	Robot::cameraSwap->GetCamera();
 }
 
 // Make this return true when this Command no longer needs to run execute()
