@@ -11,6 +11,14 @@
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	lumberJack.reset(new LumberJack());
 
+	SmartDashboard::PutNumber("DB/Slider 0", 0.3);
+		SmartDashboard::PutNumber("DB/Slider 1", 0.003);
+		SmartDashboard::PutNumber("DB/Slider 2", 3);
+		SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
+
+	portTalon->SetControlMode(CANSpeedController::kSpeed);
+	starboardTalon->SetControlMode(CANSpeedController::kSpeed);
+
     portTalon = RobotMap::driveTrainPortTalon;
     starboardTalon = RobotMap::driveTrainStarboardTalon;
     steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
@@ -19,6 +27,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     portTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
     portTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
     portTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
+    portTalon->SetSensorDirection(true);
 	/*
 	 * Sets control values for closed loop control.
 	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
@@ -31,7 +40,8 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     starboardTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
     starboardTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
     starboardTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
-	/*
+	starboardTalon->SetSensorDirection(true);
+    /*
 	 * Sets control values for closed loop control.
 	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
 	 */
