@@ -14,14 +14,16 @@ class RobotMap {
 public:
 
 	// All
-	static const bool ALTERNATE_CONTROLLER_ENABLED = true;
+	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
+	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = true;
+	static const bool SHOOTA_ENABLE_PIDF_CALIBRATION = true;
 
 	static const bool
 		isInfoLoggingEnabled = false,
 		isDebugLoggingEnabled = true,
-		isErrorLoggingEnabled = false,
+		isErrorLoggingEnabled = true,
 		isWarningLoggingEnabled = false,
-		isFatalLoggingEnabled = false,
+		isFatalLoggingEnabled = true,
 		isTraceLoggingEnabled = false;
 
 	static const int STOP_SPEED = 0;
@@ -74,7 +76,9 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-	static constexpr double SHOOTA_STARTING_SPEED = 0.375;
+	static constexpr double SHOOTA_STARTING_SPEED = 500;
+	//static constexpr double SHOOTA_STARTING_SPEED = 0.375;
+	static constexpr double SHOOTA_MAX_CALIBRATION_SPEED = 3000;
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 
