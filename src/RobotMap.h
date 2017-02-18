@@ -86,6 +86,9 @@ public:
 	static const int VISION_TRACKA_RELAY = 2;
 	static std::shared_ptr<Relay> visionSpike;
 
+	//Vision Cameras
+
+
 	static void init();
 };
 #endif
