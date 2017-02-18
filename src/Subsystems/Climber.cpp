@@ -13,7 +13,6 @@ Climber::Climber() : Subsystem("Climber") {
 	climberTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	climberTalon->EnableControl();
 	climberTalon->Set(RobotMap::ALL_STOP);
-	lumberJack->dLog("HERE");
 }
 
 void Climber::InitDefaultCommand() {
