@@ -1,6 +1,7 @@
 #ifndef SHOOTER_H
 #define SHOOTER_H
 #include "CANTalon.h"
+#include "CANSpeedController.h"
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"

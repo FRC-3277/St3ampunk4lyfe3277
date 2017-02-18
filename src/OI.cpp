@@ -25,23 +25,33 @@ OI::OI()
 	if(RobotMap::ALTERNATE_CONTROLLER_ENABLED)
 	{
 		xBoxControllerAlternate.reset(new Joystick(ALTERNATE_CONTROLLER));
+
+		//Alternate Controller
+		JoystickButton* buttonToggleStatusAugerReverse = new JoystickButton(xBoxControllerAlternate.get(), TOGGLE_STATUS_AUGER_REVERSE);
+		JoystickButton* buttonEnableClimberDown = new JoystickButton(xBoxControllerAlternate.get(), TOGGLE_CLIMBER_DOWN);
+
+		buttonEnableClimberDown->WhenPressed(new OperatorInputClimber());
+		buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
+	}
+	else if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
+	{
+		logitechExtreme.reset(new Joystick(ALTERNATE_CONTROLLER));
 	}
 
 	//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
 	//Driver Controller
 	JoystickButton* buttonToggleStatusShoota = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_SHOOTA);
 	JoystickButton* buttonToggleStatusPicka = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_PICKA);
-	JoystickButton* buttonEnableClimber = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER);
-	JoystickButton* buttonToggleStatusAuger = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER);
+	JoystickButton* buttonEnableClimberUp = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER_UP);
+	JoystickButton* buttonToggleStatusAugerForward = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER_FORWARD);
 	JoystickButton* buttonToggleCamera = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CAMERA_VIEW);
 
-	//Alternate Controller
-
 	//Button trigger and command mappings
-	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
+	buttonEnableClimberUp->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
-	buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());
+	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_FORWARD));
 	buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
+
 	/*The shooter is enabled manually by the operator.  This enables
 	  both the shooter motor and also the vision tracking feedback helper
 	  functions which positions the robot and sets the speed of the
@@ -63,3 +73,9 @@ std::shared_ptr<Joystick> OI::getXBoxControllerAlternate()
 {
 	return xBoxControllerAlternate;
 }
+
+std::shared_ptr<Joystick> OI::getLogitechExtreme()
+{
+	return logitechExtreme;
+}
+

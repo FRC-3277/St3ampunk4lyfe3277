@@ -36,6 +36,7 @@ public:
 	void InitDefaultCommand();
 
 	void climberEngineAscend();
+	void climberEngineDescend();
 	void climberEngineStop();
 };
 

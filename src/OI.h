@@ -1,5 +1,3 @@
-
-
 #ifndef OI_H
 #define OI_H
 
@@ -34,23 +32,29 @@
 #define PORT_PROPELLER XBOX_LEFT_STICK_Y_AXIS//Left motor solo
 #define STARBOARD_PROPELLER XBOX_RIGHT_STICK_Y_AXIS//Right motor solo
 #define TOGGLE_STATUS_SHOOTA XBOX_Y_BUTTON
-#define TOGGLE_STATUS_AUGER XBOX_X_BUTTON
+#define TOGGLE_STATUS_AUGER_FORWARD XBOX_X_BUTTON
 #define TOGGLE_STATUS_PICKA XBOX_A_BUTTON
-#define TOGGLE_CLIMBER XBOX_B_BUTTON
+#define TOGGLE_CLIMBER_UP XBOX_B_BUTTON
 #define TOGGLE_CAMERA_VIEW XBOX_RIGHT_SHOLDER_BUTTON
 
 // Alternate Controller
+#define TOGGLE_STATUS_AUGER_REVERSE XBOX_X_BUTTON
+#define TOGGLE_CLIMBER_DOWN XBOX_B_BUTTON
 
+// Logitech Extreme 3D Pro
+#define SHOOTA_CALIBRATION_SLIDER 3
 
 class OI {
 private:
 	std::shared_ptr<Joystick> xBoxControllerDriver;
 	std::shared_ptr<Joystick> xBoxControllerAlternate;
+	std::shared_ptr<Joystick> logitechExtreme;
 
 public:
 	OI();
 	std::shared_ptr<Joystick> getXBoxControllerDriver();
 	std::shared_ptr<Joystick> getXBoxControllerAlternate();
+	std::shared_ptr<Joystick> getLogitechExtreme();
 
 };
 

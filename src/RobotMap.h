@@ -14,18 +14,23 @@ class RobotMap {
 public:
 
 	// All
-	static const bool ALTERNATE_CONTROLLER_ENABLED = true;
+	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
+	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = true;
+	static const bool SHOOTA_ENABLE_PIDF_CALIBRATION = true;
 
 	static const bool
 		isInfoLoggingEnabled = false,
 		isDebugLoggingEnabled = true,
-		isErrorLoggingEnabled = false,
+		isErrorLoggingEnabled = true,
 		isWarningLoggingEnabled = false,
-		isFatalLoggingEnabled = false,
+		isFatalLoggingEnabled = true,
 		isTraceLoggingEnabled = false;
 
 	static const int STOP_SPEED = 0;
 	static constexpr float ALL_STOP = 0.0f;
+
+	static const int DIRECTION_FORWARD = 0;
+	static const int DIRECTION_REVERSE = 1;
 
 	// Talon and Encoder
 	//TODO: Adjust these values http://www.ctr-electronics.com/downloads/pdf/Talon%20SRX%20Software%20Reference%20Manual.pdf
@@ -71,7 +76,9 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-	static constexpr double SHOOTA_STARTING_SPEED = 0.375;
+	static constexpr double SHOOTA_STARTING_SPEED = 500;
+	//static constexpr double SHOOTA_STARTING_SPEED = 0.375;
+	static constexpr double SHOOTA_MAX_CALIBRATION_SPEED = 3000;
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 

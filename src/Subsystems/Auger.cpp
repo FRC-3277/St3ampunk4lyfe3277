@@ -16,6 +16,10 @@ void Auger::AugerAllShesGotCaptain() {
 	augerSpike->Set(Relay::kReverse);
 }
 
+void Auger::AugerCleanAndSweepReverse(){
+	augerSpike->Set(Relay::kForward);
+}
+
 void Auger::AugerStopScotty() {
 
 	augerSpike->Set(Relay::kOff);
