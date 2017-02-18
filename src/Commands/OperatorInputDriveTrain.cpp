@@ -15,6 +15,10 @@ void OperatorInputDriveTrain::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputDriveTrain::Execute() {
+
+	EncoderPosition = portTalon.GetEncPosition();
+
+
 	if(DriverStation::GetInstance().IsOperatorControl()){
 		double
 			yPosPort = Robot::oi->getXBoxControllerDriver()->GetRawAxis(PORT_PROPELLER),

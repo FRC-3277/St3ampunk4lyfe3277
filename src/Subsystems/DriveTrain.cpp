@@ -11,17 +11,17 @@
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	lumberJack.reset(new LumberJack());
 
+    portTalon = RobotMap::driveTrainPortTalon;
+    starboardTalon = RobotMap::driveTrainStarboardTalon;
+    steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
+
 	SmartDashboard::PutNumber("DB/Slider 0", 0.3);
 		SmartDashboard::PutNumber("DB/Slider 1", 0.003);
 		SmartDashboard::PutNumber("DB/Slider 2", 3);
 		SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
 
-	portTalon->SetControlMode(CANSpeedController::kSpeed);
-	starboardTalon->SetControlMode(CANSpeedController::kSpeed);
-
-    portTalon = RobotMap::driveTrainPortTalon;
-    starboardTalon = RobotMap::driveTrainStarboardTalon;
-    steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
+//	portTalon->SetControlMode(CANSpeedController::kSpeed);
+//	starboardTalon->SetControlMode(CANSpeedController::kSpeed);
 
     //Encoder portTalon
     portTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
@@ -32,9 +32,9 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	 * Sets control values for closed loop control.
 	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
 	 */
-    portTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
-    portTalon->SetIzone(TALON_IZONE);
-    portTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+//    portTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+//    portTalon->SetIzone(TALON_IZONE);
+//    portTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
 
 	//Encoder starboardTalon
     starboardTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
@@ -45,16 +45,22 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	 * Sets control values for closed loop control.
 	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
 	 */
-    starboardTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
-    starboardTalon->SetIzone(TALON_IZONE);
-    starboardTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+//    starboardTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+//    starboardTalon->SetIzone(TALON_IZONE);
+//    starboardTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+	portTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
+	portTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
 
-    portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	starboardTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
+	starboardTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
+
+
+//    portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
     portTalon->Set(RobotMap::ALL_STOP);
 
-    starboardTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+//    starboardTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     starboardTalon->SetControlMode(CANSpeedController::kPercentVbus);
     starboardTalon->EnableControl();
     starboardTalon->Set(RobotMap::ALL_STOP);
