@@ -32,6 +32,10 @@ OI::OI()
 		buttonEnableClimberDown->WhenPressed(new OperatorInputClimber());
 		buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
 	}
+	else if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
+	{
+		logitechExtreme.reset(new Joystick(ALTERNATE_CONTROLLER));
+	}
 
 	//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
 	//Driver Controller
@@ -65,3 +69,9 @@ std::shared_ptr<Joystick> OI::getXBoxControllerAlternate()
 {
 	return xBoxControllerAlternate;
 }
+
+std::shared_ptr<Joystick> OI::getLogitechExtreme()
+{
+	return logitechExtreme;
+}
+

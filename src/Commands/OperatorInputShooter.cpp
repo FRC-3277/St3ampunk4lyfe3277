@@ -1,4 +1,5 @@
 #include "OperatorInputShooter.h"
+
 /*
 The shooter is enabled manually by the operator.  This enables
 both the shooter motor and also the vision tracking feedback helper
@@ -18,17 +19,30 @@ void OperatorInputShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputShooter::Execute() {
-	double visionSuggestedSpeed = shooterSpeed;
-	//TODO: Get feedback from vision computer and adjust the speed.
-	//This does nothing right now obviously... Needs the return from vision.
-	visionSuggestedSpeed = visionSuggestedSpeed*1;
-	Robot::shooter->SetShooterSpeed(visionSuggestedSpeed);
+	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
+	{
+		/*
+		 * This is strictly for use off the field and calibrating with a joystick controller with a slider.
+		 */
+		double desiredSpeed = 0;
 
-	//TODO: Get the current speed of the motor from the encoder and adjust.
-	shooterSpeed = Robot::shooter->GetShooterSpeed();
+		// Controller input is 0 - 1; Talon in speed mode expects RPM.
+		desiredSpeed = -Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER) * RobotMap::SHOOTA_MAX_CALIBRATION_SPEED;
+		Robot::shooter->SpeedControlShooter(desiredSpeed);
+	}
+	else
+	{
+		double visionSuggestedSpeed = shooterSpeed;
+		//TODO: Get feedback from vision computer and adjust the speed.
+		//This does nothing right now obviously... Needs the return from vision.
+		visionSuggestedSpeed = visionSuggestedSpeed*1;
+		Robot::shooter->SetShooterSpeed(visionSuggestedSpeed);
 
-	Robot::shooter->SpeedControlShooter(shooterSpeed);
+		//TODO: Get the current speed of the motor from the encoder and adjust.
+		shooterSpeed = Robot::shooter->GetShooterSpeed();
 
+		Robot::shooter->SpeedControlShooter(shooterSpeed);
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
