@@ -17,6 +17,7 @@
 #include "Commands/OperatorInputBallPicker.h"
 #include "Commands/OperatorInputAuger.h"
 #include "Commands/OperatorInputShooter.h"
+#include "Commands/OperatorInputCameraSwitch.h"
 
 OI::OI()
 {
@@ -32,6 +33,7 @@ OI::OI()
 	JoystickButton* buttonToggleStatusPicka = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_PICKA);
 	JoystickButton* buttonEnableClimber = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER);
 	JoystickButton* buttonToggleStatusAuger = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER);
+	JoystickButton* buttonToggleCamera = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CAMERA_VIEW);
 
 	//Alternate Controller
 
@@ -39,6 +41,7 @@ OI::OI()
 	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());
+	buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
 	/*The shooter is enabled manually by the operator.  This enables
 	  both the shooter motor and also the vision tracking feedback helper
 	  functions which positions the robot and sets the speed of the
