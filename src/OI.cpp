@@ -27,11 +27,9 @@ OI::OI()
 		xBoxControllerAlternate.reset(new Joystick(ALTERNATE_CONTROLLER));
 
 		//Alternate Controller
-		JoystickButton* buttonToggleStatusAugerReverse = new JoystickButton(xBoxControllerAlternate.get(), TOGGLE_STATUS_AUGER_REVERSE);
 		JoystickButton* buttonEnableClimberDown = new JoystickButton(xBoxControllerAlternate.get(), TOGGLE_CLIMBER_DOWN);
 
 		buttonEnableClimberDown->WhenPressed(new OperatorInputClimber());
-		buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
 	}
 	else if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
 	{
@@ -44,13 +42,16 @@ OI::OI()
 	JoystickButton* buttonToggleStatusPicka = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_PICKA);
 	JoystickButton* buttonEnableClimberUp = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER_UP);
 	JoystickButton* buttonToggleStatusAugerForward = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER_FORWARD);
-	JoystickButton* buttonToggleCamera = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CAMERA_VIEW);
+	//JoystickButton* buttonToggleCamera = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CAMERA_VIEW);
+	//JoystickButton* buttonEnableClimberDown = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER_DOWN);
+	JoystickButton* buttonToggleStatusAugerReverse = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER_REVERSE);
 
 	//Button trigger and command mappings
 	buttonEnableClimberUp->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_FORWARD));
-	buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
+	//buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
+	buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
 
 	/*The shooter is enabled manually by the operator.  This enables
 	  both the shooter motor and also the vision tracking feedback helper

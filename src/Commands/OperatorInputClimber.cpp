@@ -15,9 +15,16 @@ void OperatorInputClimber::Execute() {
 	//The button was pressed which got us here so just enable the climber.
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
-		if(Robot::oi->getXBoxControllerAlternate()->GetRawButton(TOGGLE_CLIMBER_DOWN) == true)
+		if(RobotMap::ALTERNATE_CONTROLLER_ENABLED)
 		{
-			Robot::climber->climberEngineDescend();
+			if(Robot::oi->getXBoxControllerAlternate()->GetRawButton(TOGGLE_CLIMBER_DOWN) == true)
+			{
+				Robot::climber->climberEngineDescend();
+			}
+			else
+			{
+				Robot::climber->climberEngineAscend();
+			}
 		}
 		else
 		{
@@ -30,11 +37,20 @@ void OperatorInputClimber::Execute() {
 bool OperatorInputClimber::IsFinished() {
 	bool completedClimbing = false;
 
-	if(Robot::oi->getXBoxControllerDriver()->GetRawButton(TOGGLE_CLIMBER_UP) == false &&
-	   Robot::oi->getXBoxControllerAlternate()->GetRawButton(TOGGLE_CLIMBER_DOWN) == false)
+	if(RobotMap::ALTERNATE_CONTROLLER_ENABLED)
 	{
-		//The button is released so disable the climber
-		completedClimbing = true;
+		if(Robot::oi->getXBoxControllerAlternate()->GetRawButton(TOGGLE_CLIMBER_DOWN) == false &&
+				Robot::oi->getXBoxControllerDriver()->GetRawButton(TOGGLE_CLIMBER_UP) == false)
+		{
+			//The button is released so disable the climber
+			completedClimbing = true;
+		}
+	}
+	else
+	{
+		if(Robot::oi->getXBoxControllerDriver()->GetRawButton(TOGGLE_CLIMBER_UP) == false)
+			completedClimbing = true;
+
 	}
 
 	return completedClimbing;

@@ -14,7 +14,7 @@ class RobotMap {
 public:
 
 	// All
-	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
+	static const bool ALTERNATE_CONTROLLER_ENABLED = true;
 	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = true;
 	static const bool SHOOTA_ENABLE_PIDF_CALIBRATION = true;
 
