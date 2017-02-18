@@ -28,11 +28,11 @@ using  ms = chrono::milliseconds;
 #include <unistd.h>
 #include <errno.h>
 
-#define LIDAR_LITE_ADDRESS = 0x62
-#define LIDAR_LITE_DIST_WRITE_REG = 0x00
-#define LIDAR_LITE_DIST_WRITE_VAL = 0x04
-#define LIDAR_LITE_DIST_READ_REG = 0x8f
-#define LIDAR_LITE_DIST_READ_REG_2 = 0x98
+#define LIDAR_LITE_ADDRESS 0x62
+#define LIDAR_LITE_DIST_WRITE_REG 0x00
+#define LIDAR_LITE_DIST_WRITE_VAL 0x04
+#define LIDAR_LITE_DIST_READ_REG 0x8f
+#define LIDAR_LITE_DIST_READ_REG_2 0x98
 
 class InTheRearWithTheGearLidar{
 private:
@@ -46,6 +46,8 @@ private:
 	int lidarStep = 1;
 	int buf[2];
 	int e = 0;
+
+	std::shared_ptr<LumberJack> lumberJack;
 
 public:
     int err;

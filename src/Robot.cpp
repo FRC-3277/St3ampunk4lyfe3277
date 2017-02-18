@@ -29,6 +29,7 @@ void Robot::RobotInit() {
 	// yet. Thus, their requires() statements may grab null pointers. Bad
 	// news. Don't move it.
 	oi.reset(new OI());
+	lidar->connect();
 
 	lumberJack.reset(new LumberJack());
 
@@ -73,7 +74,7 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-	lidar->updateDistance();
+	//lidar->updateDistance();
 	distance = lidar->getDistance();
 	lumberJack->dLog("Distance: " + to_string(distance));
 }

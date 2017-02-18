@@ -7,19 +7,19 @@
 
 using namespace std;
 
-InTheRearWithTheGearLidar::Lidar_Lite (){
+InTheRearWithTheGearLidar::InTheRearWithTheGearLidar (){
   err = 0;
   startTime = std::chrono::system_clock::now();
 }
 
-InTheRearWithTheGearLidar::~Lidar_Lite(void){
+InTheRearWithTheGearLidar::~InTheRearWithTheGearLidar(){
 }
 
 int InTheRearWithTheGearLidar::connect( void ) {
-  printf("Connecting to %s", filename);
-  i2c_bus = new I2C(I2C::Port::kMXP, LIDAR_LITE_ADDRESS);
+	lumberJack.reset(new LumberJack());
+	i2c_bus = new I2C(I2C::Port::kMXP, LIDAR_LITE_ADDRESS);
 
-  return 0;
+	return 0;
 }
 
 
@@ -29,7 +29,7 @@ int InTheRearWithTheGearLidar::writeAndWait(int writeRegister, int value){
 }
 
 int InTheRearWithTheGearLidar::readAndWait(int readRegister){
-	i2c_bus->Read(i2c_bus, (int8_t*)&readRegister);
+	i2c_bus->Read(readRegister,  1, (uint8_t*)&res);
 }
 
 int InTheRearWithTheGearLidar::getDistance( void ){
@@ -44,6 +44,7 @@ int InTheRearWithTheGearLidar::getDistance( void ){
 		return e;
 	  }
 	  lidarStep += 1;
+	  lumberJack->dLog("updateDistance1");
 	}
 	else if(numberMillisecondsElapsed > 10 && lidarStep == 2)
 	{
@@ -54,6 +55,7 @@ int InTheRearWithTheGearLidar::getDistance( void ){
 		buf[0] = res;
 	  }
 	  lidarStep += 1;
+	  lumberJack->dLog("updateDistance2");
 	}
 	else if(numberMillisecondsElapsed > 20 && lidarStep == 3)
 	{
@@ -64,6 +66,7 @@ int InTheRearWithTheGearLidar::getDistance( void ){
 		buf[1] = res;
 	  }
 	  lidarStep += 1;
+	  lumberJack->dLog("updateDistance3");
 	}
 
 	if(numberMillisecondsElapsed > 100)
@@ -76,6 +79,7 @@ int InTheRearWithTheGearLidar::getDistance( void ){
 	{
 		lidarStep = 1;
 		startTime = std::chrono::system_clock::now();
+		lumberJack->dLog("updateDistance4");
 		return (buf[0] << 8) + buf[1];
 	}
 	else
