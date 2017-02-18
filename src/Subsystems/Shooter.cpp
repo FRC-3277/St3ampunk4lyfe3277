@@ -9,6 +9,11 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
 	lumberJack.reset(new LumberJack());
 
+	SmartDashboard::PutNumber("DB/Slider 0", 0.3);
+	SmartDashboard::PutNumber("DB/Slider 1", 0.003);
+	SmartDashboard::PutNumber("DB/Slider 2", 3);
+	SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
+
 	shooterTalon->SetControlMode(CANSpeedController::kSpeed);
 
 	//Encoder
@@ -23,13 +28,13 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	 */
 	//shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
 	//shooterTalon->SetIzone(TALON_IZONE);
-	shooterTalon->SetPID(0, 0, 0, 0);
-	shooterTalon->SetIzone(300);
+	//shooterTalon->SetPID(0.6, 0.03, 0.03, 0);
+	//shooterTalon->SetIzone(300);
 	/*
 	 * Limits the rate at which the throttle will change.
      * Only affects position and speed closed loop modes.
 	 */
-	shooterTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+	//shooterTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
 	shooterTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
 	shooterTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
 
@@ -40,6 +45,17 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	//Everything else
 	//shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 	//shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+
+	double p = 0.3, i = 0.003, d = 3, f = 0.0003;
+	double izone = 300;
+	double ramprate = 48;
+	int profile = 1;
+
+	shooterTalon->SelectProfileSlot(profile);
+	shooterTalon->SetPID(p, i, d, f);
+	shooterTalon->SetIzone(izone);
+	shooterTalon->SetCloseLoopRampRate(ramprate);
+
 	shooterTalon->SetInverted(true);
 	shooterTalon->SetPosition(0);
 	shooterTalon->EnableControl();
@@ -52,25 +68,38 @@ void Shooter::InitDefaultCommand() {
 
 void Shooter::SetShooterSpeed(double argShooterSpeed)
 {
-	shooterSpeed = argShooterSpeed;
+	shooterSpeed = fabs(argShooterSpeed);
 }
 
 double Shooter::GetShooterSpeed()
 {
-	return shooterSpeed;
+	return fabs(shooterSpeed);
 }
 
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
+	speedControlValue = fabs(speedControlValue);
+	if(RobotMap::SHOOTA_ENABLE_PIDF_CALIBRATION)
+	{
+		double p = 0, i = 0, d = 0, f = 0;
+
+		p = SmartDashboard::GetNumber("DB/Slider 0", 0.3);
+		i = SmartDashboard::GetNumber("DB/Slider 1", 0.003);
+		d = SmartDashboard::GetNumber("DB/Slider 2", 3);
+		f = SmartDashboard::GetNumber("DB/Slider 3", 0.0003);
+
+		shooterTalon->SetPID(p, i, d, f);
+	}
+
 	double quadEncoderPos = shooterTalon->GetEncPosition();
 	double quadEncoderVelocity = shooterTalon->GetEncVel();
 
 	lumberJack->dashLogNumber("Shooter Position", quadEncoderPos);
 	lumberJack->dashLogNumber("Shooter Velocity", quadEncoderVelocity);
+	lumberJack->dashLogNumber("Shooter Speed Desired", speedControlValue);
 
-	lumberJack->dLog("Shooter Speed" + to_string(speedControlValue));
 	shooterTalon->Set(speedControlValue);
-	dumpEncoderLogging();
+	//dumpEncoderLogging();
 }
 
 void Shooter::dumpEncoderLogging()
