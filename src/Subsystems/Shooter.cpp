@@ -46,7 +46,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	//shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
 	//shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 
-	double p = 0.3, i = 0.003, d = 4, f = 0.0003;
+	double p = 0.3, i = 0.003, d = 3, f = 0.0003;
 	double izone = 300;
 	double ramprate = 48;
 	int profile = 1;
