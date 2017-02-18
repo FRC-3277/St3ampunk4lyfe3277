@@ -5,87 +5,86 @@
 #include "InTheRearWithTheGearLidar.h"
 #include "../RobotMap.h"
 
-#include <include/lidar_lite.h>
-
 using namespace std;
 
-Lidar_Lite::Lidar_Lite (int bus){
+InTheRearWithTheGearLidar::Lidar_Lite (){
   err = 0;
-  adapter_num = bus;
-  snprintf(filename, 19, "/dev/i2c-%d", adapter_num);
+  startTime = std::chrono::system_clock::now();
 }
 
-Lidar_Lite::~Lidar_Lite(void){
-  printf("Ending Lidar-Lite Session");
-  if (i2c_bus > 0){
-   int e = close(i2c_bus);
-  }
+InTheRearWithTheGearLidar::~Lidar_Lite(void){
 }
 
-int Lidar_Lite::connect( void ) {
+int InTheRearWithTheGearLidar::connect( void ) {
   printf("Connecting to %s", filename);
-  i2c_bus = open(filename, O_RDWR);
-  if (i2c_bus < 0){
-    err = errno;
-    printf("Connect Error: %d", err);
-    return -1;
-  }
-  if (ioctl(i2c_bus, I2C_SLAVE, 0x62) < 0) {
-    err = errno;
-    printf("Bus Error: %d", err);
-    return -1;
-  }
+  i2c_bus = new I2C(I2C::Port::kMXP, LIDAR_LITE_ADDRESS);
+
   return 0;
 }
 
 
-int Lidar_Lite::writeAndWait(int writeRegister, int value){
-  res = i2c_smbus_write_byte_data(i2c_bus, writeRegister, value);
-  usleep(10000);
-  if (res < 0){
-    err = errno;
-    printf("Write Error %d", err);
-    return -1;
-  } else {
-    return 0;
-  }
+int InTheRearWithTheGearLidar::writeAndWait(int writeRegister, int value){
+	i2c_bus->Write(writeRegister, value);
+	return 0;
 }
 
-int Lidar_Lite::readAndWait(int readRegister){
-  res = i2c_smbus_read_byte_data(i2c_bus, readRegister);
-  usleep(10000);
-  if (res < 0){
-    err = errno;
-    printf("Read Error: %d", err);
-    return -1;
-  } else {
-    return 0;
-  }
+int InTheRearWithTheGearLidar::readAndWait(int readRegister){
+	i2c_bus->Read(i2c_bus, (int8_t*)&readRegister);
 }
 
-int Lidar_Lite::getDistance( void ){
-  int buf[2];
-  int e = 0;
-  e = writeAndWait(0x00,0x04);
-  if (e < 0){
-    return e;
-  }
-  e = readAndWait(0x8f);
-  if (e < 0){
-    return e;
-  } else {
-    buf[0] = res;
-  }
-  e = readAndWait(0x10);
-  if (e < 0){
-    return e;
-  } else {
-    buf[1] = res;
-  }
-  return (buf[0] << 8) + buf[1];
+int InTheRearWithTheGearLidar::getDistance( void ){
+	endTime = std::chrono::system_clock::now();
+	elapsedTime = endTime - startTime;
+	numberMillisecondsElapsed = chrono::duration_cast<ms>(elapsedTime).count();
+
+	if(lidarStep == 1)
+	{
+	  e = writeAndWait(0x00,0x04);
+	  if (e < 0){
+		return e;
+	  }
+	  lidarStep += 1;
+	}
+	else if(numberMillisecondsElapsed > 10 && lidarStep == 2)
+	{
+	  e = readAndWait(0x8f);
+	  if (e < 0){
+		return e;
+	  } else {
+		buf[0] = res;
+	  }
+	  lidarStep += 1;
+	}
+	else if(numberMillisecondsElapsed > 20 && lidarStep == 3)
+	{
+	  e = readAndWait(0x10);
+	  if (e < 0){
+		return e;
+	  } else {
+		buf[1] = res;
+	  }
+	  lidarStep += 1;
+	}
+
+	if(numberMillisecondsElapsed > 100)
+	{
+		//reset
+		startTime = std::chrono::system_clock::now();
+	}
+
+	if(lidarStep == 4)
+	{
+		lidarStep = 1;
+		startTime = std::chrono::system_clock::now();
+		return (buf[0] << 8) + buf[1];
+	}
+	else
+	{
+		return 0;
+	}
 }
 
-int Lidar_Lite::getError(void){
+int InTheRearWithTheGearLidar::getError(void){
   return err;
 }
 
