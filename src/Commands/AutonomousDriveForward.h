@@ -15,6 +15,7 @@ public:
 	void Interrupted();
 
 private:
+	double wheelDiameter;
 	double StarboardRevolutions;
 	double PortRevolutions;
 };
