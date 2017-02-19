@@ -7,55 +7,71 @@
 Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon = RobotMap::shooterTalon;
 
+	if(RobotMap::SHOOTA_PID_SYSTEM)
+	{
+		SHOOTA_STARTING_SPEED = 1900;
+		SHOOTA_MAX_CALIBRATION_SPEED = 2100;
+	}
+	else
+	{
+		SHOOTA_STARTING_SPEED = 0.375;
+	}
+
 	lumberJack.reset(new LumberJack());
 
-	SmartDashboard::PutNumber("DB/Slider 0", 0.3);
-	SmartDashboard::PutNumber("DB/Slider 1", 0.003);
-	SmartDashboard::PutNumber("DB/Slider 2", 3);
-	SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
+	if(RobotMap::SHOOTA_PID_SYSTEM)
+	{
+		SmartDashboard::PutNumber("DB/Slider 0", 0.3);
+		SmartDashboard::PutNumber("DB/Slider 1", 0.003);
+		SmartDashboard::PutNumber("DB/Slider 2", 3);
+		SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
 
-	shooterTalon->SetControlMode(CANSpeedController::kSpeed);
+		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
 
-	//Encoder
-	// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
-	shooterTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
-	shooterTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
-	shooterTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
-	shooterTalon->SetSensorDirection(true);
-	/*
-	 * Sets control values for closed loop control.
-	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
-	 */
-	//shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
-	//shooterTalon->SetIzone(TALON_IZONE);
-	//shooterTalon->SetPID(0.6, 0.03, 0.03, 0);
-	//shooterTalon->SetIzone(300);
-	/*
-	 * Limits the rate at which the throttle will change.
-     * Only affects position and speed closed loop modes.
-	 */
-	//shooterTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
-	shooterTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
-	shooterTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
+		//Encoder
+		// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
+		shooterTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
+		shooterTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
+		shooterTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
+		shooterTalon->SetSensorDirection(true);
+		/*
+		 * Sets control values for closed loop control.
+		 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
+		 */
+		//shooterTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+		//shooterTalon->SetIzone(TALON_IZONE);
+		//shooterTalon->SetPID(0.6, 0.03, 0.03, 0);
+		//shooterTalon->SetIzone(300);
+		/*
+		 * Limits the rate at which the throttle will change.
+		 * Only affects position and speed closed loop modes.
+		 */
+		//shooterTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+		shooterTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
+		shooterTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
 
-	//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
-	//shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
-	//shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
+		//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
+		//shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
+		//shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
 
-	//Everything else
-	//shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
-	//shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+		//Everything else
+		//shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+		//shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 
-	double p = 0.3, i = 0.003, d = 3, f = 0.0003;
-	double izone = 300;
-	double ramprate = 48;
-	int profile = 1;
+		double p = 0.3, i = 0.003, d = 3, f = 0.0003;
+		double izone = 300;
+		double ramprate = 48;
+		int profile = 1;
 
 	shooterTalon->SelectProfileSlot(profile);
 	shooterTalon->SetPID(p, i, d, f);
 	shooterTalon->SetIzone(izone);
 	shooterTalon->SetCloseLoopRampRate(ramprate);
-
+	}
+	else
+	{
+		shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	}
 	shooterTalon->SetInverted(true);
 	shooterTalon->SetPosition(0);
 	shooterTalon->EnableControl();
@@ -74,6 +90,16 @@ void Shooter::SetShooterSpeed(double argShooterSpeed)
 double Shooter::GetShooterSpeed()
 {
 	return fabs(shooterSpeed);
+}
+
+double Shooter::GetShootaStartingSpeed()
+{
+	return SHOOTA_STARTING_SPEED;
+}
+
+double Shooter::GetShootaMaxCalibrationSpeed()
+{
+	return SHOOTA_MAX_CALIBRATION_SPEED;
 }
 
 void Shooter::SpeedControlShooter(double speedControlValue)

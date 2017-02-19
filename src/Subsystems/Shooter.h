@@ -18,6 +18,9 @@ private:
 	std::shared_ptr<CANTalon> shooterTalon;
 	std::shared_ptr<LumberJack> lumberJack;
 
+	double SHOOTA_STARTING_SPEED;
+	double SHOOTA_MAX_CALIBRATION_SPEED;
+
 	double shooterSpeed = 0;
 
 	// Localized versions of talon calibration
@@ -39,12 +42,15 @@ private:
 	void dumpEncoderLogging();
 
 public:
+
 	Shooter();
 	void InitDefaultCommand();
 
 	void SetShooterSpeed(double speedControlValue);
 	double GetShooterSpeed();
 	void SpeedControlShooter(double speedControlValue);
+	double GetShootaStartingSpeed();
+	double GetShootaMaxCalibrationSpeed();
 };
 
 #endif

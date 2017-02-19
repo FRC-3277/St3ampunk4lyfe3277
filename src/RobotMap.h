@@ -17,6 +17,7 @@ public:
 	static const bool ALTERNATE_CONTROLLER_ENABLED = true;
 	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = false;
 	static const bool SHOOTA_ENABLE_PIDF_CALIBRATION = false;
+	static const bool SHOOTA_PID_SYSTEM = false;
 
 	static const bool
 		isInfoLoggingEnabled = false,
@@ -76,9 +77,7 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-	static constexpr double SHOOTA_STARTING_SPEED = 1900;
-	//static constexpr double SHOOTA_STARTING_SPEED = 0.375;
-	static constexpr double SHOOTA_MAX_CALIBRATION_SPEED = 2100;
+
 
 	static std::shared_ptr<CANTalon> shooterTalon;
 

@@ -14,7 +14,7 @@ OperatorInputShooter::OperatorInputShooter() {
 // Called just before this Command runs the first time
 void OperatorInputShooter::Initialize() {
 	//Begin with this speed and go from there
-	shooterSpeed = RobotMap::SHOOTA_STARTING_SPEED;
+	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -27,7 +27,7 @@ void OperatorInputShooter::Execute() {
 		double desiredSpeed = 0;
 
 		// Controller input is 0 - 1; Talon in speed mode expects RPM.
-		desiredSpeed = fabs(Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER) * RobotMap::SHOOTA_MAX_CALIBRATION_SPEED);
+		desiredSpeed = fabs(Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER) * Robot::shooter->GetShootaMaxCalibrationSpeed());
 		Robot::shooter->SpeedControlShooter(desiredSpeed);
 	}
 	else
