@@ -15,6 +15,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
 
 	shooterTalon->SetControlMode(CANSpeedController::kSpeed);
+	//FORTESTING: shooterTalon->SetControlMode(CANSpeedController::kRate);
 
 	//Encoder
 	// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
@@ -63,7 +64,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 }
 
 void Shooter::InitDefaultCommand() {
-	//SetDefaultCommand(new OperatorInputShooter());
+
 }
 
 void Shooter::SetShooterSpeed(double argShooterSpeed)
@@ -120,7 +121,7 @@ void Shooter::dumpEncoderLogging()
 		int selectedSensorSpeed = shooterTalon->GetSpeed();
 
 		int closedLoopErr = shooterTalon->GetClosedLoopError();
-
+int distance = shooterTalon-
 		lumberJack->dLog("Current Amps: " + to_string(currentAmps));
 		lumberJack->dLog("Output Volts: " + to_string(outputVolts));
 		lumberJack->dLog("Bus Voltage: " + to_string(busVoltage));
@@ -135,7 +136,6 @@ void Shooter::dumpEncoderLogging()
 	catch (const std::exception& e)
 	{
 		lumberJack->dLog(e.what());
-		printf("%s", e.what());
 	}
 }
 
