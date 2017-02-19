@@ -21,7 +21,7 @@ void OperatorInputAuger::Execute() {
 		}
 		else if(direction == 0)
 		{
-			Robot::auger->AugerForwardAndReverse();
+			Robot::auger->AugerAllShesGotCaptain();
 		}
 	}
 }
