@@ -18,6 +18,7 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
+	void AutonomousMoveForward();
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;

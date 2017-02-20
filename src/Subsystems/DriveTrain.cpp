@@ -85,6 +85,18 @@ void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStar
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
 
+void DriveTrain::SetTalonStart()
+{
+	portTalon->SetEncPosition(0);
+	starboardTalon->SetEncPosition(0);
+}
+
+void DriveTrain::SetTalonSpeed()
+{
+	portTalon->Set(-0.35);
+	starboardTalon->Set(.035);
+}
+
 void DriveTrain::dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon)
 {
 	double currentAmps = argTalon->GetOutputCurrent();

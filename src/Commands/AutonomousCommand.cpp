@@ -31,3 +31,19 @@ void AutonomousCommand::End() {
 void AutonomousCommand::Interrupted() {
 
 }
+
+void AutonomousCommand::AutonomousMoveForward(){
+	Robot::driveTrain->SetTalonStart();
+	double encoderPositionStarboard = fabs(starboardTalon->GetEncPosition());
+	double tickGoal = (848);
+
+	while(encoderPositionStarboard < tickGoal)
+	{
+		encoderPositionStarboard = fabs(starboardTalon->GetEncPosition());
+		portTalon->Set(-0.1);
+		starboardTalon->Set(0.1);
+	}
+
+	portTalon->Set(0.0);
+	starboardTalon->Set(0.0);
+}

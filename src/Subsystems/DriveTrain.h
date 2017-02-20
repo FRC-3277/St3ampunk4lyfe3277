@@ -36,6 +36,8 @@ public:
 	void InitDefaultCommand();
 
 	void controllerInputToSteamEngine(double speedPort, double speedStarboard);
+	void SetTalonStart();
+	void SetTalonSpeed();
 };
 
 #endif
