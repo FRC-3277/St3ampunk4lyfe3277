@@ -10,7 +10,7 @@ std::shared_ptr<BallPicker> Robot::ballPicker;
 std::shared_ptr<Climber> Robot::climber;
 std::shared_ptr<Auger> Robot::auger;
 std::shared_ptr<VisionLumination> Robot::vision;
-std::shared_ptr<InTheRearWithTheGearLidar> Robot::lidar;
+std::shared_ptr<Lidar> Robot::lidar;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<LumberJack> Robot::lumberJack;
 
@@ -22,14 +22,15 @@ void Robot::RobotInit() {
     climber.reset(new Climber());
     auger.reset(new Auger());
     vision.reset(new VisionLumination());
-    lidar.reset(new InTheRearWithTheGearLidar());
+    lidar.reset(new Lidar());
+    mTimer = new Timer();
 	// This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
 	// which commands extend), subsystems are not guaranteed to be
 	// yet. Thus, their requires() statements may grab null pointers. Bad
 	// news. Don't move it.
 	oi.reset(new OI());
-	lidar->connect();
+	//lidar->connect();
 
 	lumberJack.reset(new LumberJack());
 
@@ -70,13 +71,18 @@ void Robot::TeleopInit() {
 	// these lines or comment it out.
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
+	//lumberJack->dLog("Connect Lidar");
+	//lidar->connect();
 }
 
 void Robot::TeleopPeriodic() {
+	mTimer->Start();
+	mTimer->Reset();
 	Scheduler::GetInstance()->Run();
 	//lidar->updateDistance();
-	distance = lidar->getDistance();
-	lumberJack->dLog("Distance: " + to_string(distance));
+	//distance = lidar->getDistance();
+	lidar->AquireDistance(mTimer);
+	//lumberJack->dLog("Distance: " + to_string(distance));
 }
 
 void Robot::TestPeriodic() {

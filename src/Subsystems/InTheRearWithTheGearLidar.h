@@ -34,7 +34,7 @@ using  ms = chrono::milliseconds;
 #define LIDAR_LITE_DIST_READ_REG 0x8f
 #define LIDAR_LITE_DIST_READ_REG_2 0x98
 
-class InTheRearWithTheGearLidar{
+class InTheRearWithTheGearLidar: public Subsystem {
 private:
 	I2C* i2c_bus;
     int adapter_num;

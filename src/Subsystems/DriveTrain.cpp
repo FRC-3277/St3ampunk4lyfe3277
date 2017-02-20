@@ -58,7 +58,10 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 }
 
 void DriveTrain::InitDefaultCommand() {
-	SetDefaultCommand(new OperatorInputDriveTrain());
+	if(!RobotMap::NO_CONTROLLER_TEST_MODE)
+	{
+		SetDefaultCommand(new OperatorInputDriveTrain());
+	}
 }
 
 /********* BEGIN METHODS CALLED BY COMMANDS **********/

@@ -20,32 +20,34 @@
 
 OI::OI()
 {
-	xBoxControllerDriver.reset(new Joystick(DRIVER_CONTROLLER));
-	if(RobotMap::ALTERNATE_CONTROLLER_ENABLED)
+	if(!RobotMap::NO_CONTROLLER_TEST_MODE)
 	{
-		xBoxControllerAlternate.reset(new Joystick(ALTERNATE_CONTROLLER));
+		xBoxControllerDriver.reset(new Joystick(DRIVER_CONTROLLER));
+		if(RobotMap::ALTERNATE_CONTROLLER_ENABLED)
+		{
+			xBoxControllerAlternate.reset(new Joystick(ALTERNATE_CONTROLLER));
+		}
+
+		//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
+		//Driver Controller
+		JoystickButton* buttonToggleStatusShoota = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_SHOOTA);
+		JoystickButton* buttonToggleStatusPicka = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_PICKA);
+		JoystickButton* buttonEnableClimber = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER);
+		JoystickButton* buttonToggleStatusAuger = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER);
+
+		//Alternate Controller
+
+		//Button trigger and command mappings
+		buttonEnableClimber->WhenPressed(new OperatorInputClimber());
+		buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
+		buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());
+		/*The shooter is enabled manually by the operator.  This enables
+		  both the shooter motor and also the vision tracking feedback helper
+		  functions which positions the robot and sets the speed of the
+		  motor.
+		*/
+		buttonToggleStatusShoota->ToggleWhenPressed(new OperatorInputShooter());
 	}
-
-	//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
-	//Driver Controller
-	JoystickButton* buttonToggleStatusShoota = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_SHOOTA);
-	JoystickButton* buttonToggleStatusPicka = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_PICKA);
-	JoystickButton* buttonEnableClimber = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER);
-	JoystickButton* buttonToggleStatusAuger = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER);
-
-	//Alternate Controller
-
-	//Button trigger and command mappings
-	buttonEnableClimber->WhenPressed(new OperatorInputClimber());
-	buttonToggleStatusPicka->ToggleWhenPressed(new OperatorInputBallPicker());
-	buttonToggleStatusAuger->ToggleWhenPressed(new OperatorInputAuger());
-	/*The shooter is enabled manually by the operator.  This enables
-	  both the shooter motor and also the vision tracking feedback helper
-	  functions which positions the robot and sets the speed of the
-	  motor.
-	*/
-	buttonToggleStatusShoota->ToggleWhenPressed(new OperatorInputShooter());
-
     // SmartDashboard Buttons
     SmartDashboard::PutData("Autonomous Command", new AutonomousCommand());
 

@@ -14,6 +14,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/VisionLumination.h"
 #include "Subsystems/InTheRearWithTheGearLidar.h"
+#include "Subsystems/Lidar.h"
 #include "LumberJack.h"
 #include "OI.h"
 
@@ -28,7 +29,7 @@ public:
     static std::shared_ptr<Climber> climber;
     static std::shared_ptr<Auger> auger;
     static std::shared_ptr<VisionLumination> vision;
-    static std::shared_ptr<InTheRearWithTheGearLidar> lidar;
+    static std::shared_ptr<Lidar> lidar;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
@@ -38,6 +39,7 @@ public:
 	virtual void TeleopInit();
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
+	Timer* mTimer;
 private:
 	int distance = 0;
 

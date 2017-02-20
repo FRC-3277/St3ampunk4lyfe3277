@@ -14,6 +14,7 @@ class RobotMap {
 public:
 
 	// All
+	static const bool NO_CONTROLLER_TEST_MODE = true;
 	static const bool ALTERNATE_CONTROLLER_ENABLED = true;
 
 	static const bool

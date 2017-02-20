@@ -7,7 +7,7 @@
 
 using namespace std;
 
-InTheRearWithTheGearLidar::InTheRearWithTheGearLidar (){
+InTheRearWithTheGearLidar::InTheRearWithTheGearLidar() : Subsystem("InTheRearWithTheGearLidar"){
   err = 0;
   startTime = std::chrono::system_clock::now();
 }
@@ -17,19 +17,21 @@ InTheRearWithTheGearLidar::~InTheRearWithTheGearLidar(){
 
 int InTheRearWithTheGearLidar::connect( void ) {
 	lumberJack.reset(new LumberJack());
-	i2c_bus = new I2C(I2C::Port::kMXP, LIDAR_LITE_ADDRESS);
+	i2c_bus = new I2C(I2C::Port::kOnboard, LIDAR_LITE_ADDRESS);
 
 	return 0;
 }
 
-
 int InTheRearWithTheGearLidar::writeAndWait(int writeRegister, int value){
-	i2c_bus->Write(writeRegister, value);
-	return 0;
+	bool status = false;
+	status = i2c_bus->Write(writeRegister, value);
+	return (int)status;
 }
 
 int InTheRearWithTheGearLidar::readAndWait(int readRegister){
-	i2c_bus->Read(readRegister,  1, (uint8_t*)&res);
+	bool status = false;
+	status = i2c_bus->Read(readRegister,  1, (uint8_t*)&res);
+	return (int)status;
 }
 
 int InTheRearWithTheGearLidar::getDistance( void ){
@@ -40,39 +42,42 @@ int InTheRearWithTheGearLidar::getDistance( void ){
 	if(lidarStep == 1)
 	{
 	  e = writeAndWait(0x00,0x04);
-	  if (e < 0){
+	  if (e == 1){
 		return e;
 	  }
 	  lidarStep += 1;
+	  startTime = std::chrono::system_clock::now();
 	  lumberJack->dLog("updateDistance1");
 	}
 	else if(numberMillisecondsElapsed > 10 && lidarStep == 2)
 	{
 	  e = readAndWait(0x8f);
-	  if (e < 0){
+	  if (e == 1){
 		return e;
 	  } else {
-		buf[0] = res;
+		  lumberJack->dLog("updateDistance2");
+		  buf[0] = res;
 	  }
 	  lidarStep += 1;
-	  lumberJack->dLog("updateDistance2");
 	}
 	else if(numberMillisecondsElapsed > 20 && lidarStep == 3)
 	{
 	  e = readAndWait(0x10);
-	  if (e < 0){
+	  if (e == 1){
 		return e;
 	  } else {
-		buf[1] = res;
+		  lumberJack->dLog("updateDistance3");
+		  buf[1] = res;
 	  }
 	  lidarStep += 1;
-	  lumberJack->dLog("updateDistance3");
 	}
 
 	if(numberMillisecondsElapsed > 100)
 	{
 		//reset
 		startTime = std::chrono::system_clock::now();
+		lidarStep = 1;
+		lumberJack->dLog("Reset");
 	}
 
 	if(lidarStep == 4)
@@ -80,7 +85,7 @@ int InTheRearWithTheGearLidar::getDistance( void ){
 		lidarStep = 1;
 		startTime = std::chrono::system_clock::now();
 		lumberJack->dLog("updateDistance4");
-		return (buf[0] << 8) + buf[1];
+		return ((buf[0] << 8) + buf[1]);
 	}
 	else
 	{
