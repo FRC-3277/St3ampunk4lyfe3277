@@ -6,11 +6,19 @@
 
 Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon = RobotMap::shooterTalon;
+	lumberJack.reset(new LumberJack());
+
+	// Clear these for use with Autonomous mode
+	SmartDashboard::PutString("DB/String 0", "");
+	SmartDashboard::PutString("DB/String 1", "");
+	SmartDashboard::PutString("DB/String 2", "");
+	SmartDashboard::PutString("DB/String 3", "");
 
 	if(RobotMap::SHOOTA_PID_SYSTEM)
 	{
 		SHOOTA_STARTING_SPEED = 2288.281;
 		SHOOTA_MAX_CALIBRATION_SPEED = 2900;
+		MIN_SHOOTA_SPEED_BEFORE_CUTOUT = 500;
 		p = 16;
 		i = 0;
 		d = 1;
@@ -23,8 +31,6 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	{
 		SHOOTA_STARTING_SPEED = 0.375;
 	}
-
-	lumberJack.reset(new LumberJack());
 
 	if(RobotMap::SHOOTA_PID_SYSTEM)
 	{
@@ -70,7 +76,6 @@ Shooter::Shooter() : Subsystem("Shooter") {
 }
 
 void Shooter::InitDefaultCommand() {
-	//SetDefaultCommand(new OperatorInputShooter());
 }
 
 void Shooter::SetShooterSpeed(double argShooterSpeed)
@@ -113,12 +118,20 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 	double quadEncoderPos = shooterTalon->GetEncPosition();
 	double quadEncoderVelocity = shooterTalon->GetEncVel();
 
-	//2000/60=333.3;
-	//20 pulses per revolution
-
 	lumberJack->dashLogNumber("Shooter Position", quadEncoderPos);
 	lumberJack->dashLogNumber("Shooter Velocity", quadEncoderVelocity);
 	lumberJack->dashLogNumber("Shooter Speed Desired", speedControlValue);
+
+	// Prevent the belt from jumping and the motor from hunting for zero.
+	if(RobotMap::SHOOTA_PID_SYSTEM &&
+		speedControlValue < MIN_SHOOTA_SPEED_BEFORE_CUTOUT)
+	{
+		shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	}
+	else
+	{
+		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
+	}
 
 	shooterTalon->Set(speedControlValue);
 	//dumpEncoderLogging();

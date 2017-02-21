@@ -18,8 +18,12 @@ private:
 	std::shared_ptr<CANTalon> shooterTalon;
 	std::shared_ptr<LumberJack> lumberJack;
 
+	// The speed that it starts at, or perhaps suggests
 	double SHOOTA_STARTING_SPEED;
+	// Calibration speed from Joystick slider
 	double SHOOTA_MAX_CALIBRATION_SPEED;
+	// Prevent the shooter from jumping the belt.
+	double MIN_SHOOTA_SPEED_BEFORE_CUTOUT;
 
 	double shooterSpeed = 0;
 	double p;
