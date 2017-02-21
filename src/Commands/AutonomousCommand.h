@@ -18,7 +18,8 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
-	void AutonomousMoveForward();
+	void AutonomousMoveForward(double tickGoal);
+	void AutonomousTurnRight(double turnGoal);
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;

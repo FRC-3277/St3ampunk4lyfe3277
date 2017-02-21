@@ -16,7 +16,7 @@ void OperatorInputDriveTrain::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputDriveTrain::Execute() {
 
-	EncoderPosition = portTalon.GetEncPosition();
+	//EncoderPosition = portTalon.GetEncPosition();
 
 
 	if(DriverStation::GetInstance().IsOperatorControl()){

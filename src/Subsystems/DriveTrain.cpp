@@ -85,16 +85,46 @@ void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStar
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
 }
 
-void DriveTrain::SetTalonStart()
+void DriveTrain::SetTalonStartPosition()
 {
-	portTalon->SetEncPosition(0);
-	starboardTalon->SetEncPosition(0);
+	portTalon->SetEncPosition(0.0);
+	starboardTalon->SetEncPosition(0.0);
 }
 
-void DriveTrain::SetTalonSpeed()
+void DriveTrain::SetTalonForward()
 {
 	portTalon->Set(-0.35);
-	starboardTalon->Set(.035);
+	starboardTalon->Set(0.35);
+}
+
+void DriveTrain::SetTalonBackwards()
+{
+	portTalon->Set(0.35);
+	starboardTalon->Set(-0.35);
+}
+
+void DriveTrain::SetTalonStop()
+{
+	portTalon->Set(0.0);
+	starboardTalon->Set(0.0);
+}
+
+double DriveTrain::GetStarboardTalonEncoderPosition()
+{
+	return fabs(starboardTalon->GetEncPosition());
+
+}
+
+void DriveTrain::TurnLeft()
+{
+	portTalon->Set(0.35);
+	starboardTalon->Set(0.35);
+}
+
+void DriveTrain::TurnRight()
+{
+	portTalon->Set(-0.35);
+	starboardTalon->Set(-0.35);
 }
 
 void DriveTrain::dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon)

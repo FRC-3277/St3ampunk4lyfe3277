@@ -36,8 +36,13 @@ public:
 	void InitDefaultCommand();
 
 	void controllerInputToSteamEngine(double speedPort, double speedStarboard);
-	void SetTalonStart();
-	void SetTalonSpeed();
+	void SetTalonStartPosition();
+	void SetTalonForward();
+	void SetTalonBackwards();
+	void SetTalonStop();
+	void TurnRight();
+	void TurnLeft();
+	double GetStarboardTalonEncoderPosition();
 };
 
 #endif

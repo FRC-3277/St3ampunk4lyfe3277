@@ -8,7 +8,7 @@ AutonomousCommand::AutonomousCommand(): Command() {
 
 // Called just before this Command runs the first time
 void AutonomousCommand::Initialize() {
-
+	AutonomousMoveForward(848);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -21,7 +21,7 @@ bool AutonomousCommand::IsFinished() {
     return false;
 }
 
-// Called once after isFinished returns true
+// Called once after IsFinished returns true
 void AutonomousCommand::End() {
 
 }
@@ -32,18 +32,51 @@ void AutonomousCommand::Interrupted() {
 
 }
 
-void AutonomousCommand::AutonomousMoveForward(){
-	Robot::driveTrain->SetTalonStart();
-	double encoderPositionStarboard = fabs(starboardTalon->GetEncPosition());
-	double tickGoal = (848);
+//Every 848 ticks is one full rotation of the wheel. It will move 6 Pi in distance for each rotation
+void AutonomousCommand::AutonomousMoveForward(double tickGoal){
+	Robot::driveTrain->SetTalonStartPosition();
+	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
 
 	while(encoderPositionStarboard < tickGoal)
 	{
-		encoderPositionStarboard = fabs(starboardTalon->GetEncPosition());
-		portTalon->Set(-0.1);
-		starboardTalon->Set(0.1);
+		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+		Robot::driveTrain->SetTalonForward();
+		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
+	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
+	Robot::driveTrain->SetTalonStop();
+	Robot::driveTrain->SetTalonStartPosition();
+}
 
-	portTalon->Set(0.0);
-	starboardTalon->Set(0.0);
+void AutonomousCommand::AutonomousMoveBackwards(double tickGoal)
+{
+	Robot::driveTrain->SetTalonStartPosition();
+	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
+
+	while(encoderPositionStarboard < tickGoal)
+	{
+		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+		Robot::driveTrain->SetTalonSpeed();
+		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+	}
+	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
+	Robot::driveTrain->SetTalonStop();
+	Robot::driveTrain->SetTalonStartPosition();
+}
+
+void AutonomousCommand::AutonomousTurnRight(double turnGoal){
+	Robot::driveTrain->SetTalonStartPosition();
+	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+
+	while(encoderPositionStarboard < turnGoal)
+	{
+		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+		Robot::driveTrain->TurnRight();
+		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+	}
+	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
+	Robot::driveTrain->SetTalonStop();
+	Robot::driveTrain->SetTalonStartPosition();
 }
