@@ -10,7 +10,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	if(RobotMap::SHOOTA_PID_SYSTEM)
 	{
 		SHOOTA_STARTING_SPEED = 1900;
-		SHOOTA_MAX_CALIBRATION_SPEED = 2100;
+		SHOOTA_MAX_CALIBRATION_SPEED = 2400;
 	}
 	else
 	{
@@ -21,12 +21,14 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
 	if(RobotMap::SHOOTA_PID_SYSTEM)
 	{
-		SmartDashboard::PutNumber("DB/Slider 0", 0.3);
-		SmartDashboard::PutNumber("DB/Slider 1", 0.003);
-		SmartDashboard::PutNumber("DB/Slider 2", 3);
-		SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
+		SmartDashboard::PutNumber("DB/String 0", 0.3);
+		SmartDashboard::PutNumber("DB/String 1", 0.003);
+		SmartDashboard::PutNumber("DB/String 2", 3);
+		SmartDashboard::PutNumber("DB/String 3", 0.0003);
 
 		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
+
+		shooterTalon->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 20);
 
 		//Encoder
 		// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
@@ -104,15 +106,15 @@ double Shooter::GetShootaMaxCalibrationSpeed()
 
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
-	speedControlValue = fabs(speedControlValue);
+	speedControlValue = -fabs(speedControlValue);
 	if(RobotMap::SHOOTA_ENABLE_PIDF_CALIBRATION)
 	{
 		double p = 0, i = 0, d = 0, f = 0;
 
-		p = SmartDashboard::GetNumber("DB/Slider 0", 0.3);
-		i = SmartDashboard::GetNumber("DB/Slider 1", 0.003);
-		d = SmartDashboard::GetNumber("DB/Slider 2", 3);
-		f = SmartDashboard::GetNumber("DB/Slider 3", 0.0003);
+		p = SmartDashboard::GetNumber("DB/String 0", 0.3);
+		i = SmartDashboard::GetNumber("DB/String 1", 0.003);
+		d = SmartDashboard::GetNumber("DB/String 2", 3);
+		f = SmartDashboard::GetNumber("DB/String 3", 0.0003);
 
 		shooterTalon->SetPID(p, i, d, f);
 	}

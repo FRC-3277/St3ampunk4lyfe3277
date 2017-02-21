@@ -24,7 +24,7 @@ void Climber::climberEngineAscend(){
 	double
 		speedOfAscent = RobotMap::CLIMBER_SPEED;
 
-	climberTalon->Set(speedOfAscent);
+	climberTalon->Set(-speedOfAscent);
 }
 
 void Climber::climberEngineDescend()
@@ -32,7 +32,7 @@ void Climber::climberEngineDescend()
 	double
 		speedOfDescent = -RobotMap::CLIMBER_SPEED;
 
-	climberTalon->Set(speedOfDescent);
+	climberTalon->Set(-speedOfDescent);
 }
 
 void Climber::climberEngineStop(){
