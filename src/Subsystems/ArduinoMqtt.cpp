@@ -2,9 +2,8 @@
 #include "../RobotMap.h"
 
 ArduinoMqtt::ArduinoMqtt() : Subsystem("ArduinoMqtt") {
-	mqttSerial.reset(new SerialPort(57600, SerialPort::kUSB1));
+	mqttSerial.reset(new SerialPort(9600, SerialPort::kOnboard));
 	lumberJack.reset(new LumberJack());
-
 }
 
 void ArduinoMqtt::InitDefaultCommand() {
@@ -13,12 +12,19 @@ void ArduinoMqtt::InitDefaultCommand() {
 
 void ArduinoMqtt::SubscribeAllTheData()
 {
-	mqttSerial->Read(dataFromArduino, 100);
+	try
+	{
+		mqttSerial->Read(dataFromArduino, 5);
+	}
+	catch(const std::exception& e)
+	{
+		lumberJack->dLog(e.what());
+	}
 }
 
 void ArduinoMqtt::PublishAllTheData()
 {
-	mqttSerial->Write((const char *)dataToArduino, 100);
+	mqttSerial->Write((const char *)dataToArduino, 5);
 }
 
 void ArduinoMqtt::SetData(char* argData)
