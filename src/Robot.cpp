@@ -9,6 +9,7 @@ std::shared_ptr<VisionLumination> Robot::vision;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<LumberJack> Robot::lumberJack;
 std::shared_ptr<CameraSwap> Robot::cameraSwap;
+std::shared_ptr<ArduinoMqtt> Robot::arduinoMqtt;
 
 void Robot::RobotInit() {
 	RobotMap::init();
@@ -19,6 +20,7 @@ void Robot::RobotInit() {
     auger.reset(new Auger());
     vision.reset(new VisionLumination());
     //cameraSwap.reset(new CameraSwap());
+    arduinoMqtt.reset(new ArduinoMqtt());
 
     // This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
@@ -80,7 +82,8 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-
+	memcpy(data, arduinoMqtt->GetData(), 99);
+	lumberJack->dLog(data);
 }
 
 void Robot::TestPeriodic() {

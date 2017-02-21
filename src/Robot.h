@@ -1,6 +1,9 @@
 #ifndef _ROBOT_H
 #define _ROBOT_H
 
+#include <iostream>
+#include <cstring>
+
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "RobotMap.h"
@@ -14,6 +17,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/VisionLumination.h"
 #include "Subsystems/CameraSwap.h"
+#include "Subsystems/ArduinoMqtt.h"
 
 #include "LumberJack.h"
 #include <thread>
@@ -33,6 +37,7 @@ public:
     static std::shared_ptr<VisionLumination> vision;
     static std::shared_ptr<LumberJack> lumberJack;
     static std::shared_ptr<CameraSwap> cameraSwap;
+    static std::shared_ptr<ArduinoMqtt> arduinoMqtt;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
@@ -42,5 +47,7 @@ public:
 	virtual void TeleopInit();
 	virtual void TeleopPeriodic();
 	virtual void TestPeriodic();
+private:
+	char data[100] = {0};
 };
 #endif
