@@ -19,7 +19,7 @@ void OperatorInputShooter::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputShooter::Execute() {
-	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
+	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED && !RobotMap::TEST_MODE_NO_CONTROLLER)
 	{
 		/*
 		 * This is strictly for use off the field and calibrating with a joystick controller with a slider.

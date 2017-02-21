@@ -15,7 +15,7 @@ void OperatorInputDriveTrain::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputDriveTrain::Execute() {
-	if(DriverStation::GetInstance().IsOperatorControl()){
+	if(DriverStation::GetInstance().IsOperatorControl() && !RobotMap::TEST_MODE_NO_CONTROLLER){
 		double
 			yPosPort = Robot::oi->getXBoxControllerDriver()->GetRawAxis(PORT_PROPELLER),
 			yPosStarboard = Robot::oi->getXBoxControllerDriver()->GetRawAxis(STARBOARD_PROPELLER),

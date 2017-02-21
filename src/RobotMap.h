@@ -12,6 +12,10 @@
  */
 class RobotMap {
 public:
+	//############################################################
+	// DO NOT ENABLE THIS DURING COMPETITION!  Its meant for testing without any attached controllers
+	static const bool TEST_MODE_NO_CONTROLLER = true;
+	//############################################################
 
 	// All
 	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
