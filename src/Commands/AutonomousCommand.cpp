@@ -12,11 +12,15 @@ AutonomousCommand::AutonomousCommand(): Command() {
 void AutonomousCommand::Initialize() {
 	//This is possibly needed. I was rushed to get the shooter running in auto so there may be a more elegant way
 	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
+	//AutonomousTurnRight(775);
+	//AutonomousMoveForward(1623);
+	//AutonomousAuger();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
-
+	AutonomousShoota();
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +36,8 @@ void AutonomousCommand::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonomousCommand::Interrupted() {
-
+	shooterSpeed = 0;
+	Robot::shooter->SpeedControlShooter(shooterSpeed);
 }
 
 //Every 848 ticks is one full rotation of the wheel. It will move 6 Pi in distance for each rotation
@@ -42,7 +47,6 @@ void AutonomousCommand::AutonomousMoveForward(double tickGoal){
 
 	while(encoderPositionStarboard < tickGoal)
 	{
-		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 		Robot::driveTrain->SetTalonForward();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
@@ -57,7 +61,6 @@ void AutonomousCommand::AutonomousMoveBackwards(double tickGoal)
 
 	while(encoderPositionStarboard < tickGoal)
 	{
-		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 		Robot::driveTrain->SetTalonBackwards();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
@@ -71,7 +74,6 @@ void AutonomousCommand::AutonomousTurnRight(double turnGoal){
 
 	while(encoderPositionStarboard < turnGoal)
 	{
-		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 		Robot::driveTrain->TurnRight();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
@@ -85,7 +87,6 @@ void AutonomousCommand::AutonomousTurnLeft(double turnGoal){
 
 	while(encoderPositionStarboard < turnGoal)
 	{
-		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 		Robot::driveTrain->TurnLeft();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
