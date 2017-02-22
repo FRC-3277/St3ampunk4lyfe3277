@@ -9,6 +9,7 @@ std::shared_ptr<VisionLumination> Robot::vision;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<LumberJack> Robot::lumberJack;
 std::shared_ptr<CameraSwap> Robot::cameraSwap;
+std::shared_ptr<SpiTest> Robot::spiTest;
 
 void Robot::RobotInit() {
 	RobotMap::init();
@@ -19,6 +20,7 @@ void Robot::RobotInit() {
     auger.reset(new Auger());
     vision.reset(new VisionLumination());
     //cameraSwap.reset(new CameraSwap());
+    spiTest.reset(new SpiTest());
 
     // This MUST be here. If the OI creates Commands (which it very likely
 	// will), constructing it during the construction of CommandBase (from
@@ -76,6 +78,8 @@ void Robot::TeleopInit() {
 	// these lines or comment it out.
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
+
+	spiTest->TransferAndWait((uint8_t*) 8);
 }
 
 void Robot::TeleopPeriodic() {

@@ -14,6 +14,7 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/VisionLumination.h"
 #include "Subsystems/CameraSwap.h"
+#include "Subsystems/SpiTest.h"
 
 #include "LumberJack.h"
 #include <thread>
@@ -33,6 +34,7 @@ public:
     static std::shared_ptr<VisionLumination> vision;
     static std::shared_ptr<LumberJack> lumberJack;
     static std::shared_ptr<CameraSwap> cameraSwap;
+    static std::shared_ptr<SpiTest> spiTest;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
