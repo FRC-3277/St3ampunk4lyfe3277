@@ -69,7 +69,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	{
 		shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	}
-	shooterTalon->SetInverted(true);
+	shooterTalon->SetInverted(false);
 	shooterTalon->SetPosition(0);
 	shooterTalon->EnableControl();
 	shooterTalon->Set(RobotMap::ALL_STOP);
@@ -100,7 +100,7 @@ double Shooter::GetShootaMaxCalibrationSpeed()
 
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
-	speedControlValue = -fabs(speedControlValue);
+	speedControlValue = fabs(speedControlValue);
 	if(RobotMap::SHOOTA_ENABLE_PIDF_CALIBRATION)
 	{
 		p = std::stod(SmartDashboard::GetString("DB/String 0", to_string(p)));
