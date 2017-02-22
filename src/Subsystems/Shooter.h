@@ -18,7 +18,21 @@ private:
 	std::shared_ptr<CANTalon> shooterTalon;
 	std::shared_ptr<LumberJack> lumberJack;
 
+	double SHOOTA_STARTING_SPEED;
+	double SHOOTA_MAX_CALIBRATION_SPEED;
+
 	double shooterSpeed = 0;
+	double p;
+	double i;
+	double d;
+	double f;
+	double izone = 300;
+	/*
+	 * Limits the rate at which the throttle will change.
+	 * Only affects position and speed closed loop modes.
+	 */
+	double ramprate = 70;
+	int profile = 1;
 
 	// Localized versions of talon calibration
 	const float FULL_SPEED_FROM_TALONS=	RobotMap::FULL_SPEED_FROM_TALONS_BASE;
@@ -39,12 +53,15 @@ private:
 	void dumpEncoderLogging();
 
 public:
+
 	Shooter();
 	void InitDefaultCommand();
 
 	void SetShooterSpeed(double speedControlValue);
 	double GetShooterSpeed();
 	void SpeedControlShooter(double speedControlValue);
+	double GetShootaStartingSpeed();
+	double GetShootaMaxCalibrationSpeed();
 };
 
 #endif

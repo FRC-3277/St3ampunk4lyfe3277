@@ -31,6 +31,7 @@ void Robot::RobotInit() {
 	//This is camera use switched via the driver station. No button mappings are used here.
 	//To get to the code written for button mapped camera switching, go to the camera switching subsystem and associated command
 	CameraServer::GetInstance()->StartAutomaticCapture();
+	CameraServer::GetInstance()->StartAutomaticCapture();
 
 	//Same as above. However, it might be able to specify which camera is called
 	//cs::UsbCamera cam0 = CameraServer::GetInstance()->StartAutomaticCapture(0);

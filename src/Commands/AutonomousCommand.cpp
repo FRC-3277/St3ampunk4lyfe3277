@@ -7,8 +7,9 @@ AutonomousCommand::AutonomousCommand(): Command() {
 }
 
 // Called just before this Command runs the first time
+//TODO: Currently the position isn't resetting correctly. We must increase the number... I'm not sure why the ENC POS won't reset
 void AutonomousCommand::Initialize() {
-	AutonomousMoveForward(848);
+
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -36,7 +37,6 @@ void AutonomousCommand::Interrupted() {
 void AutonomousCommand::AutonomousMoveForward(double tickGoal){
 	Robot::driveTrain->SetTalonStartPosition();
 	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
-	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
 
 	while(encoderPositionStarboard < tickGoal)
 	{
@@ -44,7 +44,6 @@ void AutonomousCommand::AutonomousMoveForward(double tickGoal){
 		Robot::driveTrain->SetTalonForward();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
-	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
 	Robot::driveTrain->SetTalonStop();
 	Robot::driveTrain->SetTalonStartPosition();
 }
@@ -53,15 +52,13 @@ void AutonomousCommand::AutonomousMoveBackwards(double tickGoal)
 {
 	Robot::driveTrain->SetTalonStartPosition();
 	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
-	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
 
 	while(encoderPositionStarboard < tickGoal)
 	{
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
-		Robot::driveTrain->SetTalonSpeed();
+		Robot::driveTrain->SetTalonBackwards();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
-	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
 	Robot::driveTrain->SetTalonStop();
 	Robot::driveTrain->SetTalonStartPosition();
 }
@@ -76,7 +73,18 @@ void AutonomousCommand::AutonomousTurnRight(double turnGoal){
 		Robot::driveTrain->TurnRight();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
-	lumberJack->dLog("Encoder Position"+to_string(encoderPositionStarboard));
 	Robot::driveTrain->SetTalonStop();
 	Robot::driveTrain->SetTalonStartPosition();
+}
+
+void AutonomousCommand::ResetPositions(){
+	Robot::driveTrain->SetTalonStartPosition();
+}
+
+void AutonomousCommand::AutonomousShoota(){
+
+}
+
+void AutonomousCommand::AutonomousAuger(){
+	Robot::auger->AugerAllShesGotCaptain();
 }

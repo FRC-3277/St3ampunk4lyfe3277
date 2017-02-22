@@ -7,6 +7,23 @@
 Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon = RobotMap::shooterTalon;
 
+	if(RobotMap::SHOOTA_PID_SYSTEM)
+	{
+		SHOOTA_STARTING_SPEED = 2288.281;
+		SHOOTA_MAX_CALIBRATION_SPEED = 2900;
+		p = 16;
+		i = 0;
+		d = 1;
+		f = 0;
+		izone = 300;
+		ramprate = 70;
+		profile = 1;
+	}
+	else
+	{
+		SHOOTA_STARTING_SPEED = 0.375;
+	}
+
 	lumberJack.reset(new LumberJack());
 
 	SmartDashboard::PutNumber("DB/Slider 0", 0.3);
@@ -56,7 +73,42 @@ Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon->SetPID(p, i, d, f);
 	shooterTalon->SetIzone(izone);
 	shooterTalon->SetCloseLoopRampRate(ramprate);
+	if(RobotMap::SHOOTA_PID_SYSTEM)
+	{
+		SmartDashboard::PutString("DB/String 0", to_string(p));
+		SmartDashboard::PutString("DB/String 1", to_string(i));
+		SmartDashboard::PutString("DB/String 2", to_string(d));
+		SmartDashboard::PutString("DB/String 3", to_string(f));
 
+		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
+
+		shooterTalon->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 20);
+
+		//Encoder
+		// See 12.4.1 and 12.4.2 of TALON SRX Software Reference Manual
+		shooterTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
+		shooterTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
+		shooterTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
+		shooterTalon->SetSensorDirection(true);
+
+		shooterTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
+		shooterTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
+
+		//Everything else
+		shooterTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+
+		shooterTalon->SelectProfileSlot(profile);
+		shooterTalon->SetPID(p, i, d, f);
+		shooterTalon->SetIzone(izone);
+		shooterTalon->SetCloseLoopRampRate(ramprate);
+		//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
+		shooterTalon->SetMotionMagicCruiseVelocity(SHOOTA_STARTING_SPEED); // In RPMs
+		shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
+	}
+	else
+	{
+		shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	}
 	shooterTalon->SetInverted(true);
 	shooterTalon->SetPosition(0);
 	shooterTalon->EnableControl();
@@ -77,23 +129,38 @@ double Shooter::GetShooterSpeed()
 	return fabs(shooterSpeed);
 }
 
+double Shooter::GetShootaStartingSpeed()
+{
+	return SHOOTA_STARTING_SPEED;
+}
+
+double Shooter::GetShootaMaxCalibrationSpeed()
+{
+	return SHOOTA_MAX_CALIBRATION_SPEED;
+}
+
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
-	speedControlValue = fabs(speedControlValue);
+	speedControlValue = -fabs(speedControlValue);
 	if(RobotMap::SHOOTA_ENABLE_PIDF_CALIBRATION)
 	{
-		double p = 0, i = 0, d = 0, f = 0;
-
-		p = SmartDashboard::GetNumber("DB/Slider 0", 0.3);
-		i = SmartDashboard::GetNumber("DB/Slider 1", 0.003);
-		d = SmartDashboard::GetNumber("DB/Slider 2", 3);
-		f = SmartDashboard::GetNumber("DB/Slider 3", 0.0003);
+		p = std::stod(SmartDashboard::GetString("DB/String 0", to_string(p)));
+		i = std::stod(SmartDashboard::GetString("DB/String 1", to_string(i)));
+		d = std::stod(SmartDashboard::GetString("DB/String 2", to_string(d)));
+		f = std::stod(SmartDashboard::GetString("DB/String 3", to_string(f)));
 
 		shooterTalon->SetPID(p, i, d, f);
+
+		//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
+		shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
+		shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
 	}
 
 	double quadEncoderPos = shooterTalon->GetEncPosition();
 	double quadEncoderVelocity = shooterTalon->GetEncVel();
+
+	//2000/60=333.3;
+	//20 pulses per revolution
 
 	lumberJack->dashLogNumber("Shooter Position", quadEncoderPos);
 	lumberJack->dashLogNumber("Shooter Velocity", quadEncoderVelocity);
@@ -103,39 +170,39 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 	//dumpEncoderLogging();
 }
 
-void Shooter::dumpEncoderLogging()
-{
-	try
-	{
-		double currentAmps = shooterTalon->GetOutputCurrent();
-		double outputVolts = shooterTalon->GetOutputVoltage();
-		double busVoltage = shooterTalon->GetBusVoltage();
-
-		int quadEncoderPos = shooterTalon->GetEncPosition();
-		int quadEncoderVelocity = shooterTalon->GetEncVel();
-
-		int analogPos = shooterTalon->GetAnalogIn();
-		int analogVelocity = shooterTalon->GetAnalogInVel();
-
-		int selectedSensorPos = shooterTalon->GetPosition();
-		int selectedSensorSpeed = shooterTalon->GetSpeed();
-
-		int closedLoopErr = shooterTalon->GetClosedLoopError();
-int distance = shooterTalon-
-		lumberJack->dLog("Current Amps: " + to_string(currentAmps));
-		lumberJack->dLog("Output Volts: " + to_string(outputVolts));
-		lumberJack->dLog("Bus Voltage: " + to_string(busVoltage));
-		lumberJack->dLog("Quad Encoder Pos: " + to_string(quadEncoderPos));
-		lumberJack->dLog("Quad Encoder Velocity: " + to_string(quadEncoderVelocity));
-		lumberJack->dLog("Analog Pos: " + to_string(analogPos));
-		lumberJack->dLog("Analog Velocity: " + to_string(analogVelocity));
-		lumberJack->dLog("Selected Sensor Pos: " + to_string(selectedSensorPos));
-		lumberJack->dLog("Selected Sensor Speed: " + to_string(selectedSensorSpeed));
-		lumberJack->dLog("Closed Loop Err: " + to_string(closedLoopErr));
-	}
-	catch (const std::exception& e)
-	{
-		lumberJack->dLog(e.what());
-	}
-}
+//void Shooter::dumpEncoderLogging()
+//{
+//	try
+//	{
+//		double currentAmps = shooterTalon->GetOutputCurrent();
+//		double outputVolts = shooterTalon->GetOutputVoltage();
+//		double busVoltage = shooterTalon->GetBusVoltage();
+//
+//		int quadEncoderPos = shooterTalon->GetEncPosition();
+//		int quadEncoderVelocity = shooterTalon->GetEncVel();
+//
+//		int analogPos = shooterTalon->GetAnalogIn();
+//		int analogVelocity = shooterTalon->GetAnalogInVel();
+//
+//		int selectedSensorPos = shooterTalon->GetPosition();
+//		int selectedSensorSpeed = shooterTalon->GetSpeed();
+//
+//		int closedLoopErr = shooterTalon->GetClosedLoopError();
+//	int distance = shooterTalon-
+//		lumberJack->dLog("Current Amps: " + to_string(currentAmps));
+//		lumberJack->dLog("Output Volts: " + to_string(outputVolts));
+//		lumberJack->dLog("Bus Voltage: " + to_string(busVoltage));
+//		lumberJack->dLog("Quad Encoder Pos: " + to_string(quadEncoderPos));
+//		lumberJack->dLog("Quad Encoder Velocity: " + to_string(quadEncoderVelocity));
+//		lumberJack->dLog("Analog Pos: " + to_string(analogPos));
+//		lumberJack->dLog("Analog Velocity: " + to_string(analogVelocity));
+//		lumberJack->dLog("Selected Sensor Pos: " + to_string(selectedSensorPos));
+//		lumberJack->dLog("Selected Sensor Speed: " + to_string(selectedSensorSpeed));
+//		lumberJack->dLog("Closed Loop Err: " + to_string(closedLoopErr));
+//	}
+//	catch (const std::exception& e)
+//	{
+//		lumberJack->dLog(e.what());
+//	}
+//}
 

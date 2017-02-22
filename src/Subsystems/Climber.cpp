@@ -9,18 +9,6 @@ Climber::Climber() : Subsystem("Climber") {
 	climberTalon = RobotMap::climberTalon;
 	lumberJack.reset(new LumberJack());
 
-	//Encoder
-	climberTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
-	climberTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
-	climberTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
-	/*
-	 * Sets control values for closed loop control.
-	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
-	 */
-	climberTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
-	climberTalon->SetIzone(TALON_IZONE);
-	climberTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
-
 	//Everything else
 	climberTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	climberTalon->EnableControl();
@@ -36,7 +24,7 @@ void Climber::climberEngineAscend(){
 	double
 		speedOfAscent = RobotMap::CLIMBER_SPEED;
 
-	climberTalon->Set(speedOfAscent);
+	climberTalon->Set(-speedOfAscent);
 }
 
 void Climber::climberEngineDescend()
@@ -44,7 +32,7 @@ void Climber::climberEngineDescend()
 	double
 		speedOfDescent = -RobotMap::CLIMBER_SPEED;
 
-	climberTalon->Set(speedOfDescent);
+	climberTalon->Set(-speedOfDescent);
 }
 
 void Climber::climberEngineStop(){
