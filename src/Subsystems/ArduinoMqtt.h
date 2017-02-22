@@ -11,7 +11,7 @@
 
 class ArduinoMqtt : public Subsystem {
 private:
-	std::shared_ptr<SerialPort> mqttSerial;
+	SerialPort* mqttSerial;
 	std::shared_ptr<LumberJack> lumberJack;
 	char*  dataFromArduino, dataToArduino;
 

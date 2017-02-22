@@ -2,7 +2,7 @@
 #include "../RobotMap.h"
 
 ArduinoMqtt::ArduinoMqtt() : Subsystem("ArduinoMqtt") {
-	mqttSerial.reset(new SerialPort(9600, SerialPort::kOnboard));
+	mqttSerial = new SerialPort(9600, SerialPort::kOnboard);
 	lumberJack.reset(new LumberJack());
 }
 
