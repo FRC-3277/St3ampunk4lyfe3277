@@ -21,6 +21,7 @@ public:
 	void AutonomousMoveForward(double tickGoal);
 	void AutonomousMoveBackwards(double tickGoal);
 	void AutonomousTurnRight(double turnGoal);
+	void AutonomousTurnLeft(double turnGoal);
 	void ResetPositions();
 	void AutonomousShoota();
 	void AutonomousAuger();
