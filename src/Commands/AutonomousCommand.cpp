@@ -11,16 +11,62 @@ AutonomousCommand::AutonomousCommand(): Command() {
 //In order to chain the drivetrain commands, continue to add to the tickGoals. Hopefully we can change that
 void AutonomousCommand::Initialize() {
 	//This is possibly needed. I was rushed to get the shooter running in auto so there may be a more elegant way
-	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
-	//AutonomousTurnRight(775);
-	//AutonomousMoveForward(1623);
-	//AutonomousAuger();
+	//775 is about a 90 degree turn ; 848 is about 1 revolution of the wheel
 
+	int _90DegreeTurn = 775;
+	int OneRevolutionOfTheWheel = 848;
+
+	autoCommand = Robot::driveTrain->GetDashboard();
+	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
+	//Red team shoot and hopper
+	if(autoCommand == 1)
+	{
+		startShooting = true;
+		AutonomousTurnLeft(_90DegreeTurn);
+		AutonomousAuger();
+		//Add when it should continue
+		AutonomousTurnRight(_90DegreeTurn*2);
+	}
+	//Red team shoot and gear
+	else if(autoCommand == 2)
+	{
+		startShooting = true;
+		AutonomousMoveForward(OneRevolutionOfTheWheel);
+		AutonomousTurnRight(_90DegreeTurn*2);
+		AutonomousAuger();
+		AutonomousMoveForward(OneRevolutionOfTheWheel);
+
+	}
+	//Red team gear and shoot
+	else if(autoCommand == 3)
+	{
+
+	}
+	//Blue team shoot and hopper
+	else if(autoCommand == 4)
+	{
+		startShooting = true;
+		AutonomousMoveForward(OneRevolutionOfTheWheel);
+		AutonomousAuger();
+	}
+	//Blue team shoot and gear
+	else if(autoCommand == 5)
+	{
+
+	}
+	//Blue team gear and shoot
+	else if(autoCommand == 6)
+	{
+
+	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
-	AutonomousShoota();
+	if (startShooting)
+	{
+		AutonomousShoota();
+	}
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -38,6 +84,7 @@ void AutonomousCommand::End() {
 void AutonomousCommand::Interrupted() {
 	shooterSpeed = 0;
 	Robot::shooter->SpeedControlShooter(shooterSpeed);
+	AutonomousAugerStop();
 }
 
 //Every 848 ticks is one full rotation of the wheel. It will move 6 Pi in distance for each rotation
@@ -127,4 +174,8 @@ void AutonomousCommand::AutonomousShoota(){
 
 void AutonomousCommand::AutonomousAuger(){
 	Robot::auger->AugerAllShesGotCaptain();
+}
+
+void AutonomousCommand::AutonomousAugerStop(){
+	Robot::auger->AugerStopScotty();
 }

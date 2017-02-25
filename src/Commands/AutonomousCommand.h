@@ -25,11 +25,14 @@ public:
 	void ResetPositions();
 	void AutonomousShoota();
 	void AutonomousAuger();
+	void AutonomousAugerStop();
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
 	bool startShooting = false;
 	double shooterSpeed = 0;
+	double autoCommand = 0;
+
 
 };
 

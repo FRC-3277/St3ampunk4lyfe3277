@@ -11,14 +11,16 @@
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	lumberJack.reset(new LumberJack());
 
+	autoCommand = autoCommand*1;
+
     portTalon = RobotMap::driveTrainPortTalon;
     starboardTalon = RobotMap::driveTrainStarboardTalon;
     steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
 
-	SmartDashboard::PutNumber("DB/Slider 0", 0.3);
-		SmartDashboard::PutNumber("DB/Slider 1", 0.003);
-		SmartDashboard::PutNumber("DB/Slider 2", 3);
-		SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
+//  SmartDashboard::PutNumber("DB/Slider 0", 0.3);
+//	SmartDashboard::PutNumber("DB/Slider 1", 0.003);
+//	SmartDashboard::PutNumber("DB/Slider 2", 3);
+//	SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
 
 //	portTalon->SetControlMode(CANSpeedController::kSpeed);
 //	starboardTalon->SetControlMode(CANSpeedController::kSpeed);
@@ -125,6 +127,12 @@ void DriveTrain::TurnRight()
 {
 	portTalon->Set(-0.35);
 	starboardTalon->Set(-0.35);
+}
+
+double DriveTrain::GetDashboard()
+{
+	autoCommand = std::stod(SmartDashboard::GetString("DB/String 5", to_string(autoCommand)));
+	return autoCommand;
 }
 
 void DriveTrain::dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon)

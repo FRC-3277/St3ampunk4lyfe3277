@@ -35,6 +35,8 @@ public:
 	DriveTrain();
 	void InitDefaultCommand();
 
+	double autoCommand;
+
 	void controllerInputToSteamEngine(double speedPort, double speedStarboard);
 	void SetTalonStartPosition();
 	void SetTalonForward();
@@ -42,6 +44,7 @@ public:
 	void SetTalonStop();
 	void TurnRight();
 	void TurnLeft();
+	double GetDashboard();
 	double GetStarboardTalonEncoderPosition();
 };
 
