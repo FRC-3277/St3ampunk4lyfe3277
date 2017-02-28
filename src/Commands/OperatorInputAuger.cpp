@@ -3,6 +3,7 @@
 OperatorInputAuger::OperatorInputAuger(int argDirection) {
 	Requires(Robot::auger.get());
 	lumberJack.reset(new LumberJack());
+	pdp.reset(new PowerDistributionPanel(RobotMap::POWER_DISTRIBUTION_PANEL_DEVICE_ID));
 	direction = argDirection;
 }
 
@@ -15,6 +16,7 @@ void OperatorInputAuger::Initialize() {
 void OperatorInputAuger::Execute() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
+		double current;
 		if(direction == 1)
 		{
 			Robot::auger->AugerCleanAndSweepReverse();
@@ -23,6 +25,9 @@ void OperatorInputAuger::Execute() {
 		{
 			Robot::auger->AugerAllShesGotCaptain();
 		}
+
+		current = pdp->GetCurrent(7);
+		lumberJack->dashLogNumber("Current:", current);
 	}
 }
 

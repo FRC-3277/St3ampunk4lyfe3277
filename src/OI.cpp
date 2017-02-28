@@ -49,9 +49,9 @@ OI::OI()
 	//Button trigger and command mappings
 	buttonEnableClimberUp->ToggleWhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->WhenPressed(new OperatorInputBallPicker());
-	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_FORWARD));
+	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::AUGA_DIRECTION_FORWARD));
 	//buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
-	buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
+	buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::AUGA_DIRECTION_REVERSE));
 
 	/*The shooter is enabled manually by the operator.  This enables
 	  both the shooter motor and also the vision tracking feedback helper

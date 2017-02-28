@@ -9,8 +9,12 @@ std::shared_ptr<VisionLumination> Robot::vision;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<LumberJack> Robot::lumberJack;
 std::shared_ptr<CameraSwap> Robot::cameraSwap;
+std::shared_ptr<PowerDistributionPanel> Robot::pdp;
 
 void Robot::RobotInit() {
+	lumberJack.reset(new LumberJack());
+	lumberJack->SetLoggingLevel(lumberJack->levelInfo);
+	lumberJack->SetConfig();
 	RobotMap::init();
     driveTrain.reset(new DriveTrain());
     shooter.reset(new Shooter());
@@ -37,7 +41,7 @@ void Robot::RobotInit() {
 	//cs::UsbCamera cam0 = CameraServer::GetInstance()->StartAutomaticCapture(0);
 	//cs::UsbCamera cam1 = CameraServer::GetInstance()->StartAutomaticCapture(1);
 
-	lumberJack.reset(new LumberJack());
+	//pdp.reset(new PowerDistributionPanel(RobotMap::POWER_DISTRIBUTION_PANEL_DEVICE_ID));
 
 	// instantiate the command used for the autonomous period
 	autonomousCommand.reset(new AutonomousCommand());
@@ -80,7 +84,6 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() {
 	Scheduler::GetInstance()->Run();
-
 }
 
 void Robot::TestPeriodic() {

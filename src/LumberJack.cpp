@@ -20,6 +20,8 @@ void LumberJack::SetConfig()
 	defaultConf.set(severityLevelChosen, el::ConfigurationType::Format, "%datetime %level %msg");
 	// default logger uses default configurations
 	el::Loggers::reconfigureLogger("default", defaultConf);
+	el::Loggers::reconfigureAllLoggers(el::ConfigurationType::Filename, "/home/lvuser/RobotLoggingLib.log");
+	el::Loggers::reconfigureAllLoggers(el::ConfigurationType::ToFile, "true");
 }
 
 void LumberJack::iLog(char* msg)

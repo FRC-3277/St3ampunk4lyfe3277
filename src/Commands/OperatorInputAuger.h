@@ -4,6 +4,7 @@
 #include "./LumberJack.h"
 #include "Commands/Subsystem.h"
 #include "../Robot.h"
+#include "PowerDistributionPanel.h"
 
 class OperatorInputAuger : public Command {
 public:
@@ -16,6 +17,7 @@ public:
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
+	std::shared_ptr<PowerDistributionPanel> pdp;
 	// 0 forward, 1 reverse
 	int direction = 0;
 };

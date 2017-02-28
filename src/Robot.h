@@ -5,6 +5,7 @@
 #include "Commands/Command.h"
 #include "RobotMap.h"
 #include "LiveWindow/LiveWindow.h"
+#include "PowerDistributionPanel.h"
 
 #include "Commands/AutonomousCommand.h"
 #include "Subsystems/Auger.h"
@@ -33,6 +34,7 @@ public:
     static std::shared_ptr<VisionLumination> vision;
     static std::shared_ptr<LumberJack> lumberJack;
     static std::shared_ptr<CameraSwap> cameraSwap;
+    static std::shared_ptr<PowerDistributionPanel> pdp;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();

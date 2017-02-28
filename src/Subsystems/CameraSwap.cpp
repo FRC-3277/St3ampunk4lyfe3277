@@ -69,7 +69,6 @@ void CameraSwap::GetCamera() {
 
 			cvSource.PutFrame(output);
 		}
-		lumberJack->dLog("Marking Here:");
 }
 
 void CameraSwap::SetJustSwappedOneTimeAction()

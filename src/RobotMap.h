@@ -30,9 +30,6 @@ public:
 	static const int STOP_SPEED = 0;
 	static constexpr float ALL_STOP = 0.0f;
 
-	static const int DIRECTION_FORWARD = 0;
-	static const int DIRECTION_REVERSE = 1;
-
 	// Talon and Encoder
 	//TODO: Adjust these values http://www.ctr-electronics.com/downloads/pdf/Talon%20SRX%20Software%20Reference%20Manual.pdf
 	static constexpr float FULL_SPEED_FROM_TALONS_BASE = 	0.0;	// measured on the robot in RPMs
@@ -52,6 +49,9 @@ public:
 	static constexpr double METERS_PER_COUNT_BASE = 	(REVS_PER_FOOT_BASE * 0.3048 / (double)TALON_COUNTS_PER_REV_BASE);
 	static const int CLOSED_LOOP_GAIN = 				0; //one or zero depending on which slot caller wants. Closed loop gains in slot0.
 
+	// PowerDistributionPanel
+	static const int POWER_DISTRIBUTION_PANEL_DEVICE_ID = 1;
+
 	// DriveTrain
 	static const int PORT_PROPELLER_LEFT_MOTOR = 1;
 	static const int STARBOARD_PROPELLER_RIGHT_MOTOR = 2;
@@ -68,6 +68,8 @@ public:
 	//Auger
 	static const int HOPPA_AUGA_RELAY = 0;
 	static std::shared_ptr<Relay> augerSpike;
+	static const int AUGA_DIRECTION_FORWARD = 0;
+	static const int AUGA_DIRECTION_REVERSE = 1;
 
 	//Climber
 	static const int CLIMBA_MOTOR = 3;
