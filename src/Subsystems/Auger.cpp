@@ -1,5 +1,6 @@
 #include "Auger.h"
 #include "../RobotMap.h"
+#include "../Commands/OperatorInputAuger.h"
 
 
 Auger::Auger() : Subsystem("Auger") {
@@ -9,7 +10,7 @@ Auger::Auger() : Subsystem("Auger") {
 }
 
 void Auger::InitDefaultCommand() {
-
+	SetDefaultCommand(new OperatorInputAuger(RobotMap::AUGA_DIRECTION_FORWARD));
 }
 
 void Auger::AugerAllShesGotCaptain() {
