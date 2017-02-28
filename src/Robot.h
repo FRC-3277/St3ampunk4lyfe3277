@@ -1,6 +1,7 @@
 #ifndef _ROBOT_H
 #define _ROBOT_H
 
+#include <Subsystems/SpiCommunicator.h>
 #include "WPILib.h"
 #include "Commands/Command.h"
 #include "RobotMap.h"
@@ -14,8 +15,6 @@
 #include "Subsystems/Shooter.h"
 #include "Subsystems/VisionLumination.h"
 #include "Subsystems/CameraSwap.h"
-#include "Subsystems/SpiTest.h"
-
 #include "LumberJack.h"
 #include <thread>
 
@@ -34,7 +33,7 @@ public:
     static std::shared_ptr<VisionLumination> vision;
     static std::shared_ptr<LumberJack> lumberJack;
     static std::shared_ptr<CameraSwap> cameraSwap;
-    static std::shared_ptr<SpiTest> spiTest;
+    static std::shared_ptr<SpiCommunicator> spiTest;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();
