@@ -27,7 +27,14 @@ void OperatorInputAuger::Execute() {
 		}
 
 		current = pdp->GetCurrent(7);
-		lumberJack->dashLogNumber("Current:", current);
+
+		if(current > 0)
+		{
+			average = average + (current - average)/count;
+			count++;
+			lumberJack->dashLogNumber("Average:", average);
+			lumberJack->dashLogNumber("Count:", count);
+		}
 	}
 }
 

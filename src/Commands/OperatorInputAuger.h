@@ -20,6 +20,8 @@ private:
 	std::shared_ptr<PowerDistributionPanel> pdp;
 	// 0 forward, 1 reverse
 	int direction = 0;
+	int count = 1;
+	int average = 0;
 };
 
 #endif  // OperatorInputAuger_H
