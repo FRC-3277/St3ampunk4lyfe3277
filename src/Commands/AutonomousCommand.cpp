@@ -23,12 +23,11 @@ void AutonomousCommand::Initialize() {
 	//Red team shoot and hopper
 	if(autoCommand == 1)
 	{
-		startShooting = true;
 		AutonomousTurnRight(_90DegreeTurn);
+		AutonomousShoota();
 		AutonomousAuger();
 		AutonomousDelayUntilEmpty();
 		AutonomousAugerStop();
-		startShooting = false;
 		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
 		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
 		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn);
@@ -37,12 +36,11 @@ void AutonomousCommand::Initialize() {
 	//Red team shoot and gear
 	else if(autoCommand == 2)
 	{
-		startShooting = true;
 		AutonomousTurnRight(_90DegreeTurn);
+		AutonomousShoota();
 		AutonomousAuger();
 		AutonomousDelayUntilEmpty();
 		AutonomousAugerStop();
-		startShooting = false;
 		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
 		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
 		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
@@ -55,16 +53,17 @@ void AutonomousCommand::Initialize() {
 		AutonomousDelayForGear();
 		AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
 		AutonomousTurnLeft(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
+		AutonomousAuger();
+		AutonomousShoota();
 	}
 	//Blue team shoot and hopper
 	else if(autoCommand == 4)
 	{
-		startShooting = true;
 		AutonomousTurnLeft(_90DegreeTurn);
+		AutonomousShoota();
 		AutonomousAuger();
 		AutonomousDelayUntilEmpty();
 		AutonomousAugerStop();
-		startShooting = false;
 		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
 		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
 		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn);
@@ -73,12 +72,11 @@ void AutonomousCommand::Initialize() {
 	//Blue team shoot and gear
 	else if(autoCommand == 5)
 	{
-		startShooting = true;
 		AutonomousTurnLeft(_90DegreeTurn);
+		AutonomousShoota();
 		AutonomousAuger();
 		AutonomousDelayUntilEmpty();
 		AutonomousAugerStop();
-		startShooting = false;
 		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
 		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
 		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
@@ -91,15 +89,17 @@ void AutonomousCommand::Initialize() {
 		AutonomousDelayForGear();
 		AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
 		AutonomousTurnRight(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
+		AutonomousShoota();
+		AutonomousAuger();
 	}
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
-	if (startShooting)
-	{
-		AutonomousShoota();
-	}
+//	if (startShooting)
+//	{
+//		AutonomousShoota();
+//	}
 }
 
 // Make this return true when this Command no longer needs to run execute()

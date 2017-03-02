@@ -11,7 +11,7 @@
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	lumberJack.reset(new LumberJack());
 
-	startTime = std::chrono::system_clock::now();
+	//startTime = std::chrono::system_clock::now();
 
 	autoCommand = autoCommand*1;
 
@@ -135,14 +135,16 @@ void DriveTrain::TurnRight()
 
 void DriveTrain::DelayUntilEmpty()
 {
-	endTime = std::chrono::system_clock::now();
-	elapsedTime = endTime - startTime;
-	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
-	while (f_secs.count() < delayDriveTrainUntilEmpty)
+	startTime = std::chrono::system_clock::now();
+	while (true)
 	{
 		endTime = std::chrono::system_clock::now();
 		elapsedTime = endTime - startTime;
 		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+		if (f_secs.count() > delayDriveTrainUntilEmpty)
+		{
+			break;
+		}
 	}
 }
 
