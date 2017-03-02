@@ -24,10 +24,21 @@ void OperatorInputShooter::Execute() {
 		/*
 		 * This is strictly for use off the field and calibrating with a joystick controller with a slider.
 		 */
-		double desiredSpeed = 0;
+		double desiredSpeed = Robot::shooter->GetShootaStartingSpeed();
+		double speedAdjustment = 0;
 
 		// Controller input is 0 - 1; Talon in speed mode expects RPM.
-		desiredSpeed = fabs(Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER) * Robot::shooter->GetShootaMaxCalibrationSpeed());
+		speedAdjustment = Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER)*-0.05;
+		if (speedAdjustment > 0 || speedAdjustment < 0)
+		{
+			desiredSpeed = desiredSpeed+(desiredSpeed*speedAdjustment);
+		}
+		else if (speedAdjustment == 0)
+		{
+			desiredSpeed = Robot::shooter->GetShootaStartingSpeed();
+		}
+
+		lumberJack->dLog("Axis Value" +to_string(desiredSpeed));
 		Robot::shooter->SpeedControlShooter(desiredSpeed);
 	}
 	else
