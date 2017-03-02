@@ -18,46 +18,79 @@ void AutonomousCommand::Initialize() {
 
 	autoCommand = Robot::driveTrain->GetDashboard();
 	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
+	ResetPositions();
+	//TODO: Add regressive functionality
 	//Red team shoot and hopper
 	if(autoCommand == 1)
 	{
 		startShooting = true;
-		AutonomousTurnLeft(_90DegreeTurn);
+		AutonomousTurnRight(_90DegreeTurn);
 		AutonomousAuger();
-		//Add when it should continue
-		AutonomousTurnRight(_90DegreeTurn*2);
+		AutonomousDelayUntilEmpty();
+		AutonomousAugerStop();
+		startShooting = false;
+		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
+		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
+		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn);
+		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn+OneRevolutionOfTheWheel);
 	}
 	//Red team shoot and gear
 	else if(autoCommand == 2)
 	{
 		startShooting = true;
-		AutonomousMoveForward(OneRevolutionOfTheWheel);
-		AutonomousTurnRight(_90DegreeTurn*2);
+		AutonomousTurnRight(_90DegreeTurn);
 		AutonomousAuger();
-		AutonomousMoveForward(OneRevolutionOfTheWheel);
-
+		AutonomousDelayUntilEmpty();
+		AutonomousAugerStop();
+		startShooting = false;
+		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
+		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
+		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
+		AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
 	}
 	//Red team gear and shoot
 	else if(autoCommand == 3)
 	{
-
+		AutonomousMoveBackwards(OneRevolutionOfTheWheel);
+		AutonomousDelayForGear();
+		AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
+		AutonomousTurnLeft(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
 	}
 	//Blue team shoot and hopper
 	else if(autoCommand == 4)
 	{
 		startShooting = true;
-		AutonomousMoveForward(OneRevolutionOfTheWheel);
+		AutonomousTurnLeft(_90DegreeTurn);
 		AutonomousAuger();
+		AutonomousDelayUntilEmpty();
+		AutonomousAugerStop();
+		startShooting = false;
+		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
+		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
+		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn);
+		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn+OneRevolutionOfTheWheel);
 	}
 	//Blue team shoot and gear
 	else if(autoCommand == 5)
 	{
-
+		startShooting = true;
+		AutonomousTurnLeft(_90DegreeTurn);
+		AutonomousAuger();
+		AutonomousDelayUntilEmpty();
+		AutonomousAugerStop();
+		startShooting = false;
+		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
+		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
+		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
+		AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
 	}
 	//Blue team gear and shoot
 	else if(autoCommand == 6)
 	{
-
+		AutonomousMoveBackwards(OneRevolutionOfTheWheel);
+		AutonomousDelayForGear();
+		AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
+		AutonomousTurnRight(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
 	}
 }
 
@@ -89,7 +122,6 @@ void AutonomousCommand::Interrupted() {
 
 //Every 848 ticks is one full rotation of the wheel. It will move 6 Pi in distance for each rotation
 void AutonomousCommand::AutonomousMoveForward(double tickGoal){
-	Robot::driveTrain->SetTalonStartPosition();
 	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 
 	while(encoderPositionStarboard < tickGoal)
@@ -98,12 +130,10 @@ void AutonomousCommand::AutonomousMoveForward(double tickGoal){
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
 	Robot::driveTrain->SetTalonStop();
-	Robot::driveTrain->SetTalonStartPosition();
 }
 
 void AutonomousCommand::AutonomousMoveBackwards(double tickGoal)
 {
-	Robot::driveTrain->SetTalonStartPosition();
 	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 
 	while(encoderPositionStarboard < tickGoal)
@@ -112,11 +142,9 @@ void AutonomousCommand::AutonomousMoveBackwards(double tickGoal)
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
 	Robot::driveTrain->SetTalonStop();
-	Robot::driveTrain->SetTalonStartPosition();
 }
 
 void AutonomousCommand::AutonomousTurnRight(double turnGoal){
-	Robot::driveTrain->SetTalonStartPosition();
 	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 
 	while(encoderPositionStarboard < turnGoal)
@@ -125,11 +153,9 @@ void AutonomousCommand::AutonomousTurnRight(double turnGoal){
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
 	Robot::driveTrain->SetTalonStop();
-	Robot::driveTrain->SetTalonStartPosition();
 }
 
 void AutonomousCommand::AutonomousTurnLeft(double turnGoal){
-	Robot::driveTrain->SetTalonStartPosition();
 	double encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 
 	while(encoderPositionStarboard < turnGoal)
@@ -138,7 +164,6 @@ void AutonomousCommand::AutonomousTurnLeft(double turnGoal){
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
 	}
 	Robot::driveTrain->SetTalonStop();
-	Robot::driveTrain->SetTalonStartPosition();
 }
 
 void AutonomousCommand::ResetPositions(){
@@ -178,4 +203,12 @@ void AutonomousCommand::AutonomousAuger(){
 
 void AutonomousCommand::AutonomousAugerStop(){
 	Robot::auger->AugerStopScotty();
+}
+
+void AutonomousCommand::AutonomousDelayUntilEmpty(){
+	Robot::driveTrain->DelayUntilEmpty();
+}
+
+void AutonomousCommand::AutonomousDelayForGear(){
+	Robot::driveTrain->DelayForGear();
 }

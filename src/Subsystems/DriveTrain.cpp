@@ -11,6 +11,8 @@
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	lumberJack.reset(new LumberJack());
 
+	startTime = std::chrono::system_clock::now();
+
 	autoCommand = autoCommand*1;
 
     portTalon = RobotMap::driveTrainPortTalon;
@@ -61,11 +63,13 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
     portTalon->Set(RobotMap::ALL_STOP);
+	portTalon->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 20);
 
 //    starboardTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     starboardTalon->SetControlMode(CANSpeedController::kPercentVbus);
     starboardTalon->EnableControl();
     starboardTalon->Set(RobotMap::ALL_STOP);
+	starboardTalon->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 20);
 
     steamEngineRobotDrive->SetSafetyEnabled(false);
     steamEngineRobotDrive->SetExpiration(0.1);
@@ -127,6 +131,32 @@ void DriveTrain::TurnRight()
 {
 	portTalon->Set(-0.35);
 	starboardTalon->Set(-0.35);
+}
+
+void DriveTrain::DelayUntilEmpty()
+{
+	endTime = std::chrono::system_clock::now();
+	elapsedTime = endTime - startTime;
+	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+	while (f_secs.count() < delayDriveTrainUntilEmpty)
+	{
+		endTime = std::chrono::system_clock::now();
+		elapsedTime = endTime - startTime;
+		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+	}
+}
+
+void DriveTrain::DelayForGear()
+{
+	endTime = std::chrono::system_clock::now();
+	elapsedTime = endTime - startTime;
+	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+	while (f_secs.count() < delayDriveTrainGear)
+	{
+		endTime = std::chrono::system_clock::now();
+		elapsedTime = endTime - startTime;
+		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+	}
 }
 
 double DriveTrain::GetDashboard()
