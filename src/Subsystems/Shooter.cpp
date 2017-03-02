@@ -124,7 +124,8 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 
 	// Prevent the belt from jumping and the motor from hunting for zero.
 	if(RobotMap::SHOOTA_PID_SYSTEM &&
-		speedControlValue < MIN_SHOOTA_SPEED_BEFORE_CUTOUT)
+		speedControlValue < MIN_SHOOTA_SPEED_BEFORE_CUTOUT &&
+		!RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
 	{
 		shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	}

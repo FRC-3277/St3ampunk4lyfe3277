@@ -15,7 +15,9 @@ public:
 
 	// All
 	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
-	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = false;
+	//Enable logitech joystick
+	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = true;
+	//Enable smartdashboard PIDF
 	static const bool SHOOTA_ENABLE_PIDF_CALIBRATION = false;
 	static const bool SHOOTA_PID_SYSTEM = true;
 
