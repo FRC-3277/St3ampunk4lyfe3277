@@ -1,5 +1,6 @@
 #ifndef DRIVETRAIN_H
 #define DRIVETRAIN_H
+#include <chrono>
 
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
@@ -12,6 +13,13 @@ private:
 	std::shared_ptr<CANTalon> starboardTalon;
 	std::shared_ptr<RobotDrive> steamEngineRobotDrive;
 	std::shared_ptr<LumberJack> lumberJack;
+
+	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
+	std::chrono::duration<float> elapsedTime;
+	int numberSecondsElapsed = 0;
+
+	double delayDriveTrainUntilEmpty = 11;
+	double delayDriveTrainGear = 2;
 
 	// Localized versions of talon calibration
 	const float FULL_SPEED_FROM_TALONS=	RobotMap::FULL_SPEED_FROM_TALONS_BASE;
@@ -35,7 +43,19 @@ public:
 	DriveTrain();
 	void InitDefaultCommand();
 
+	double autoCommand;
+
 	void controllerInputToSteamEngine(double speedPort, double speedStarboard);
+	void SetTalonStartPosition();
+	void SetTalonForward();
+	void SetTalonBackwards();
+	void SetTalonStop();
+	void TurnRight();
+	void TurnLeft();
+	void DelayUntilEmpty();
+	void DelayForGear();
+	double GetDashboard();
+	double GetStarboardTalonEncoderPosition();
 };
 
 #endif

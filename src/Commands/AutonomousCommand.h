@@ -18,10 +18,23 @@ public:
 	virtual bool IsFinished();
 	virtual void End();
 	virtual void Interrupted();
+	void AutonomousMoveForward(double tickGoal);
+	void AutonomousMoveBackwards(double tickGoal);
+	void AutonomousTurnRight(double turnGoal);
+	void AutonomousTurnLeft(double turnGoal);
+	void ResetPositions();
+	void AutonomousShoota();
+	void AutonomousAuger();
+	void AutonomousAugerStop();
+	void AutonomousDelayUntilEmpty();
+	void AutonomousDelayForGear();
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
-
+	bool startShooting = false;
+	double shooterSpeed = 0;
+	double autoCommand = 0;
+	double lastAutonomousValue = 0;
 };
 
 #endif

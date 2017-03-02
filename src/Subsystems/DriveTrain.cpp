@@ -11,43 +11,65 @@
 DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
 	lumberJack.reset(new LumberJack());
 
+	//startTime = std::chrono::system_clock::now();
+
+	autoCommand = autoCommand*1;
+
     portTalon = RobotMap::driveTrainPortTalon;
     starboardTalon = RobotMap::driveTrainStarboardTalon;
     steamEngineRobotDrive = RobotMap::driveTrainSteamEngineRobotDrive;
+
+//  SmartDashboard::PutNumber("DB/Slider 0", 0.3);
+//	SmartDashboard::PutNumber("DB/Slider 1", 0.003);
+//	SmartDashboard::PutNumber("DB/Slider 2", 3);
+//	SmartDashboard::PutNumber("DB/Slider 3", 0.0003);
+
+//	portTalon->SetControlMode(CANSpeedController::kSpeed);
+//	starboardTalon->SetControlMode(CANSpeedController::kSpeed);
 
     //Encoder portTalon
     portTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
     portTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
     portTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
+    portTalon->SetSensorDirection(true);
 	/*
 	 * Sets control values for closed loop control.
 	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
 	 */
-    portTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
-    portTalon->SetIzone(TALON_IZONE);
-    portTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+//    portTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+//    portTalon->SetIzone(TALON_IZONE);
+//    portTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
 
 	//Encoder starboardTalon
     starboardTalon->SetFeedbackDevice(CANTalon::QuadEncoder);
     starboardTalon->ConfigEncoderCodesPerRev(TALON_COUNTS_PER_REV);
     starboardTalon->SelectProfileSlot(RobotMap::CLOSED_LOOP_GAIN);
-	/*
+	starboardTalon->SetSensorDirection(true);
+    /*
 	 * Sets control values for closed loop control.
 	 * p Proportional constant,i Integration constant,d	Differential constant,f	Feedforward constant.
 	 */
-    starboardTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
-    starboardTalon->SetIzone(TALON_IZONE);
-    starboardTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+//    starboardTalon->SetPID(TALON_PTERM_L, TALON_ITERM_L, TALON_DTERM_L, TALON_FTERM_L);
+//    starboardTalon->SetIzone(TALON_IZONE);
+//    starboardTalon->SetCloseLoopRampRate(TALON_MAXRAMP);
+	portTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
+	portTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
 
-    portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+	starboardTalon->ConfigNominalOutputVoltage(0.0f, 0.0f);
+	starboardTalon->ConfigPeakOutputVoltage(12.0f, -12.0f);
+
+
+//    portTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     portTalon->SetControlMode(CANSpeedController::kPercentVbus);
     portTalon->EnableControl();
     portTalon->Set(RobotMap::ALL_STOP);
+	portTalon->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 20);
 
-    starboardTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
+//    starboardTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Coast);
     starboardTalon->SetControlMode(CANSpeedController::kPercentVbus);
     starboardTalon->EnableControl();
     starboardTalon->Set(RobotMap::ALL_STOP);
+	starboardTalon->SetStatusFrameRateMs(CANTalon::StatusFrameRateFeedback, 20);
 
     steamEngineRobotDrive->SetSafetyEnabled(false);
     steamEngineRobotDrive->SetExpiration(0.1);
@@ -67,6 +89,82 @@ void DriveTrain::controllerInputToSteamEngine(double speedPort, double speedStar
 			right = "\tRight: " + to_string(speedStarboard);
 	//lumberJack->dLog(left + right);
 	steamEngineRobotDrive->TankDrive(speedPort, speedStarboard);
+}
+
+void DriveTrain::SetTalonStartPosition()
+{
+	portTalon->SetEncPosition(0.0);
+	starboardTalon->SetEncPosition(0.0);
+}
+
+void DriveTrain::SetTalonForward()
+{
+	portTalon->Set(-0.35);
+	starboardTalon->Set(0.35);
+}
+
+void DriveTrain::SetTalonBackwards()
+{
+	portTalon->Set(0.35);
+	starboardTalon->Set(-0.35);
+}
+
+void DriveTrain::SetTalonStop()
+{
+	portTalon->Set(0.0);
+	starboardTalon->Set(0.0);
+}
+
+double DriveTrain::GetStarboardTalonEncoderPosition()
+{
+	return fabs(starboardTalon->GetEncPosition());
+
+}
+
+void DriveTrain::TurnLeft()
+{
+	portTalon->Set(0.35);
+	starboardTalon->Set(0.35);
+}
+
+void DriveTrain::TurnRight()
+{
+	portTalon->Set(-0.35);
+	starboardTalon->Set(-0.35);
+}
+
+void DriveTrain::DelayUntilEmpty()
+{
+	startTime = std::chrono::system_clock::now();
+	while (true)
+	{
+		endTime = std::chrono::system_clock::now();
+		elapsedTime = endTime - startTime;
+		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+		if (f_secs.count() > delayDriveTrainUntilEmpty)
+		{
+			break;
+		}
+	}
+}
+
+void DriveTrain::DelayForGear()
+{
+	endTime = std::chrono::system_clock::now();
+	elapsedTime = endTime - startTime;
+	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+	while (f_secs.count() < delayDriveTrainGear)
+	{
+		endTime = std::chrono::system_clock::now();
+		elapsedTime = endTime - startTime;
+		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+	}
+}
+
+double DriveTrain::GetDashboard()
+{
+	autoCommand = std::stod(SmartDashboard::GetString("DB/String 5", to_string(autoCommand)));
+	return autoCommand;
 }
 
 void DriveTrain::dumpEncoderLogging(std::shared_ptr<CANTalon> argTalon)
