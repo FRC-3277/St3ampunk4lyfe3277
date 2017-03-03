@@ -30,10 +30,15 @@ void AutonomousCommand::Execute() {
 		AutonomousDelayUntilEmpty();
 		AutonomousAugerStop();
 		lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousTurnLeft(_90DegreeTurn);
+		AutonomousMoveBackwards(500);
 		lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousMoveForward(_90DegreeTurn+5038);
+		AutonomousTurnLeft(1100);
 		lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		AutonomousMoveForward(4000);
+		lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+//		AutonomousTurnRight(5000);
+//		AutonomousMoveForward(7000);
+		lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
 	}
 	//Red team shoot and gear
 	else if(autoCommand == 2)
@@ -51,12 +56,14 @@ void AutonomousCommand::Execute() {
 	//Red team gear and shoot
 	else if(autoCommand == 3)
 	{
-		AutonomousMoveBackwards(OneRevolutionOfTheWheel);
+		AutonomousMoveBackwards(2000);
 		AutonomousDelayForGear();
-		AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
-		AutonomousTurnLeft(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
-		AutonomousAuger();
+		AutonomousMoveForward(1000);
+		AutonomousTurnLeft(1000);
+		AutonomousMoveForward(2000);
+		AutonomousTurnRight(500);
 		AutonomousShoota();
+		AutonomousAuger();
 	}
 	//Blue team shoot and hopper
 	else if(autoCommand == 4)
@@ -67,13 +74,13 @@ void AutonomousCommand::Execute() {
 		AutonomousAugerStop();
 		AutonomousMoveBackwards(700);
 		lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousTurnRight(4200);
+		AutonomousTurnRight(1500);
 		lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousMoveForward(4800);
+		AutonomousMoveForward(2500);
 		lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousTurnLeft(8300);
+//		AutonomousTurnLeft(1000);
 		lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousMoveForward(12950);
+//		AutonomousMoveForward(2000);
 		lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
 	}
 	//Blue team shoot and gear
@@ -98,6 +105,19 @@ void AutonomousCommand::Execute() {
 		AutonomousTurnRight(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
 		AutonomousShoota();
 		AutonomousAuger();
+	}
+	//Testing autocommands
+	else if(autoCommand == 7)
+	{
+		//AutonomousTurnLeft(865);
+
+		//AutonomousTurnRight(lastAutonomousValue+500);
+//		AutonomousTurnLeft(lastAutonomousValue+775);
+//		AutonomousTurnRight(lastAutonomousValue+775);
+//		AutonomousTurnLeft(lastAutonomousValue+1000);
+//		AutonomousTurnRight(lastAutonomousValue+1000);
+		AutonomousMoveForward(1000);
+//		AutonomousMoveForward(lastAutonomousValue+1000);
 	}
 	stopAuto = true;
 }

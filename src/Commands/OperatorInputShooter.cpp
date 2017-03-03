@@ -28,7 +28,7 @@ void OperatorInputShooter::Execute() {
 		double speedAdjustment = 0;
 
 		// Controller input is 0 - 1; Talon in speed mode expects RPM.
-		speedAdjustment = Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER)*-0.05;
+		speedAdjustment = Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER)*-0.10;
 		if (speedAdjustment > 0 || speedAdjustment < 0)
 		{
 			desiredSpeed = desiredSpeed+(desiredSpeed*speedAdjustment);
