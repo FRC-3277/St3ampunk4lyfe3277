@@ -12,6 +12,8 @@ void Auger::InitDefaultCommand() {
 
 }
 
+
+
 void Auger::AugerAllShesGotCaptain() {
 	augerSpike->Set(Relay::kReverse);
 }
