@@ -15,111 +15,116 @@ void AutonomousCommand::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
-	int _90DegreeTurn = 1000;
-	int OneRevolutionOfTheWheel = 848;
+	if(DriverStation::GetInstance().IsAutonomous())
+	{
+		int _90DegreeTurn = 1000;
+		int OneRevolutionOfTheWheel = 848;
+		int ColorRed = 1;
+		int ColorBlue = 0;
 
-	autoCommand = Robot::driveTrain->GetDashboard();
-	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
-	ResetPositions();
-	//TODO: Add regressive functionality
-	//Red team shoot and hopper
-	if(autoCommand == 1)
-	{
-		AutonomousShoota();
-		AutonomousAuger();
-		AutonomousDelayUntilEmpty();
-		AutonomousAugerStop();
-		lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousMoveBackwards(500);
-		lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousTurnLeft(1100);
-		lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousMoveForward(4000);
-		lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-//		AutonomousTurnRight(5000);
-//		AutonomousMoveForward(7000);
-		lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	}
-	//Red team shoot and gear
-	else if(autoCommand == 2)
-	{
-		AutonomousTurnRight(_90DegreeTurn);
-		AutonomousShoota();
-		AutonomousAuger();
-		AutonomousDelayUntilEmpty();
-		AutonomousAugerStop();
-		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
-		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
-		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
-		AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
-	}
-	//Red team gear and shoot
-	else if(autoCommand == 3)
-	{
-		AutonomousMoveBackwards(2000);
-		AutonomousDelayForGear();
-		AutonomousMoveForward(1000);
-		AutonomousTurnLeft(1000);
-		AutonomousMoveForward(2000);
-		AutonomousTurnRight(500);
-		AutonomousShoota();
-		AutonomousAuger();
-	}
-	//Blue team shoot and hopper
-	else if(autoCommand == 4)
-	{
-		AutonomousShoota();
-		AutonomousAuger();
-		AutonomousDelayUntilEmpty();
-		AutonomousAugerStop();
-		AutonomousMoveBackwards(700);
-		lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousTurnRight(1500);
-		lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-		AutonomousMoveForward(2500);
-		lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-//		AutonomousTurnLeft(1000);
-		lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-//		AutonomousMoveForward(2000);
-		lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	}
-	//Blue team shoot and gear
-	else if(autoCommand == 5)
-	{
-		AutonomousTurnLeft(_90DegreeTurn);
-		AutonomousShoota();
-		AutonomousAuger();
-		AutonomousDelayUntilEmpty();
-		AutonomousAugerStop();
-		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
-		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
-		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
-		AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
-	}
-	//Blue team gear and shoot
-	else if(autoCommand == 6)
-	{
-		AutonomousMoveBackwards(OneRevolutionOfTheWheel);
-		AutonomousDelayForGear();
-		AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
-		AutonomousTurnRight(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
-		AutonomousShoota();
-		AutonomousAuger();
-	}
-	//Testing autocommands
-	else if(autoCommand == 7)
-	{
-		//AutonomousTurnLeft(865);
+		autoCommand = Robot::driveTrain->GetDashboard();
+		shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
+		ResetPositions();
+		//TODO: Add regressive functionality
+		//Red team shoot and hopper
+		if(autoCommand == 1)
+		{
+			AutonomousShoota(ColorRed);
+			AutonomousAuger();
+	//		AutonomousDelayUntilEmpty();
+	//		AutonomousAugerStop();
+			lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousMoveBackwards(500);
+			lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousTurnLeft(900);
+			lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousMoveForward(3300);
+			lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousTurnRight(5000);
+	//		AutonomousMoveForward(7000);
+			lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		}
+		//Red team shoot and gear
+		else if(autoCommand == 2)
+		{
+			AutonomousTurnRight(_90DegreeTurn);
+			AutonomousShoota(ColorRed);
+			AutonomousAuger();
+			AutonomousDelayUntilEmpty();
+			AutonomousAugerStop();
+			AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
+			AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
+			AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
+			AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
+		}
+		//Red team gear and shoot
+		else if(autoCommand == 3)
+		{
+			AutonomousMoveBackwards(2000);
+			AutonomousDelayForGear();
+			AutonomousMoveForward(1000);
+			AutonomousTurnLeft(1000);
+			AutonomousMoveForward(2000);
+			AutonomousTurnRight(500);
+			AutonomousShoota(ColorRed);
+			AutonomousAuger();
+		}
+		//Blue team shoot and hopper
+		else if(autoCommand == 4)
+		{
+			AutonomousShoota(ColorBlue);
+			AutonomousAuger();
+	//		AutonomousDelayUntilEmpty();
+	//		AutonomousAugerStop();
+	//		AutonomousMoveBackwards(700);
+			lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousTurnRight(2000);
+			lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousMoveForward(3500);
+			lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousTurnLeft(1000);
+			lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+	//		AutonomousMoveForward(2000);
+			lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		}
+		//Blue team shoot and gear
+		else if(autoCommand == 5)
+		{
+			AutonomousTurnLeft(_90DegreeTurn);
+			AutonomousShoota(ColorBlue);
+			AutonomousAuger();
+			AutonomousDelayUntilEmpty();
+			AutonomousAugerStop();
+			AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
+			AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
+			AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
+			AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
+		}
+		//Blue team gear and shoot
+		else if(autoCommand == 6)
+		{
+			AutonomousMoveBackwards(OneRevolutionOfTheWheel);
+			AutonomousDelayForGear();
+			AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
+			AutonomousTurnRight(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
+			AutonomousShoota(ColorBlue);
+			AutonomousAuger();
+		}
+		//Testing autocommands
+		else if(autoCommand == 7)
+		{
+			//AutonomousTurnLeft(865);
 
-		//AutonomousTurnRight(lastAutonomousValue+500);
-//		AutonomousTurnLeft(lastAutonomousValue+775);
-//		AutonomousTurnRight(lastAutonomousValue+775);
-//		AutonomousTurnLeft(lastAutonomousValue+1000);
-//		AutonomousTurnRight(lastAutonomousValue+1000);
-		AutonomousMoveForward(1000);
-//		AutonomousMoveForward(lastAutonomousValue+1000);
+			//AutonomousTurnRight(lastAutonomousValue+500);
+	//		AutonomousTurnLeft(lastAutonomousValue+775);
+	//		AutonomousTurnRight(lastAutonomousValue+775);
+	//		AutonomousTurnLeft(lastAutonomousValue+1000);
+	//		AutonomousTurnRight(lastAutonomousValue+1000);
+			AutonomousMoveForward(1000);
+	//		AutonomousMoveForward(lastAutonomousValue+1000);
+		}
+		stopAuto = true;
 	}
-	stopAuto = true;
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -148,6 +153,10 @@ void AutonomousCommand::AutonomousMoveForward(double tickGoal){
 	{
 		Robot::driveTrain->SetTalonForward();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+		if(DriverStation::GetInstance().IsOperatorControl())
+		{
+			break;
+		}
 	}
 	Robot::driveTrain->SetTalonStop();
 }
@@ -160,6 +169,10 @@ void AutonomousCommand::AutonomousMoveBackwards(double tickGoal)
 	{
 		Robot::driveTrain->SetTalonBackwards();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+		if(DriverStation::GetInstance().IsOperatorControl())
+		{
+			break;
+		}
 	}
 	Robot::driveTrain->SetTalonStop();
 }
@@ -171,6 +184,10 @@ void AutonomousCommand::AutonomousTurnRight(double turnGoal){
 	{
 		Robot::driveTrain->TurnRight();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+		if(DriverStation::GetInstance().IsOperatorControl())
+		{
+			break;
+		}
 	}
 	Robot::driveTrain->SetTalonStop();
 }
@@ -182,6 +199,10 @@ void AutonomousCommand::AutonomousTurnLeft(double turnGoal){
 	{
 		Robot::driveTrain->TurnLeft();
 		encoderPositionStarboard = (Robot::driveTrain->GetStarboardTalonEncoderPosition());
+		if(DriverStation::GetInstance().IsOperatorControl())
+		{
+			break;
+		}
 	}
 	Robot::driveTrain->SetTalonStop();
 }
@@ -190,20 +211,7 @@ void AutonomousCommand::ResetPositions(){
 	Robot::driveTrain->SetTalonStartPosition();
 }
 
-void AutonomousCommand::AutonomousShoota(){
-//	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
-//	{
-//		/*
-//		 * This is strictly for use off the field and calibrating with a joystick controller with a slider.
-//		 */
-//		double desiredSpeed = 0;
-//
-//		// Controller input is 0 - 1; Talon in speed mode expects RPM.
-//		desiredSpeed = fabs(Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER) * Robot::shooter->GetShootaMaxCalibrationSpeed());
-//		Robot::shooter->SpeedControlShooter(desiredSpeed);
-//	}
-//	else
-//	{
+void AutonomousCommand::AutonomousShoota(int Color){
 		double visionSuggestedSpeed = shooterSpeed;
 		//TODO: Get feedback from vision computer and adjust the speed.
 		//This does nothing right now obviously... Needs the return from vision.
@@ -213,8 +221,7 @@ void AutonomousCommand::AutonomousShoota(){
 		//TODO: Get the current speed of the motor from the encoder and adjust.
 		shooterSpeed = Robot::shooter->GetShooterSpeed();
 
-		Robot::shooter->SpeedControlShooter(shooterSpeed);
-//	}
+		Robot::shooter->AutonomousSpeedControlShooter(shooterSpeed, Color);
 }
 
 void AutonomousCommand::AutonomousAuger(){

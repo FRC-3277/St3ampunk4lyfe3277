@@ -64,6 +64,7 @@ public:
 	void SetShooterSpeed(double speedControlValue);
 	double GetShooterSpeed();
 	void SpeedControlShooter(double speedControlValue);
+	void AutonomousSpeedControlShooter(double speedControlValue, int Color);
 	double GetShootaStartingSpeed();
 	double GetShootaMaxCalibrationSpeed();
 };

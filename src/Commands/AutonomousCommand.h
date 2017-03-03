@@ -23,7 +23,7 @@ public:
 	void AutonomousTurnRight(double turnGoal);
 	void AutonomousTurnLeft(double turnGoal);
 	void ResetPositions();
-	void AutonomousShoota();
+	void AutonomousShoota(int Color);
 	void AutonomousAuger();
 	void AutonomousAugerStop();
 	void AutonomousDelayUntilEmpty();

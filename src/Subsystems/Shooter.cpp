@@ -134,6 +134,53 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 	}
 
 	shooterTalon->Set(speedControlValue);
+
+	//dumpEncoderLogging();
+}
+
+void Shooter::AutonomousSpeedControlShooter(double speedControlValue, int Color)
+{
+	speedControlValue = fabs(speedControlValue);
+	if(RobotMap::SHOOTA_ENABLE_PIDF_CALIBRATION)
+	{
+		p = std::stod(SmartDashboard::GetString("DB/String 0", to_string(p)));
+		i = std::stod(SmartDashboard::GetString("DB/String 1", to_string(i)));
+		d = std::stod(SmartDashboard::GetString("DB/String 2", to_string(d)));
+		f = std::stod(SmartDashboard::GetString("DB/String 3", to_string(f)));
+
+		shooterTalon->SetPID(p, i, d, f);
+
+		//Motion Magic Closed-Loop... unsupported with CANTalon... or it seems so.
+		shooterTalon->SetMotionMagicCruiseVelocity(1000); // In RPMs
+		shooterTalon->SetMotionMagicAcceleration(2000); // In RPMs per sec until cruise velocity
+	}
+
+	double quadEncoderPos = shooterTalon->GetEncPosition();
+	double quadEncoderVelocity = shooterTalon->GetEncVel();
+
+	lumberJack->dashLogNumber("Shooter Position", quadEncoderPos);
+	lumberJack->dashLogNumber("Shooter Velocity", quadEncoderVelocity);
+	lumberJack->dashLogNumber("Shooter Speed Desired", speedControlValue);
+
+	// Prevent the belt from jumping and the motor from hunting for zero.
+	if(RobotMap::SHOOTA_PID_SYSTEM &&
+		speedControlValue < MIN_SHOOTA_SPEED_BEFORE_CUTOUT)
+	{
+		shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	}
+	else
+	{
+		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
+	}
+
+	if (Color == 1)
+	{
+		shooterTalon->Set(speedControlValue+50);
+	}
+	else if(Color == 0)
+	{
+		shooterTalon->Set(speedControlValue);
+	}
 	//dumpEncoderLogging();
 }
 
