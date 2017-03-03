@@ -18,7 +18,7 @@ private:
 	std::chrono::duration<float> elapsedTime;
 	int numberSecondsElapsed = 0;
 
-	double delayDriveTrainUntilEmpty = 11;
+	double delayDriveTrainUntilEmpty = 11.5;
 	double delayDriveTrainGear = 2;
 
 	// Localized versions of talon calibration

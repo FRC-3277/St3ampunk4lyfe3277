@@ -77,6 +77,7 @@ DriveTrain::DriveTrain() : Subsystem("DriveTrain") {
     steamEngineRobotDrive->SetMaxOutput(1.0);
     steamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearLeftMotor, true);
     steamEngineRobotDrive->SetInvertedMotor(RobotDrive::kRearRightMotor, true);
+
 }
 
 void DriveTrain::InitDefaultCommand() {

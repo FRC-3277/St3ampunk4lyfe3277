@@ -47,7 +47,7 @@ OI::OI()
 	JoystickButton* buttonToggleStatusAugerReverse = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER_REVERSE);
 
 	//Button trigger and command mappings
-	buttonEnableClimberUp->ToggleWhenPressed(new OperatorInputClimber());
+	buttonEnableClimberUp->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->WhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_FORWARD));
 	//buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());

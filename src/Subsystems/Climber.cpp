@@ -10,6 +10,7 @@ Climber::Climber() : Subsystem("Climber") {
 	lumberJack.reset(new LumberJack());
 
 	//Everything else
+	climberTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 	climberTalon->SetControlMode(CANSpeedController::kPercentVbus);
 	climberTalon->EnableControl();
 	climberTalon->Set(RobotMap::ALL_STOP);

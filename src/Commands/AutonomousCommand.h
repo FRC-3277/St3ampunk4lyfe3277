@@ -32,6 +32,7 @@ public:
 private:
 	std::shared_ptr<LumberJack> lumberJack;
 	bool startShooting = false;
+	bool stopAuto = false;
 	double shooterSpeed = 0;
 	double autoCommand = 0;
 	double lastAutonomousValue = 0;

@@ -37,8 +37,6 @@ void OperatorInputShooter::Execute() {
 		{
 			desiredSpeed = Robot::shooter->GetShootaStartingSpeed();
 		}
-
-		lumberJack->dLog("Axis Value" +to_string(desiredSpeed));
 		Robot::shooter->SpeedControlShooter(desiredSpeed);
 	}
 	else

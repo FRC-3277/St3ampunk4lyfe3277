@@ -10,10 +10,12 @@ AutonomousCommand::AutonomousCommand(): Command() {
 //TODO: Currently the position isn't resetting correctly. We must increase the number... I'm not sure why the ENC POS won't reset
 //In order to chain the drivetrain commands, continue to add to the tickGoals. Hopefully we can change that
 void AutonomousCommand::Initialize() {
-	//This is possibly needed. I was rushed to get the shooter running in auto so there may be a more elegant way
-	//775 is about a 90 degree turn ; 848 is about 1 revolution of the wheel
 
-	int _90DegreeTurn = 775;
+}
+
+// Called repeatedly when this Command is scheduled to run
+void AutonomousCommand::Execute() {
+	int _90DegreeTurn = 1000;
 	int OneRevolutionOfTheWheel = 848;
 
 	autoCommand = Robot::driveTrain->GetDashboard();
@@ -23,15 +25,15 @@ void AutonomousCommand::Initialize() {
 	//Red team shoot and hopper
 	if(autoCommand == 1)
 	{
-		AutonomousTurnRight(_90DegreeTurn);
 		AutonomousShoota();
 		AutonomousAuger();
 		AutonomousDelayUntilEmpty();
 		AutonomousAugerStop();
-		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
-		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
-		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn);
-		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn+OneRevolutionOfTheWheel);
+		lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		AutonomousTurnLeft(_90DegreeTurn);
+		lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		AutonomousMoveForward(_90DegreeTurn+5038);
+		lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
 	}
 	//Red team shoot and gear
 	else if(autoCommand == 2)
@@ -59,15 +61,20 @@ void AutonomousCommand::Initialize() {
 	//Blue team shoot and hopper
 	else if(autoCommand == 4)
 	{
-		AutonomousTurnLeft(_90DegreeTurn);
 		AutonomousShoota();
 		AutonomousAuger();
 		AutonomousDelayUntilEmpty();
 		AutonomousAugerStop();
-		AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
-		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
-		AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn);
-		AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+_90DegreeTurn+OneRevolutionOfTheWheel);
+		AutonomousMoveBackwards(700);
+		lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		AutonomousTurnRight(4200);
+		lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		AutonomousMoveForward(4800);
+		lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		AutonomousTurnLeft(8300);
+		lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+		AutonomousMoveForward(12950);
+		lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
 	}
 	//Blue team shoot and gear
 	else if(autoCommand == 5)
@@ -92,19 +99,12 @@ void AutonomousCommand::Initialize() {
 		AutonomousShoota();
 		AutonomousAuger();
 	}
-}
-
-// Called repeatedly when this Command is scheduled to run
-void AutonomousCommand::Execute() {
-//	if (startShooting)
-//	{
-//		AutonomousShoota();
-//	}
+	stopAuto = true;
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool AutonomousCommand::IsFinished() {
-    return false;
+	return stopAuto;
 }
 
 // Called once after IsFinished returns true
@@ -171,19 +171,19 @@ void AutonomousCommand::ResetPositions(){
 }
 
 void AutonomousCommand::AutonomousShoota(){
-	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
-	{
-		/*
-		 * This is strictly for use off the field and calibrating with a joystick controller with a slider.
-		 */
-		double desiredSpeed = 0;
-
-		// Controller input is 0 - 1; Talon in speed mode expects RPM.
-		desiredSpeed = fabs(Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER) * Robot::shooter->GetShootaMaxCalibrationSpeed());
-		Robot::shooter->SpeedControlShooter(desiredSpeed);
-	}
-	else
-	{
+//	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
+//	{
+//		/*
+//		 * This is strictly for use off the field and calibrating with a joystick controller with a slider.
+//		 */
+//		double desiredSpeed = 0;
+//
+//		// Controller input is 0 - 1; Talon in speed mode expects RPM.
+//		desiredSpeed = fabs(Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER) * Robot::shooter->GetShootaMaxCalibrationSpeed());
+//		Robot::shooter->SpeedControlShooter(desiredSpeed);
+//	}
+//	else
+//	{
 		double visionSuggestedSpeed = shooterSpeed;
 		//TODO: Get feedback from vision computer and adjust the speed.
 		//This does nothing right now obviously... Needs the return from vision.
@@ -194,7 +194,7 @@ void AutonomousCommand::AutonomousShoota(){
 		shooterSpeed = Robot::shooter->GetShooterSpeed();
 
 		Robot::shooter->SpeedControlShooter(shooterSpeed);
-	}
+//	}
 }
 
 void AutonomousCommand::AutonomousAuger(){
