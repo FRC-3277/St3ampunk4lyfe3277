@@ -14,6 +14,7 @@
 class Auger: public Subsystem {
 private:
 	std::shared_ptr<Relay> augerSpike;
+	std::shared_ptr<CANTalon> augerTalon;
 	std::shared_ptr<LumberJack> lumberJack;
 	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
 	std::chrono::duration<float> elapsedTime;

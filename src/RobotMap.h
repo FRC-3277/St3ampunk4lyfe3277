@@ -70,6 +70,7 @@ public:
 	//Auger
 	static const int HOPPA_AUGA_RELAY = 0;
 	static std::shared_ptr<Relay> augerSpike;
+	static std::shared_ptr<CANTalon> augerTalon;
 
 	//Climber
 	static const int CLIMBA_MOTOR = 3;

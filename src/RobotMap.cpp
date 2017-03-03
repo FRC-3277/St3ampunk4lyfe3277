@@ -12,6 +12,7 @@ std::shared_ptr<CANTalon> RobotMap::pickerTalon;
 
 //Auger
 std::shared_ptr<Relay> RobotMap::augerSpike;
+std::shared_ptr<Relay> RobotMap::augerTalon;
 
 //Climber
 std::shared_ptr<CANTalon> RobotMap::climberTalon;
