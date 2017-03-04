@@ -15,6 +15,7 @@ public:
 
 	// All
 	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
+	static const bool AUGER_TALON_MOTOR = true;
 	//Enable logitech joystick
 	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = true;
 	//Enable smartdashboard PIDF
@@ -70,6 +71,10 @@ public:
 	//Auger
 	static const int HOPPA_AUGA_RELAY = 0;
 	static std::shared_ptr<Relay> augerSpike;
+
+	//Auger on Talon
+	static const int HOPPA_AUGA_TALON = 7;
+	static std::shared_ptr<CANTalon> augerTalon;
 
 	//Climber
 	static const int CLIMBA_MOTOR = 3;

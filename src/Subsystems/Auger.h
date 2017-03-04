@@ -14,6 +14,7 @@
 class Auger: public Subsystem {
 private:
 	std::shared_ptr<Relay> augerSpike;
+	std::shared_ptr<CANTalon> augerTalon;
 	std::shared_ptr<LumberJack> lumberJack;
 	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
 	std::chrono::duration<float> elapsedTime;
@@ -26,12 +27,16 @@ private:
 	double goForwardNumberSeconds = 1;
 	double goBackwardsNumberSeconds = 0.15;
 	double delayAugerNumberSeconds = 0.8;
+	double augerSpeed = 0.70;
+	double augerBackwards = -0.5;
+	double augerAutonomousSpeed = 0.7;
 
 public:
 	Auger();
 	void InitDefaultCommand();
 
 	void AugerAllShesGotCaptain();
+	void AutonomousAugerAllShesGotCaptain();
 	void AugerCleanAndSweepReverse();
 	void AugerStopScotty();
 	void AugerForwardAndReverse();

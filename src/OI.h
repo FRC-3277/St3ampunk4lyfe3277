@@ -44,6 +44,8 @@
 
 // Logitech Extreme 3D Pro
 #define SHOOTA_CALIBRATION_SLIDER 3
+#define AUGA_SPEED_UP 11
+#define AUGA_SPEED_DOWN 10
 
 class OI {
 private:

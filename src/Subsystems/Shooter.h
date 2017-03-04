@@ -20,6 +20,7 @@ private:
 
 	// The speed that it starts at, or perhaps suggests
 	double SHOOTA_STARTING_SPEED;
+	double SHOOTA_AUTONOMOUS_SPEED;
 	// Calibration speed from Joystick slider
 	double SHOOTA_MAX_CALIBRATION_SPEED;
 	// Prevent the shooter from jumping the belt.
@@ -63,6 +64,7 @@ public:
 
 	void SetShooterSpeed(double speedControlValue);
 	double GetShooterSpeed();
+	double GetAutonomousShootaStartingSpeed();
 	void SpeedControlShooter(double speedControlValue);
 	void AutonomousSpeedControlShooter(double speedControlValue, int Color);
 	double GetShootaStartingSpeed();
