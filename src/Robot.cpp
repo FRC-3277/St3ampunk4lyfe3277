@@ -78,6 +78,8 @@ void Robot::TeleopInit() {
 	// these lines or comment it out.
 	if (autonomousCommand.get() != nullptr)
 		autonomousCommand->Cancel();
+	Robot::shooter->SpeedControlShooter(RobotMap::ALL_STOP);
+	Robot::auger->AugerStopScotty();
 }
 
 void Robot::TeleopPeriodic() {

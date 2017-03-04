@@ -58,7 +58,7 @@ void Auger::AugerCleanAndSweepReverse(){
 void Auger::AugerStopScotty() {
 	if(RobotMap::AUGER_TALON_MOTOR)
 	{
-		augerTalon->Set(0.0);
+		augerTalon->Set(RobotMap::ALL_STOP);
 	}
 	else
 	{

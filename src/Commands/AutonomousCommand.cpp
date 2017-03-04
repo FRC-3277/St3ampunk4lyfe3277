@@ -140,9 +140,7 @@ void AutonomousCommand::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void AutonomousCommand::Interrupted() {
-	shooterSpeed = 0;
-	Robot::shooter->SpeedControlShooter(shooterSpeed);
-	AutonomousAugerStop();
+
 }
 
 //Every 848 ticks is one full rotation of the wheel. It will move 6 Pi in distance for each rotation
