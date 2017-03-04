@@ -225,7 +225,7 @@ void AutonomousCommand::AutonomousShoota(int Color){
 }
 
 void AutonomousCommand::AutonomousAuger(){
-	Robot::auger->AugerAllShesGotCaptain();
+	Robot::auger->AutonomousAugerAllShesGotCaptain();
 }
 
 void AutonomousCommand::AutonomousAugerStop(){

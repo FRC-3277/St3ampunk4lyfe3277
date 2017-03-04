@@ -12,7 +12,7 @@ std::shared_ptr<CANTalon> RobotMap::pickerTalon;
 
 //Auger
 std::shared_ptr<Relay> RobotMap::augerSpike;
-std::shared_ptr<Relay> RobotMap::augerTalon;
+std::shared_ptr<CANTalon> RobotMap::augerTalon;
 
 //Climber
 std::shared_ptr<CANTalon> RobotMap::climberTalon;
@@ -40,8 +40,17 @@ void RobotMap::init() {
 
 	//Auger
 	//Reverse travel is toward the shoota.
+	if(AUGER_TALON_MOTOR)
+	{
+	augerTalon.reset(new CANTalon(HOPPA_AUGA_TALON));
+	lw->AddActuator("Auger", "Auger", augerTalon);
+	}
+	else
+	{
 	augerSpike.reset(new Relay(HOPPA_AUGA_RELAY, Relay::kBothDirections));
 	lw->AddActuator("Auger", "Auger", augerSpike);
+	}
+
 
 	//Climber
 	climberTalon.reset(new CANTalon(CLIMBA_MOTOR));

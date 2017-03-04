@@ -3,8 +3,22 @@
 
 
 Auger::Auger() : Subsystem("Auger") {
-	augerSpike = RobotMap::augerSpike;
+	if(RobotMap::AUGER_TALON_MOTOR)
+	{
+		augerTalon = RobotMap::augerTalon;
+
+		augerTalon->SetControlMode(CANSpeedController::kPercentVbus);
+		augerTalon->EnableControl();
+		augerTalon->SetInverted(false);
+		augerTalon->Set(RobotMap::ALL_STOP);
+	}
+	else
+	{
+		augerSpike = RobotMap::augerSpike;
+	}
+
 	lumberJack.reset(new LumberJack());
+
 	startTime = std::chrono::system_clock::now();
 }
 
@@ -13,16 +27,43 @@ void Auger::InitDefaultCommand() {
 }
 
 void Auger::AugerAllShesGotCaptain() {
-	augerSpike->Set(Relay::kReverse);
+	if(RobotMap::AUGER_TALON_MOTOR)
+	{
+		augerTalon->Set(augerSpeed);
+	}
+	else
+	{
+		augerSpike->Set(Relay::kReverse);
+	}
+}
+
+void Auger::AutonomousAugerAllShesGotCaptain() {
+	if(RobotMap::AUGER_TALON_MOTOR)
+	{
+		augerTalon->Set(augerAutonomousSpeed);
+	}
 }
 
 void Auger::AugerCleanAndSweepReverse(){
-	augerSpike->Set(Relay::kForward);
+	if(RobotMap::AUGER_TALON_MOTOR)
+	{
+		augerTalon->Set(augerBackwards);
+	}
+	else
+	{
+		augerSpike->Set(Relay::kForward);
+	}
 }
 
 void Auger::AugerStopScotty() {
-
-	augerSpike->Set(Relay::kOff);
+	if(RobotMap::AUGER_TALON_MOTOR)
+	{
+		augerTalon->Set(0.0);
+	}
+	else
+	{
+		augerSpike->Set(Relay::kOff);
+	}
 }
 
 void Auger::AugerForwardAndReverse() {
