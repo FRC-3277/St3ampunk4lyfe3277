@@ -104,6 +104,17 @@ double Shooter::GetShootaMaxCalibrationSpeed()
 	return SHOOTA_MAX_CALIBRATION_SPEED;
 }
 
+double Shooter::GetShootaVelocity()
+{
+	return shooterTalon->GetEncVel();
+
+}
+
+double Shooter::GetShootaDesiredSpeed()
+{
+	return desiredSpeed;
+}
+
 void Shooter::SpeedControlShooter(double speedControlValue)
 {
 	speedControlValue = fabs(speedControlValue);
@@ -138,7 +149,7 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 	{
 		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
 	}
-
+	desiredSpeed = speedControlValue;
 	shooterTalon->Set(speedControlValue);
 
 	//dumpEncoderLogging();

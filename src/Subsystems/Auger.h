@@ -3,6 +3,7 @@
 #include <chrono>
 
 #include "./LumberJack.h"
+#include "./Robot.h"
 #include "Commands/Subsystem.h"
 #include "WPILib.h"
 
@@ -22,7 +23,12 @@ private:
 
 	bool goReverse = false,
 			goForward = true,
-			delayAuger = false;
+			delayAuger = false,
+			delayAugerForShooter = true,
+			augerStop = false;
+
+	double previousVelocity = 0;
+	double nowVelocity = 0;
 
 	double goForwardNumberSeconds = 1;
 	double goBackwardsNumberSeconds = 0.15;
@@ -41,6 +47,7 @@ public:
 	void AugerStopScotty();
 	void AugerForwardAndReverse();
 	void AugerDelay();
+	void AugerShooterDelay();
 };
 
 #endif

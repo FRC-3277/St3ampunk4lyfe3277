@@ -26,6 +26,8 @@ private:
 	// Prevent the shooter from jumping the belt.
 	double MIN_SHOOTA_SPEED_BEFORE_CUTOUT;
 
+	double desiredSpeed = 0;
+
 	double shooterSpeed = 0;
 	double p;
 	double i;
@@ -69,6 +71,8 @@ public:
 	void AutonomousSpeedControlShooter(double speedControlValue, int Color);
 	double GetShootaStartingSpeed();
 	double GetShootaMaxCalibrationSpeed();
+	double GetShootaVelocity();
+	double GetShootaDesiredSpeed();
 };
 
 #endif
