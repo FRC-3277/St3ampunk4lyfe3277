@@ -46,12 +46,17 @@ OI::OI()
 	//JoystickButton* buttonEnableClimberDown = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER_DOWN);
 	JoystickButton* buttonToggleStatusAugerReverse = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER_REVERSE);
 
+//	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_UP);
+//	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_DOWN);
+
 	//Button trigger and command mappings
 	buttonEnableClimberUp->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->WhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_FORWARD));
 	//buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
 	buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
+
+
 
 	/*The shooter is enabled manually by the operator.  This enables
 	  both the shooter motor and also the vision tracking feedback helper

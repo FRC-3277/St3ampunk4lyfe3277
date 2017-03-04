@@ -219,7 +219,7 @@ void AutonomousCommand::AutonomousShoota(int Color){
 		Robot::shooter->SetShooterSpeed(visionSuggestedSpeed);
 
 		//TODO: Get the current speed of the motor from the encoder and adjust.
-		shooterSpeed = Robot::shooter->GetShooterSpeed();
+		shooterSpeed = Robot::shooter->GetAutonomousShootaStartingSpeed();
 
 		Robot::shooter->AutonomousSpeedControlShooter(shooterSpeed, Color);
 }

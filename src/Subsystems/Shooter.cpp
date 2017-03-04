@@ -16,7 +16,8 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
 	if(RobotMap::SHOOTA_PID_SYSTEM)
 	{
-		SHOOTA_STARTING_SPEED = 2288.281;
+		SHOOTA_STARTING_SPEED = 2400;
+		SHOOTA_AUTONOMOUS_SPEED = 2350.281;
 		SHOOTA_MAX_CALIBRATION_SPEED = 2900;
 		MIN_SHOOTA_SPEED_BEFORE_CUTOUT = 500;
 		p = 16;
@@ -91,6 +92,11 @@ double Shooter::GetShooterSpeed()
 double Shooter::GetShootaStartingSpeed()
 {
 	return SHOOTA_STARTING_SPEED;
+}
+
+double Shooter::GetAutonomousShootaStartingSpeed()
+{
+	return SHOOTA_AUTONOMOUS_SPEED;
 }
 
 double Shooter::GetShootaMaxCalibrationSpeed()
@@ -179,7 +185,7 @@ void Shooter::AutonomousSpeedControlShooter(double speedControlValue, int Color)
 	}
 	else if(Color == 0)
 	{
-		shooterTalon->Set(speedControlValue);
+		shooterTalon->Set(speedControlValue+5);
 	}
 	//dumpEncoderLogging();
 }
