@@ -3,10 +3,11 @@
 
 
 Auger::Auger() : Subsystem("Auger") {
-	if(RobotMap::AUGER_TALON_MOTOR)
+	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
 		augerTalon = RobotMap::augerTalon;
 
+		augerTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 		augerTalon->SetControlMode(CANSpeedController::kPercentVbus);
 		augerTalon->EnableControl();
 		augerTalon->SetInverted(false);
@@ -29,7 +30,7 @@ void Auger::InitDefaultCommand() {
 
 
 void Auger::AugerAllShesGotCaptain() {
-	if(RobotMap::AUGER_TALON_MOTOR)
+	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
 		augerTalon->Set(augerSpeed);
 	}
@@ -40,14 +41,14 @@ void Auger::AugerAllShesGotCaptain() {
 }
 
 void Auger::AutonomousAugerAllShesGotCaptain() {
-	if(RobotMap::AUGER_TALON_MOTOR)
+	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
 		augerTalon->Set(augerAutonomousSpeed);
 	}
 }
 
 void Auger::AugerCleanAndSweepReverse(){
-	if(RobotMap::AUGER_TALON_MOTOR)
+	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
 		augerTalon->Set(augerBackwards);
 	}
@@ -58,9 +59,10 @@ void Auger::AugerCleanAndSweepReverse(){
 }
 
 void Auger::AugerStopScotty() {
-	if(RobotMap::AUGER_TALON_MOTOR)
+	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
-		augerTalon->Set(RobotMap::ALL_STOP);
+		augerTalon->Set(0);
+		lumberJack->dLog("Hey There");
 	}
 	else
 	{

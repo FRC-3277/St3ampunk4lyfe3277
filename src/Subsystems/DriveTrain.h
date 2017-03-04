@@ -18,8 +18,8 @@ private:
 	std::chrono::duration<float> elapsedTime;
 	int numberSecondsElapsed = 0;
 
-	double delayDriveTrainUntilEmpty = 11.5;
-	double delayDriveTrainGear = 2;
+//	double delayDriveTrainUntilEmpty = 7;
+//	double delayDriveTrainGear = 1.5;
 
 	// Localized versions of talon calibration
 	const float FULL_SPEED_FROM_TALONS=	RobotMap::FULL_SPEED_FROM_TALONS_BASE;
@@ -52,10 +52,11 @@ public:
 	void SetTalonStop();
 	void TurnRight();
 	void TurnLeft();
-	void DelayUntilEmpty();
+	void DelayUntilEmpty(double delayTime);
 	void DelayForGear();
 	double GetDashboard();
 	double GetStarboardTalonEncoderPosition();
+	void SetStartTime();
 };
 
 #endif

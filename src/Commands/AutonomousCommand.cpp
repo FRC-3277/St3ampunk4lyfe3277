@@ -10,13 +10,17 @@ AutonomousCommand::AutonomousCommand(): Command() {
 //TODO: Currently the position isn't resetting correctly. We must increase the number... I'm not sure why the ENC POS won't reset
 //In order to chain the drivetrain commands, continue to add to the tickGoals. Hopefully we can change that
 void AutonomousCommand::Initialize() {
-
+	Robot::driveTrain->SetStartTime();
+	hasRun = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AutonomousCommand::Execute() {
-	if(DriverStation::GetInstance().IsAutonomous())
+	if(DriverStation::GetInstance().IsAutonomous() &&
+			hasRun == false)
 	{
+		hasRun = true;
+
 		int _90DegreeTurn = 1000;
 		int OneRevolutionOfTheWheel = 848;
 		int ColorRed = 1;
@@ -31,18 +35,11 @@ void AutonomousCommand::Execute() {
 		{
 			AutonomousShoota(ColorRed);
 			AutonomousAuger();
-	//		AutonomousDelayUntilEmpty();
-	//		AutonomousAugerStop();
-			lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousMoveBackwards(500);
-			lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousTurnLeft(900);
-			lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousMoveForward(3300);
-			lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousTurnRight(5000);
-	//		AutonomousMoveForward(7000);
-			lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+			AutonomousReload(7);
+			AutonomousAugerStop();
+			Robot::driveTrain->SetStartTime();
+			AutonomousReload(2);
+			AutonomousAuger();
 		}
 		//Red team shoot and gear
 		else if(autoCommand == 2)
@@ -50,7 +47,7 @@ void AutonomousCommand::Execute() {
 			AutonomousTurnRight(_90DegreeTurn);
 			AutonomousShoota(ColorRed);
 			AutonomousAuger();
-			AutonomousDelayUntilEmpty();
+			AutonomousReload(5);
 			AutonomousAugerStop();
 			AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
 			AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
@@ -61,7 +58,7 @@ void AutonomousCommand::Execute() {
 		else if(autoCommand == 3)
 		{
 			AutonomousMoveBackwards(2000);
-			AutonomousDelayForGear();
+			AutonomousReload(5);
 			AutonomousMoveForward(1000);
 			AutonomousTurnLeft(1000);
 			AutonomousMoveForward(2000);
@@ -74,18 +71,11 @@ void AutonomousCommand::Execute() {
 		{
 			AutonomousShoota(ColorBlue);
 			AutonomousAuger();
-	//		AutonomousDelayUntilEmpty();
-	//		AutonomousAugerStop();
-	//		AutonomousMoveBackwards(700);
-			lumberJack->dLog("ENC POSITION 1 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousTurnRight(2000);
-			lumberJack->dLog("ENC POSITION 2 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousMoveForward(3500);
-			lumberJack->dLog("ENC POSITION 3 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousTurnLeft(1000);
-			lumberJack->dLog("ENC POSITION 4 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
-	//		AutonomousMoveForward(2000);
-			lumberJack->dLog("ENC POSITION 5 " +to_string(Robot::driveTrain->GetStarboardTalonEncoderPosition()));
+			AutonomousReload(7);
+			AutonomousAugerStop();
+			Robot::driveTrain->SetStartTime();
+			AutonomousReload(2);
+			AutonomousAuger();
 		}
 		//Blue team shoot and gear
 		else if(autoCommand == 5)
@@ -93,7 +83,7 @@ void AutonomousCommand::Execute() {
 			AutonomousTurnLeft(_90DegreeTurn);
 			AutonomousShoota(ColorBlue);
 			AutonomousAuger();
-			AutonomousDelayUntilEmpty();
+			AutonomousReload(5);
 			AutonomousAugerStop();
 			AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
 			AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
@@ -104,7 +94,7 @@ void AutonomousCommand::Execute() {
 		else if(autoCommand == 6)
 		{
 			AutonomousMoveBackwards(OneRevolutionOfTheWheel);
-			AutonomousDelayForGear();
+			AutonomousReload(5);
 			AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
 			AutonomousTurnRight(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
 			AutonomousShoota(ColorBlue);
@@ -113,15 +103,13 @@ void AutonomousCommand::Execute() {
 		//Testing autocommands
 		else if(autoCommand == 7)
 		{
-			//AutonomousTurnLeft(865);
-
-			//AutonomousTurnRight(lastAutonomousValue+500);
-	//		AutonomousTurnLeft(lastAutonomousValue+775);
-	//		AutonomousTurnRight(lastAutonomousValue+775);
-	//		AutonomousTurnLeft(lastAutonomousValue+1000);
-	//		AutonomousTurnRight(lastAutonomousValue+1000);
-			AutonomousMoveForward(1000);
-	//		AutonomousMoveForward(lastAutonomousValue+1000);
+			AutonomousShoota(ColorRed);
+			AutonomousAuger();
+			AutonomousReload(7);
+			AutonomousAugerStop();
+			Robot::driveTrain->SetStartTime();
+			AutonomousReload(2);
+			AutonomousAuger();
 		}
 		stopAuto = true;
 	}
@@ -230,10 +218,6 @@ void AutonomousCommand::AutonomousAugerStop(){
 	Robot::auger->AugerStopScotty();
 }
 
-void AutonomousCommand::AutonomousDelayUntilEmpty(){
-	Robot::driveTrain->DelayUntilEmpty();
-}
-
-void AutonomousCommand::AutonomousDelayForGear(){
-	Robot::driveTrain->DelayForGear();
+void AutonomousCommand::AutonomousReload(double timeDelay){
+	Robot::driveTrain->DelayUntilEmpty(timeDelay);
 }

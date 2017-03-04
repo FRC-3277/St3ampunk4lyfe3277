@@ -134,33 +134,39 @@ void DriveTrain::TurnRight()
 	starboardTalon->Set(-0.35);
 }
 
-void DriveTrain::DelayUntilEmpty()
+void DriveTrain::DelayUntilEmpty(double delayTime)
 {
-	startTime = std::chrono::system_clock::now();
+	lumberJack->dLog("Begin");
 	while (true)
 	{
 		endTime = std::chrono::system_clock::now();
 		elapsedTime = endTime - startTime;
 		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
-		if (f_secs.count() > delayDriveTrainUntilEmpty)
+		if (f_secs.count() > delayTime)
 		{
+			lumberJack->dLog("End");
 			break;
 		}
 	}
 }
 
-void DriveTrain::DelayForGear()
+void DriveTrain::SetStartTime()
 {
-	endTime = std::chrono::system_clock::now();
-	elapsedTime = endTime - startTime;
-	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
-	while (f_secs.count() < delayDriveTrainGear)
-	{
-		endTime = std::chrono::system_clock::now();
-		elapsedTime = endTime - startTime;
-		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
-	}
+	startTime = std::chrono::system_clock::now();
 }
+
+//void DriveTrain::DelayForGear()
+//{
+//	endTime = std::chrono::system_clock::now();
+//	elapsedTime = endTime - startTime;
+//	auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+//	while (f_secs.count() < delayDriveTrainGear)
+//	{
+//		endTime = std::chrono::system_clock::now();
+//		elapsedTime = endTime - startTime;
+//		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+//	}
+//}
 
 double DriveTrain::GetDashboard()
 {

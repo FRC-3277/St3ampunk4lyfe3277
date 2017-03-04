@@ -15,7 +15,7 @@ public:
 
 	// All
 	static const bool ALTERNATE_CONTROLLER_ENABLED = false;
-	static const bool AUGER_TALON_MOTOR = true;
+	static const bool AUGER_TALON_MOTOR_ENABLED = true;
 	//Enable logitech joystick
 	static const bool SHOOTA_CALIBRATION_CONTROLLER_ENABLED = true;
 	//Enable smartdashboard PIDF

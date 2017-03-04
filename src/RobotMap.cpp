@@ -40,7 +40,7 @@ void RobotMap::init() {
 
 	//Auger
 	//Reverse travel is toward the shoota.
-	if(AUGER_TALON_MOTOR)
+	if(AUGER_TALON_MOTOR_ENABLED)
 	{
 	augerTalon.reset(new CANTalon(HOPPA_AUGA_TALON));
 	lw->AddActuator("Auger", "Auger", augerTalon);

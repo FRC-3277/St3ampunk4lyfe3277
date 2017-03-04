@@ -27,7 +27,7 @@ private:
 	double goForwardNumberSeconds = 1;
 	double goBackwardsNumberSeconds = 0.15;
 	double delayAugerNumberSeconds = 0.8;
-	double augerSpeed = 0.70;
+	double augerSpeed = 0.65;
 	double augerBackwards = -0.5;
 	double augerAutonomousSpeed = 0.7;
 

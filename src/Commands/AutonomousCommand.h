@@ -26,11 +26,11 @@ public:
 	void AutonomousShoota(int Color);
 	void AutonomousAuger();
 	void AutonomousAugerStop();
-	void AutonomousDelayUntilEmpty();
-	void AutonomousDelayForGear();
+	void AutonomousReload(double timeDelay);
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
+	bool hasRun = false;
 	bool startShooting = false;
 	bool stopAuto = false;
 	double shooterSpeed = 0;
