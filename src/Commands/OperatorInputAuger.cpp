@@ -21,7 +21,7 @@ void OperatorInputAuger::Execute() {
 		}
 		else if(direction == 0)
 		{
-			Robot::auger->AugerAllShesGotCaptain();
+			AugerShooterDelay();
 		}
 	}
 }
@@ -44,4 +44,31 @@ void OperatorInputAuger::Interrupted() {
 	{
 		Robot::auger->AugerStopScotty();
 	}
+}
+
+void OperatorInputAuger::AugerShooterDelay() {
+	if (delayAugerForShooter)
+	{
+		nowVelocity = Robot::shooter->GetShootaVelocity();
+		previousVelocity = Robot::shooter->GetShootaVelocity();
+		delayAugerForShooter = false;
+	}
+	else
+	{
+		nowVelocity = Robot::shooter->GetShootaVelocity();
+		delayAugerForShooter = true;
+	}
+
+	if(previousVelocity > nowVelocity &&
+			nowVelocity > Robot::shooter->GetShootaDesiredSpeed())
+	{
+		Robot::auger->AugerStopScotty();
+		lumberJack->dLog("IT WORKED");
+	}
+	else
+	{
+		Robot::auger->AugerAllShesGotCaptain();
+	}
+	lumberJack->dashLogNumber("Previous Velocity", previousVelocity);
+	lumberJack->dashLogNumber("Now Velocity", nowVelocity);
 }

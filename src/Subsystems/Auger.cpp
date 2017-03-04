@@ -29,14 +29,7 @@ void Auger::InitDefaultCommand() {
 void Auger::AugerAllShesGotCaptain() {
 	if(RobotMap::AUGER_TALON_MOTOR)
 	{
-		if(augerStop)
-		{
-			augerTalon->Set(RobotMap::ALL_STOP);
-		}
-		else
-		{
 			augerTalon->Set(augerSpeed);
-		}
 	}
 	else
 	{
@@ -127,25 +120,5 @@ void Auger::AugerDelay() {
 			goForward = true;
 			delayAuger = false;
 		}
-	}
-}
-
-void Auger::AugerShooterDelay() {
-	augerStop = false;
-	if (delayAugerForShooter)
-	{
-		previousVelocity = Robot::shooter->GetAutonomousShootaStartingSpeed();
-		delayAugerForShooter = false;
-	}
-	else
-	{
-		nowVelocity = Robot::shooter->GetAutonomousShootaStartingSpeed();
-		delayAugerForShooter = true;
-	}
-
-	if(previousVelocity > nowVelocity &&
-			nowVelocity > Robot::shooter->GetShootaDesiredSpeed())
-	{
-		augerStop = true;
 	}
 }
