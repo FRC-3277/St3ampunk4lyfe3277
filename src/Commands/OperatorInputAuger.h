@@ -18,6 +18,7 @@ private:
 	std::shared_ptr<LumberJack> lumberJack;
 	// 0 forward, 1 reverse
 	int direction = 0;
+	double shooterSpeed = 0;
 };
 
 #endif  // OperatorInputAuger_H

@@ -22,7 +22,8 @@ void OperatorInputAuger::Execute() {
 		else if(direction == 0)
 		{
 			Robot::auger->AugerAllShesGotCaptain();
-
+			shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
+			Robot::shooter->SpeedControlShooter(shooterSpeed);
 		}
 	}
 }
@@ -44,5 +45,7 @@ void OperatorInputAuger::Interrupted() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
 		Robot::auger->AugerStopScotty();
+		Robot::shooter->SpeedControlShooter(RobotMap::STOP_SPEED);
 	}
+
 }
