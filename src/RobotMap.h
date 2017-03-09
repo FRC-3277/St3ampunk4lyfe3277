@@ -84,13 +84,7 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-
-
 	static std::shared_ptr<CANTalon> shooterTalon;
-
-	//Vision
-	static const int VISION_TRACKA_RELAY = 2;
-	static std::shared_ptr<Relay> visionSpike;
 
 	//Vision Cameras
 

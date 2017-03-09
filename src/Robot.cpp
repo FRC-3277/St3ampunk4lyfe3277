@@ -5,7 +5,6 @@ std::shared_ptr<Shooter> Robot::shooter;
 std::shared_ptr<BallPicker> Robot::ballPicker;
 std::shared_ptr<Climber> Robot::climber;
 std::shared_ptr<Auger> Robot::auger;
-std::shared_ptr<VisionLumination> Robot::vision;
 std::unique_ptr<OI> Robot::oi;
 std::shared_ptr<LumberJack> Robot::lumberJack;
 std::shared_ptr<CameraSwap> Robot::cameraSwap;
@@ -17,7 +16,6 @@ void Robot::RobotInit() {
     ballPicker.reset(new BallPicker());
     climber.reset(new Climber());
     auger.reset(new Auger());
-    vision.reset(new VisionLumination());
     //cameraSwap.reset(new CameraSwap());
 
     // This MUST be here. If the OI creates Commands (which it very likely
