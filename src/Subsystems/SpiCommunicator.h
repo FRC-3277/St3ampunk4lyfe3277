@@ -1,3 +1,6 @@
+/*
+ * Abandoned because Arduino ethernet shield reserves pins needed for making SPI functional.  Sad day!
+ */
 #ifndef SpiCommunicator_H
 #define SpiCommunicator_H
 
