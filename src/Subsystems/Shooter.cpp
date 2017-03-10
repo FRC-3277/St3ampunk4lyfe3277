@@ -139,9 +139,17 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
 	}
 
+	testingSpeed = shooterTalon->GetSpeed();
+	lumberJack->dLog("Testing Speed" +to_string(testingSpeed));
+
 	shooterTalon->Set(speedControlValue);
 
 	//dumpEncoderLogging();
+}
+
+void Shooter::GetShooterSpeedForDelay()
+{
+	testingSpeed = shooterTalon->GetSpeed();
 }
 
 void Shooter::AutonomousSpeedControlShooter(double speedControlValue, int Color)
