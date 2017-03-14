@@ -8,6 +8,7 @@
 class OperatorInputShooter : public Command {
 private:
 	double shooterSpeed = 0;
+	int shooterServoPosition = 0;
 	std::shared_ptr<LumberJack> lumberJack;
 
 public:

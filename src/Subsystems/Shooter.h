@@ -16,6 +16,7 @@
 class Shooter: public Subsystem {
 private:
 	std::shared_ptr<CANTalon> shooterTalon;
+	std::shared_ptr<Servo> shooterServo;
 	std::shared_ptr<LumberJack> lumberJack;
 
 	// The speed that it starts at, or perhaps suggests
@@ -25,6 +26,10 @@ private:
 	double SHOOTA_MAX_CALIBRATION_SPEED;
 	// Prevent the shooter from jumping the belt.
 	double MIN_SHOOTA_SPEED_BEFORE_CUTOUT;
+
+	// Requires calibration
+	int servoZeroPosition = 10;
+	int servoCurrentPosition = servoZeroPosition;
 
 	double testingSpeed = 0;
 
@@ -72,6 +77,9 @@ public:
 	double GetShootaStartingSpeed();
 	double GetShootaMaxCalibrationSpeed();
 	void GetShooterSpeedForDelay();
+	void ZeroServoShooter();
+	void AdjustServoShooter(int adjustmentValue);
+	int GetCurrentServoPosition();
 };
 
 #endif

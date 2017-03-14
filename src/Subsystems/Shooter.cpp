@@ -6,6 +6,7 @@
 
 Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon = RobotMap::shooterTalon;
+	shooterServo.reset(new Servo(RobotMap::SHOOTA_SERVO_PWM_CHANNEL));
 	lumberJack.reset(new LumberJack());
 
 	// Clear these for use with Autonomous mode
@@ -235,3 +236,28 @@ void Shooter::dumpEncoderLogging()
 	}
 }
 
+void Shooter::ZeroServoShooter()
+{
+	shooterServo->SetAngle(servoZeroPosition);
+	servoCurrentPosition = servoZeroPosition;
+}
+
+void Shooter::AdjustServoShooter(int adjustmentValue)
+{
+	if(adjustmentValue < 0)
+	{
+		adjustmentValue = 0;
+	}
+	else if(adjustmentValue > 170)
+	{
+		adjustmentValue = 170;
+	}
+
+	shooterServo->SetAngle(adjustmentValue);
+	servoCurrentPosition = adjustmentValue;
+}
+
+int Shooter::GetCurrentServoPosition()
+{
+	return servoCurrentPosition;
+}

@@ -15,10 +15,44 @@ OperatorInputShooter::OperatorInputShooter() {
 void OperatorInputShooter::Initialize() {
 	//Begin with this speed and go from there
 	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
+	Robot::shooter->ZeroServoShooter();
+	shooterServoPosition = Robot::shooter->GetCurrentServoPosition();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputShooter::Execute() {
+	// Keep in sync
+	shooterServoPosition = Robot::shooter->GetCurrentServoPosition();
+	int desiredServoAngleAdjustment = Robot::oi->getLogitechExtreme()->GetTwist();
+
+	// The allowed will be reflected on the desired.
+	int allowedServoAngleAdjustment = 1;
+
+	// Get more!
+	if(desiredServoAngleAdjustment > 0.3)
+	{
+		allowedServoAngleAdjustment = 4;
+	}
+	else if(desiredServoAngleAdjustment > 0.6)
+	{
+		allowedServoAngleAdjustment = 8;
+	}
+
+	//TODO: Adjust this to match actual behavior.
+	//TODO: Implement offline period to allow servo to adjust for requested postion based on angle calculated from spec sheet so the servo
+	// is not overwhelmed with adjustments every 20 ms.  This may not be important if the WPILIB is handling this.  Testing will reveal!
+	if(desiredServoAngleAdjustment > 0)
+	{
+		Robot::shooter->AdjustServoShooter(shooterServoPosition + allowedServoAngleAdjustment);
+	}
+	else if(desiredServoAngleAdjustment < 0)
+	{
+		Robot::shooter->AdjustServoShooter(shooterServoPosition - allowedServoAngleAdjustment);
+	}
+
+	// Keep in sync
+	shooterServoPosition = Robot::shooter->GetCurrentServoPosition();
+
 	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
 	{
 		/*
@@ -67,5 +101,6 @@ void OperatorInputShooter::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void OperatorInputShooter::Interrupted() {
+	Robot::shooter->ZeroServoShooter();
 	Robot::shooter->SpeedControlShooter(RobotMap::STOP_SPEED);
 }
