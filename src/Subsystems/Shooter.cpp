@@ -242,11 +242,11 @@ void Shooter::ZeroServoShooter()
 	servoCurrentPosition = servoZeroPosition;
 }
 
-void Shooter::AdjustServoShooter(int adjustmentValue)
+void Shooter::AdjustServoShooter(double adjustmentValue)
 {
-	if(adjustmentValue < 0)
+	if(adjustmentValue < 5)
 	{
-		adjustmentValue = 0;
+		adjustmentValue = 5;
 	}
 	else if(adjustmentValue > 170)
 	{
@@ -257,7 +257,7 @@ void Shooter::AdjustServoShooter(int adjustmentValue)
 	servoCurrentPosition = adjustmentValue;
 }
 
-int Shooter::GetCurrentServoPosition()
+double Shooter::GetCurrentServoPosition()
 {
 	return servoCurrentPosition;
 }

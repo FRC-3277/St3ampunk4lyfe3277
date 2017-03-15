@@ -23,19 +23,18 @@ void OperatorInputShooter::Initialize() {
 void OperatorInputShooter::Execute() {
 	// Keep in sync
 	shooterServoPosition = Robot::shooter->GetCurrentServoPosition();
-	int desiredServoAngleAdjustment = Robot::oi->getLogitechExtreme()->GetTwist();
-
+	double desiredServoAngleAdjustment = Robot::oi->getLogitechExtreme()->GetY();
 	// The allowed will be reflected on the desired.
-	int allowedServoAngleAdjustment = 1;
+	double allowedServoAngleAdjustment = 0.5;
 
 	// Get more!
-	if(desiredServoAngleAdjustment > 0.3)
+	if(fabs(desiredServoAngleAdjustment) > 0.3)
+	{
+		allowedServoAngleAdjustment = 2;
+	}
+	else if(fabs(desiredServoAngleAdjustment) > 0.6)
 	{
 		allowedServoAngleAdjustment = 4;
-	}
-	else if(desiredServoAngleAdjustment > 0.6)
-	{
-		allowedServoAngleAdjustment = 8;
 	}
 
 	//TODO: Adjust this to match actual behavior.
@@ -48,6 +47,11 @@ void OperatorInputShooter::Execute() {
 	else if(desiredServoAngleAdjustment < 0)
 	{
 		Robot::shooter->AdjustServoShooter(shooterServoPosition - allowedServoAngleAdjustment);
+	}
+
+	if(Robot::oi->getLogitechExtreme()->GetRawButton(SHOOTA_ANGLA_ZERA) == true)
+	{
+		Robot::shooter->ZeroServoShooter();
 	}
 
 	// Keep in sync

@@ -28,8 +28,8 @@ private:
 	double MIN_SHOOTA_SPEED_BEFORE_CUTOUT;
 
 	// Requires calibration
-	int servoZeroPosition = 10;
-	int servoCurrentPosition = servoZeroPosition;
+	double servoZeroPosition = 90;
+	double servoCurrentPosition = servoZeroPosition;
 
 	double testingSpeed = 0;
 
@@ -78,8 +78,8 @@ public:
 	double GetShootaMaxCalibrationSpeed();
 	void GetShooterSpeedForDelay();
 	void ZeroServoShooter();
-	void AdjustServoShooter(int adjustmentValue);
-	int GetCurrentServoPosition();
+	void AdjustServoShooter(double adjustmentValue);
+	double GetCurrentServoPosition();
 };
 
 #endif

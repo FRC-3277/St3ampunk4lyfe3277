@@ -84,7 +84,7 @@ public:
 
 	//Shooter
 	static const int SHOOTA_MOTOR = 6;
-	static const int SHOOTA_SERVO_PWM_CHANNEL = 1;
+	static const int SHOOTA_SERVO_PWM_CHANNEL = 0;
 	static std::shared_ptr<CANTalon> shooterTalon;
 
 	//Vision Cameras
