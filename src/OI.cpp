@@ -34,6 +34,7 @@ OI::OI()
 	else if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
 	{
 		logitechExtreme.reset(new Joystick(ALTERNATE_CONTROLLER));
+		airforceOne.reset(new Joystick(SHOOTER_JOYSTICK));
 	}
 
 	//Map out the xBox Controller buttons (Possible bug not allowing these to be comma separated?)
@@ -83,5 +84,10 @@ std::shared_ptr<Joystick> OI::getXBoxControllerAlternate()
 std::shared_ptr<Joystick> OI::getLogitechExtreme()
 {
 	return logitechExtreme;
+}
+
+std::shared_ptr<Joystick> OI::getAirforceOne()
+{
+	return airforceOne;
 }
 

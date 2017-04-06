@@ -6,7 +6,8 @@
 
 Shooter::Shooter() : Subsystem("Shooter") {
 	shooterTalon = RobotMap::shooterTalon;
-	shooterServo.reset(new Servo(RobotMap::SHOOTA_SERVO_PWM_CHANNEL));
+	shooterServoLeft.reset(new Servo(RobotMap::SHOOTA_SERVO_PWM_CHANNEL_LEFT));
+	shooterServoRight.reset(new Servo(RobotMap::SHOOTA_SERVO_PWM_CHANNEL_RIGHT));
 	lumberJack.reset(new LumberJack());
 
 	// Clear these for use with Autonomous mode
@@ -236,13 +237,19 @@ void Shooter::dumpEncoderLogging()
 	}
 }
 
-void Shooter::ZeroServoShooter()
+void Shooter::ZeroServoShooterLeft()
 {
-	shooterServo->SetAngle(servoZeroPosition);
-	servoCurrentPosition = servoZeroPosition;
+	shooterServoLeft->SetAngle(servoZeroPosition);
+	servoLeftCurrentPosition = servoZeroPosition;
 }
 
-void Shooter::AdjustServoShooter(double adjustmentValue)
+void Shooter::ZeroServoShooterRight()
+{
+	shooterServoRight->SetAngle(servoZeroPosition);
+	servoRightCurrentPosition = servoZeroPosition;
+}
+
+void Shooter::AdjustServoShooterLeft(double adjustmentValue)
 {
 	if(adjustmentValue < 5)
 	{
@@ -253,11 +260,31 @@ void Shooter::AdjustServoShooter(double adjustmentValue)
 		adjustmentValue = 170;
 	}
 
-	shooterServo->SetAngle(adjustmentValue);
-	servoCurrentPosition = adjustmentValue;
+	shooterServoLeft->SetAngle(adjustmentValue);
+	servoLeftCurrentPosition = adjustmentValue;
 }
 
-double Shooter::GetCurrentServoPosition()
+void Shooter::AdjustServoShooterRight(double adjustmentValue)
 {
-	return servoCurrentPosition;
+	if(adjustmentValue < 5)
+	{
+		adjustmentValue = 5;
+	}
+	else if(adjustmentValue > 170)
+	{
+		adjustmentValue = 170;
+	}
+
+	shooterServoRight->SetAngle(adjustmentValue);
+	servoRightCurrentPosition = adjustmentValue;
+}
+
+double Shooter::GetCurrentServoPositionLeft()
+{
+	return servoLeftCurrentPosition;
+}
+
+double Shooter::GetCurrentServoPositionRight()
+{
+	return servoRightCurrentPosition;
 }

@@ -15,47 +15,79 @@ OperatorInputShooter::OperatorInputShooter() {
 void OperatorInputShooter::Initialize() {
 	//Begin with this speed and go from there
 	shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
-	Robot::shooter->ZeroServoShooter();
-	shooterServoPosition = Robot::shooter->GetCurrentServoPosition();
+	Robot::shooter->ZeroServoShooterLeft();
+	Robot::shooter->ZeroServoShooterRight();
+	shooterServoPositionLeft = Robot::shooter->GetCurrentServoPositionLeft();
+	shooterServoPositionRight = Robot::shooter->GetCurrentServoPositionRight();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void OperatorInputShooter::Execute() {
 	// Keep in sync
-	shooterServoPosition = Robot::shooter->GetCurrentServoPosition();
-	double desiredServoAngleAdjustment = Robot::oi->getLogitechExtreme()->GetY();
+	shooterServoPositionLeft = Robot::shooter->GetCurrentServoPositionLeft();
+	double desiredServoAngleAdjustmentLeft = 1 - Robot::oi->getAirforceOne()->GetRawAxis(SHOOTA_SERVO_LEFT);
 	// The allowed will be reflected on the desired.
-	double allowedServoAngleAdjustment = 0.5;
+	double allowedServoAngleAdjustmentLeft = 0.5;
+
+
+	shooterServoPositionRight = Robot::shooter->GetCurrentServoPositionRight();
+	double desiredServoAngleAdjustmentRight = 1 - Robot::oi->getAirforceOne()->GetRawAxis(SHOOTA_SERVO_RIGHT);
+	// The allowed will be reflected on the desired.
+	double allowedServoAngleAdjustmentRight = 0.5;
 
 	// Get more!
-	if(fabs(desiredServoAngleAdjustment) > 0.3)
+	if(fabs(desiredServoAngleAdjustmentLeft) > 0.3)
 	{
-		allowedServoAngleAdjustment = 2;
+		allowedServoAngleAdjustmentLeft = 2;
 	}
-	else if(fabs(desiredServoAngleAdjustment) > 0.6)
+	else if(fabs(desiredServoAngleAdjustmentLeft) > 0.6)
 	{
-		allowedServoAngleAdjustment = 4;
+		allowedServoAngleAdjustmentLeft = 4;
+	}
+
+	if(fabs(desiredServoAngleAdjustmentRight) > 0.3)
+	{
+		allowedServoAngleAdjustmentRight = 2;
+	}
+	else if(fabs(desiredServoAngleAdjustmentRight) > 0.6)
+	{
+		allowedServoAngleAdjustmentRight = 4;
 	}
 
 	//TODO: Adjust this to match actual behavior.
 	//TODO: Implement offline period to allow servo to adjust for requested postion based on angle calculated from spec sheet so the servo
 	// is not overwhelmed with adjustments every 20 ms.  This may not be important if the WPILIB is handling this.  Testing will reveal!
-	if(desiredServoAngleAdjustment > 0)
+	if(desiredServoAngleAdjustmentLeft > 0)
 	{
-		Robot::shooter->AdjustServoShooter(shooterServoPosition + allowedServoAngleAdjustment);
+		Robot::shooter->AdjustServoShooterLeft(shooterServoPositionLeft + allowedServoAngleAdjustmentLeft);
 	}
-	else if(desiredServoAngleAdjustment < 0)
+	else if(desiredServoAngleAdjustmentLeft < 0)
 	{
-		Robot::shooter->AdjustServoShooter(shooterServoPosition - allowedServoAngleAdjustment);
+		Robot::shooter->AdjustServoShooterLeft(shooterServoPositionLeft - allowedServoAngleAdjustmentLeft);
 	}
 
-	if(Robot::oi->getLogitechExtreme()->GetRawButton(SHOOTA_ANGLA_ZERA) == true)
+	if(desiredServoAngleAdjustmentRight > 0)
 	{
-		Robot::shooter->ZeroServoShooter();
+		Robot::shooter->AdjustServoShooterRight(shooterServoPositionRight + allowedServoAngleAdjustmentRight);
+	}
+	else if(desiredServoAngleAdjustmentRight < 0)
+	{
+		Robot::shooter->AdjustServoShooterRight(shooterServoPositionRight - allowedServoAngleAdjustmentRight);
+	}
+
+	if(Robot::oi->getAirforceOne()->GetRawButton(RESET_SERVO_LEFT) == true)
+	{
+		Robot::shooter->ZeroServoShooterLeft();
+	}
+
+	if(Robot::oi->getAirforceOne()->GetRawButton(RESET_SERVO_RIGHT) == true)
+	{
+		Robot::shooter->ZeroServoShooterRight();
 	}
 
 	// Keep in sync
-	shooterServoPosition = Robot::shooter->GetCurrentServoPosition();
+	shooterServoPositionLeft = Robot::shooter->GetCurrentServoPositionLeft();
+	shooterServoPositionRight = Robot::shooter->GetCurrentServoPositionRight();
 
 	if(RobotMap::SHOOTA_CALIBRATION_CONTROLLER_ENABLED)
 	{
@@ -66,7 +98,7 @@ void OperatorInputShooter::Execute() {
 		double speedAdjustment = 0;
 
 		// Controller input is 0 - 1; Talon in speed mode expects RPM.
-		speedAdjustment = Robot::oi->getLogitechExtreme()->GetRawAxis(SHOOTA_CALIBRATION_SLIDER)*-0.12;
+		speedAdjustment = (1 - Robot::oi->getAirforceOne()->GetRawAxis(SHOOTA_SPEED))*0.12;
 		if (speedAdjustment > 0 || speedAdjustment < 0)
 		{
 			desiredSpeed = desiredSpeed+(desiredSpeed*speedAdjustment);
@@ -105,6 +137,7 @@ void OperatorInputShooter::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void OperatorInputShooter::Interrupted() {
-	Robot::shooter->ZeroServoShooter();
+	Robot::shooter->ZeroServoShooterLeft();
+	Robot::shooter->ZeroServoShooterRight();
 	Robot::shooter->SpeedControlShooter(RobotMap::STOP_SPEED);
 }

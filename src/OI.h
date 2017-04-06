@@ -24,6 +24,7 @@
 
 #define DRIVER_CONTROLLER 0
 #define ALTERNATE_CONTROLLER 1
+#define SHOOTER_JOYSTICK 2
 
 /* Team Named Human Friendly Buttons Steam Punk Style */
 // Driver Controller
@@ -48,17 +49,26 @@
 #define AUGA_SPEED_UP 11
 #define AUGA_SPEED_DOWN 10
 
+// Airforce One
+#define RESET_SERVO_LEFT 0
+#define RESET_SERVO_RIGHT 1
+#define SHOOTA_SERVO_LEFT 0
+#define SHOOTA_SERVO_RIGHT 1
+#define SHOOTA_SPEED 2
+
 class OI {
 private:
 	std::shared_ptr<Joystick> xBoxControllerDriver;
 	std::shared_ptr<Joystick> xBoxControllerAlternate;
 	std::shared_ptr<Joystick> logitechExtreme;
+	std::shared_ptr<Joystick> airforceOne;
 
 public:
 	OI();
 	std::shared_ptr<Joystick> getXBoxControllerDriver();
 	std::shared_ptr<Joystick> getXBoxControllerAlternate();
 	std::shared_ptr<Joystick> getLogitechExtreme();
+	std::shared_ptr<Joystick> getAirforceOne();
 
 };
 
