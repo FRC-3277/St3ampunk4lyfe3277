@@ -69,7 +69,7 @@ public:
 	static std::shared_ptr<CANTalon> pickerTalon;
 
 	//Auger
-	static const int HOPPA_AUGA_RELAY = 0;
+	static const int HOPPA_AUGA_RELAY = 3;
 	static std::shared_ptr<Relay> augerSpike;
 
 	//Auger on Talon
@@ -79,7 +79,6 @@ public:
 	//Climber
 	static const int CLIMBA_MOTOR = 3;
 	static constexpr double CLIMBER_SPEED = 1.0;
-
 	static std::shared_ptr<CANTalon> climberTalon;
 
 	//Shooter
@@ -87,6 +86,10 @@ public:
 	static const int SHOOTA_SERVO_PWM_CHANNEL_LEFT = 0;
 	static const int SHOOTA_SERVO_PWM_CHANNEL_RIGHT = 1;
 	static std::shared_ptr<CANTalon> shooterTalon;
+
+	//Agitator
+	static const int AGITATA_SPIKE = 0;
+	static std::shared_ptr<Relay> agitatorSpike;
 
 	//Vision Cameras
 

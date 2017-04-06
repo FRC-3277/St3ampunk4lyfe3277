@@ -10,7 +10,7 @@ Auger::Auger() : Subsystem("Auger") {
 		augerTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 		augerTalon->SetControlMode(CANSpeedController::kPercentVbus);
 		augerTalon->EnableControl();
-		augerTalon->SetInverted(false);
+		augerTalon->SetInverted(true);
 		augerTalon->Set(RobotMap::ALL_STOP);
 	}
 	else

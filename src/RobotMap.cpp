@@ -20,6 +20,9 @@ std::shared_ptr<CANTalon> RobotMap::climberTalon;
 //Shooter
 std::shared_ptr<CANTalon> RobotMap::shooterTalon;
 
+//Agitator
+std::shared_ptr<Relay> RobotMap::agitatorSpike;
+
 void RobotMap::init() {
     LiveWindow *lw = LiveWindow::GetInstance();
     //Drivetrain
@@ -56,4 +59,7 @@ void RobotMap::init() {
 	//Shooter
 	shooterTalon.reset(new CANTalon(SHOOTA_MOTOR));
 	lw->AddActuator("Shooter", "Shooter", shooterTalon);
+
+	//Agitator
+	agitatorSpike.reset(new Relay(AGITATA_SPIKE));
 }

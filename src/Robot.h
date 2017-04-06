@@ -13,6 +13,7 @@
 #include "Subsystems/DriveTrain.h"
 #include "Subsystems/Shooter.h"
 #include "Subsystems/CameraSwap.h"
+#include "Subsystems/Agitator.h"
 
 #include "LumberJack.h"
 #include <thread>
@@ -31,6 +32,7 @@ public:
     static std::shared_ptr<Auger> auger;
     static std::shared_ptr<LumberJack> lumberJack;
     static std::shared_ptr<CameraSwap> cameraSwap;
+    static std::shared_ptr<Agitator> agitator;
 
 	virtual void RobotInit();
 	virtual void DisabledInit();

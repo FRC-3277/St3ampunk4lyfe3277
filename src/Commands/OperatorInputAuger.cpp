@@ -24,6 +24,7 @@ void OperatorInputAuger::Execute() {
 			Robot::auger->AugerAllShesGotCaptain();
 			shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
 			Robot::shooter->SpeedControlShooter(shooterSpeed);
+			Robot::agitator->AgitatorAllShesGot();
 		}
 	}
 }
@@ -46,6 +47,7 @@ void OperatorInputAuger::Interrupted() {
 	{
 		Robot::auger->AugerStopScotty();
 		Robot::shooter->SpeedControlShooter(RobotMap::STOP_SPEED);
+		Robot::agitator->AgitatorFullStop();
 	}
 
 }
