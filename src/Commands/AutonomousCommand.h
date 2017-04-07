@@ -32,8 +32,8 @@ public:
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
-	double rightServoRed = 69;
-	double leftServoRed = 69;
+	double rightServoRed = 86;
+	double leftServoRed = 86;
 
 	double rightServoBlue = 90;
 	double leftServoBlue = 90;

@@ -117,6 +117,7 @@ void AutonomousCommand::Execute() {
 			AutonomousReload(2);
 			AutonomousAuger();
 		}
+		lumberJack->dLog("AutoString" +to_string(autoCommand));
 		stopAuto = true;
 	}
 }
