@@ -27,10 +27,10 @@ void Auger::InitDefaultCommand() {
 
 }
 
-void Auger::AugerAllShesGotCaptain() {
+void Auger::AugerAllShesGotCaptain(double augerSpeed) {
 	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
-		augerTalon->Set(augerCurrentSpeed);
+		augerTalon->Set(augerSpeed);
 	}
 	else
 	{
@@ -126,15 +126,15 @@ void Auger::AugerDelay() {
 }
 
 //	Ramp up speed starting with minimum and up to maximum and then back down to minimum.  Rinse lather repeat.
-void Auger::AugerWashingMachineWashingMachine()
+void Auger::AugerWashingMachineWashingMachine(double maxSpeed, double minSpeed)
 {
-	if(augerCurrentSpeed < augerMaximumSpeed)
+	if(augerCurrentSpeed < maxSpeed && augerCurrentSpeed < 1)
 	{
-		augerCurrentSpeed = augerCurrentSpeed + .01;
+		augerCurrentSpeed = augerCurrentSpeed + .005;
 	}
 	else
 	{
-		augerCurrentSpeed = augerMinimumSpeed;
+		augerCurrentSpeed = minSpeed;
 	}
 	augerTalon->Set(augerCurrentSpeed);
 }

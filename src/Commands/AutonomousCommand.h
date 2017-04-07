@@ -32,6 +32,12 @@ public:
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
+	double rightServoRed = 69;
+	double leftServoRed = 69;
+
+	double rightServoBlue = 90;
+	double leftServoBlue = 90;
+
 	bool hasRun = false;
 	bool startShooting = false;
 	bool stopAuto = false;

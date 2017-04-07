@@ -191,7 +191,7 @@ void Shooter::AutonomousSpeedControlShooter(double speedControlValue, int Color)
 
 	if (Color == 1)
 	{
-		shooterTalon->Set(speedControlValue+50);
+		shooterTalon->Set(speedControlValue+35);
 	}
 	else if(Color == 0)
 	{

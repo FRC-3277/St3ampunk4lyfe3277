@@ -19,6 +19,11 @@ private:
 	// 0 forward, 1 reverse
 	int direction = 0;
 	double shooterSpeed = 0;
+
+	double augerSpeedScale = 0.8;
+	double augerBaseSpeed = 0.5;
+	double augerMinSpeed = augerBaseSpeed;
+	double augerMaxSpeed = augerMinSpeed + augerSpeedScale;
 };
 
 #endif  // OperatorInputAuger_H

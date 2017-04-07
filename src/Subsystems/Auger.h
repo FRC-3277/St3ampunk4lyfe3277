@@ -37,13 +37,13 @@ public:
 	Auger();
 	void InitDefaultCommand();
 
-	void AugerAllShesGotCaptain();
+	void AugerAllShesGotCaptain(double augerSpeed);
 	void AutonomousAugerAllShesGotCaptain();
 	void AugerCleanAndSweepReverse();
 	void AugerStopScotty();
 	void AugerForwardAndReverse();
 	void AugerDelay();
-	void AugerWashingMachineWashingMachine();
+	void AugerWashingMachineWashingMachine(double maxSpeed, double minSpeed);
 };
 
 #endif

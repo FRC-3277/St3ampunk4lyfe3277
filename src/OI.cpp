@@ -49,6 +49,7 @@ OI::OI()
 	JoystickButton* buttonToggleStatusAugerReverse = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER_REVERSE);
 	//Flight Power Controller
 	JoystickButton* buttonToggleStatusAgitator = new JoystickButton(airforceOne.get(), TOGGLE_STATUS_AGITATOR);
+	JoystickButton* buttonToggleStatusAugerReverseLever = new JoystickButton(airforceOne.get(), REVERSE_AUGER);
 
 //	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_UP);
 //	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_DOWN);
@@ -60,7 +61,7 @@ OI::OI()
 	buttonToggleStatusAgitator->ToggleWhenPressed(new OperatorInputAgitator());
 	//buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
 	buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
-
+	//buttonToggleStatusAugerReverseLever->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
 
 
 	/*The shooter is enabled manually by the operator.  This enables

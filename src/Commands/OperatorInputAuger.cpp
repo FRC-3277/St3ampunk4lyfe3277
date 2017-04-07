@@ -15,14 +15,25 @@ void OperatorInputAuger::Initialize() {
 void OperatorInputAuger::Execute() {
 	if(DriverStation::GetInstance().IsOperatorControl())
 	{
+		if(Robot::oi->getAirforceOne()->GetRawButton(REVERSE_AUGER) == true)
+		{
+			direction = 1;
+		}
+		else
+		{
+			direction = 0;
+		}
+
 		if(direction == 1)
 		{
 			Robot::auger->AugerCleanAndSweepReverse();
 		}
 		else if(direction == 0)
 		{
-			Robot::auger->AugerAllShesGotCaptain();
-			//Robot::auger->AugerWashingMachineWashingMachine();
+			augerMinSpeed = augerBaseSpeed + (((Robot::oi->getAirforceOne()->GetRawAxis(AUGER_SPEED) * -1) + 1) * .425);
+			augerMaxSpeed = augerMinSpeed + augerSpeedScale;
+			//Robot::auger->AugerAllShesGotCaptain(augerMinSpeed + .1);
+			Robot::auger->AugerWashingMachineWashingMachine(augerMaxSpeed, augerMinSpeed);
 			shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
 			Robot::shooter->SpeedControlShooter(shooterSpeed);
 			Robot::agitator->AgitatorAllShesGot();

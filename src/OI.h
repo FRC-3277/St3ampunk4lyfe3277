@@ -52,9 +52,11 @@
 // Airforce One
 #define RESET_SERVO_LEFT 0
 #define RESET_SERVO_RIGHT 1
+#define REVERSE_AUGER 8
+
 #define TOGGLE_STATUS_AGITATOR 6
 #define SHOOTA_SERVO_LEFT 0
-#define SHOOTA_SERVO_RIGHT 1
+#define AUGER_SPEED 1
 #define SHOOTA_SPEED 2
 
 class OI {
