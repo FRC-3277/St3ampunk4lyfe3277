@@ -60,7 +60,6 @@ void Auger::AugerStopScotty() {
 	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
 		augerTalon->Set(0);
-		lumberJack->dLog("Hey There");
 	}
 	else
 	{

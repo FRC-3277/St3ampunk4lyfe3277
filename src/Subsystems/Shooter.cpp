@@ -142,7 +142,7 @@ void Shooter::SpeedControlShooter(double speedControlValue)
 	}
 
 	testingSpeed = shooterTalon->GetSpeed();
-	lumberJack->dLog("Testing Speed" +to_string(testingSpeed));
+	//lumberJack->dLog("Testing Speed" +to_string(testingSpeed));
 
 	shooterTalon->Set(speedControlValue);
 
