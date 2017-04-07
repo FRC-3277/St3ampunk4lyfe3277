@@ -13,6 +13,8 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+private:
+	std::shared_ptr<LumberJack> lumberJack;
 };
 
 #endif  // OperatorInputAgitator_H

@@ -4,7 +4,6 @@
 Agitator::Agitator() : Subsystem("Agitator") {
 	agitatorSpike = RobotMap::agitatorSpike;
 	lumberJack.reset(new LumberJack());
-
 }
 
 void Agitator::InitDefaultCommand() {

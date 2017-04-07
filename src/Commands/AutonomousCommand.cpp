@@ -35,11 +35,12 @@ void AutonomousCommand::Execute() {
 		{
 			AutonomousShoota(ColorRed);
 			AutonomousAuger();
-			AutonomousReload(7);
-			AutonomousAugerStop();
-			Robot::driveTrain->SetStartTime();
-			AutonomousReload(2);
-			AutonomousAuger();
+			AutonomousAgitator();
+			//AutonomousReload(7);
+			//AutonomousAugerStop();
+			//Robot::driveTrain->SetStartTime();
+			//AutonomousReload(2);
+			//AutonomousAuger();
 		}
 		//Red team shoot and gear
 		else if(autoCommand == 2)
@@ -71,11 +72,12 @@ void AutonomousCommand::Execute() {
 		{
 			AutonomousShoota(ColorBlue);
 			AutonomousAuger();
-			AutonomousReload(7);
-			AutonomousAugerStop();
-			Robot::driveTrain->SetStartTime();
-			AutonomousReload(2);
-			AutonomousAuger();
+			AutonomousAgitator();
+			//AutonomousReload(7);
+			//AutonomousAugerStop();
+			//Robot::driveTrain->SetStartTime();
+			//AutonomousReload(2);
+			//AutonomousAuger();
 		}
 		//Blue team shoot and gear
 		else if(autoCommand == 5)
@@ -220,4 +222,12 @@ void AutonomousCommand::AutonomousAugerStop(){
 
 void AutonomousCommand::AutonomousReload(double timeDelay){
 	Robot::driveTrain->DelayUntilEmpty(timeDelay);
+}
+
+void AutonomousCommand::AutonomousAgitator(){
+	Robot::agitator->AgitatorAllShesGot();
+}
+
+void AutonomousCommand::AutonomousAgitatorStop(){
+	Robot::agitator->AgitatorFullStop();
 }

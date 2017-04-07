@@ -61,5 +61,5 @@ void RobotMap::init() {
 	lw->AddActuator("Shooter", "Shooter", shooterTalon);
 
 	//Agitator
-	agitatorSpike.reset(new Relay(AGITATA_SPIKE));
+	agitatorSpike.reset(new Relay(AGITATA_SPIKE, Relay::kForwardOnly));
 }

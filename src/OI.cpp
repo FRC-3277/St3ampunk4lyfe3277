@@ -18,6 +18,7 @@
 #include "Commands/OperatorInputAuger.h"
 #include "Commands/OperatorInputShooter.h"
 #include "Commands/OperatorInputCameraSwitch.h"
+#include "Commands/OperatorInputAgitator.h"
 
 OI::OI()
 {
@@ -46,6 +47,8 @@ OI::OI()
 	//JoystickButton* buttonToggleCamera = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CAMERA_VIEW);
 	//JoystickButton* buttonEnableClimberDown = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_CLIMBER_DOWN);
 	JoystickButton* buttonToggleStatusAugerReverse = new JoystickButton(xBoxControllerDriver.get(), TOGGLE_STATUS_AUGER_REVERSE);
+	//Flight Power Controller
+	JoystickButton* buttonToggleStatusAgitator = new JoystickButton(airforceOne.get(), TOGGLE_STATUS_AGITATOR);
 
 //	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_UP);
 //	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_DOWN);
@@ -54,6 +57,7 @@ OI::OI()
 	buttonEnableClimberUp->WhenPressed(new OperatorInputClimber());
 	buttonToggleStatusPicka->WhenPressed(new OperatorInputBallPicker());
 	buttonToggleStatusAugerForward->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_FORWARD));
+	buttonToggleStatusAgitator->ToggleWhenPressed(new OperatorInputAgitator());
 	//buttonToggleCamera->WhenPressed(new OperatorInputCameraSwitch());
 	buttonToggleStatusAugerReverse->ToggleWhenPressed(new OperatorInputAuger(RobotMap::DIRECTION_REVERSE));
 

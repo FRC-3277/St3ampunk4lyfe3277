@@ -7,6 +7,8 @@
 
 class OperatorInputShooter : public Command {
 private:
+	double shooterMinHardStop = 5;
+	double shooterMaxHardStop = 170;
 	double shooterSpeed = 0;
 	double shooterServoPositionLeft = 0;
 	double shooterServoPositionRight = 0;

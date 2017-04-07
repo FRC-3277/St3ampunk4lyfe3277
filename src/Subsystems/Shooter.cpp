@@ -18,7 +18,7 @@ Shooter::Shooter() : Subsystem("Shooter") {
 
 	if(RobotMap::SHOOTA_PID_SYSTEM)
 	{
-		SHOOTA_STARTING_SPEED = 2400;
+		SHOOTA_STARTING_SPEED = 2300;
 		SHOOTA_AUTONOMOUS_SPEED = 2350.281;
 		SHOOTA_MAX_CALIBRATION_SPEED = 2900;
 		MIN_SHOOTA_SPEED_BEFORE_CUTOUT = 500;
@@ -239,40 +239,40 @@ void Shooter::dumpEncoderLogging()
 
 void Shooter::ZeroServoShooterLeft()
 {
-	shooterServoLeft->SetAngle(servoZeroPosition);
-	servoLeftCurrentPosition = servoZeroPosition;
+	shooterServoLeft->SetAngle(servoZeroPositionLeft);
+	servoLeftCurrentPosition = servoZeroPositionLeft;
 }
 
 void Shooter::ZeroServoShooterRight()
 {
-	shooterServoRight->SetAngle(servoZeroPosition);
-	servoRightCurrentPosition = servoZeroPosition;
+	shooterServoRight->SetAngle(servoZeroPositionRight);
+	servoRightCurrentPosition = servoZeroPositionRight;
 }
 
 void Shooter::AdjustServoShooterLeft(double adjustmentValue)
 {
-	if(adjustmentValue < 5)
+	if(adjustmentValue < shooterMinHardStop)
 	{
-		adjustmentValue = 5;
+		adjustmentValue = shooterMinHardStop;
 	}
-	else if(adjustmentValue > 170)
+	else if(adjustmentValue > shooterMaxHardStop)
 	{
-		adjustmentValue = 170;
+		adjustmentValue = shooterMaxHardStop;
 	}
 
-	shooterServoLeft->SetAngle(adjustmentValue);
+	shooterServoLeft->SetAngle(102 - adjustmentValue);
 	servoLeftCurrentPosition = adjustmentValue;
 }
 
 void Shooter::AdjustServoShooterRight(double adjustmentValue)
 {
-	if(adjustmentValue < 5)
+	if(adjustmentValue < shooterMinHardStop)
 	{
-		adjustmentValue = 5;
+		adjustmentValue = shooterMinHardStop;
 	}
-	else if(adjustmentValue > 170)
+	else if(adjustmentValue > shooterMaxHardStop)
 	{
-		adjustmentValue = 170;
+		adjustmentValue = shooterMaxHardStop;
 	}
 
 	shooterServoRight->SetAngle(adjustmentValue);

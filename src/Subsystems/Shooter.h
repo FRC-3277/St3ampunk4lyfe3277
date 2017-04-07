@@ -28,10 +28,13 @@ private:
 	// Prevent the shooter from jumping the belt.
 	double MIN_SHOOTA_SPEED_BEFORE_CUTOUT;
 
-	// Requires calibration
-	double servoZeroPosition = 90;
-	double servoLeftCurrentPosition = servoZeroPosition;
-	double servoRightCurrentPosition = servoZeroPosition;
+	double shooterMinHardStop = 10;
+	double shooterMaxHardStop = 170;
+
+	double servoZeroPositionRight = 90;
+	double servoZeroPositionLeft = 90;
+	double servoLeftCurrentPosition = servoZeroPositionLeft;
+	double servoRightCurrentPosition = servoZeroPositionRight;
 
 	double testingSpeed = 0;
 

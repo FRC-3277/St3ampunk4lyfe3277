@@ -10,7 +10,7 @@ Auger::Auger() : Subsystem("Auger") {
 		augerTalon->ConfigNeutralMode(CANSpeedController::NeutralMode::kNeutralMode_Brake);
 		augerTalon->SetControlMode(CANSpeedController::kPercentVbus);
 		augerTalon->EnableControl();
-		augerTalon->SetInverted(true);
+		augerTalon->SetInverted(false);
 		augerTalon->Set(RobotMap::ALL_STOP);
 	}
 	else
@@ -27,12 +27,10 @@ void Auger::InitDefaultCommand() {
 
 }
 
-
-
 void Auger::AugerAllShesGotCaptain() {
 	if(RobotMap::AUGER_TALON_MOTOR_ENABLED)
 	{
-		augerTalon->Set(augerSpeed);
+		augerTalon->Set(augerCurrentSpeed);
 	}
 	else
 	{
@@ -125,4 +123,18 @@ void Auger::AugerDelay() {
 			delayAuger = false;
 		}
 	}
+}
+
+//	Ramp up speed starting with minimum and up to maximum and then back down to minimum.  Rinse lather repeat.
+void Auger::AugerWashingMachineWashingMachine()
+{
+	if(augerCurrentSpeed < augerMaximumSpeed)
+	{
+		augerCurrentSpeed = augerCurrentSpeed + .01;
+	}
+	else
+	{
+		augerCurrentSpeed = augerMinimumSpeed;
+	}
+	augerTalon->Set(augerCurrentSpeed);
 }

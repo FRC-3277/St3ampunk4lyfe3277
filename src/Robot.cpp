@@ -80,6 +80,7 @@ void Robot::TeleopInit() {
 		autonomousCommand->Cancel();
 	Robot::shooter->SpeedControlShooter(RobotMap::ALL_STOP);
 	Robot::auger->AugerStopScotty();
+	Robot::agitator->AgitatorFullStop();
 }
 
 void Robot::TeleopPeriodic() {

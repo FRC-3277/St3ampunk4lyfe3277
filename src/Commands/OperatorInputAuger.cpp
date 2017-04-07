@@ -22,6 +22,7 @@ void OperatorInputAuger::Execute() {
 		else if(direction == 0)
 		{
 			Robot::auger->AugerAllShesGotCaptain();
+			//Robot::auger->AugerWashingMachineWashingMachine();
 			shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
 			Robot::shooter->SpeedControlShooter(shooterSpeed);
 			Robot::agitator->AgitatorAllShesGot();

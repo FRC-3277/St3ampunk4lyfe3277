@@ -27,9 +27,11 @@ private:
 	double goForwardNumberSeconds = 1;
 	double goBackwardsNumberSeconds = 0.15;
 	double delayAugerNumberSeconds = 0.8;
-	double augerSpeed = 0.65;
+	double augerMaximumSpeed = 0.7;
+	double augerMinimumSpeed = 0.95;
+	double augerCurrentSpeed = augerMinimumSpeed;
 	double augerBackwards = -0.5;
-	double augerAutonomousSpeed = 0.7;
+	double augerAutonomousSpeed = 0.65;
 
 public:
 	Auger();
@@ -41,6 +43,7 @@ public:
 	void AugerStopScotty();
 	void AugerForwardAndReverse();
 	void AugerDelay();
+	void AugerWashingMachineWashingMachine();
 };
 
 #endif
