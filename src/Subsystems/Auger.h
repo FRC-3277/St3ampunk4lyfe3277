@@ -31,7 +31,7 @@ private:
 	double augerMinimumSpeed = 0.95;
 	double augerCurrentSpeed = augerMinimumSpeed;
 	double augerBackwards = -0.5;
-	double augerAutonomousSpeed = 0.65;
+	double augerAutonomousSpeed = 0.45;
 
 public:
 	Auger();

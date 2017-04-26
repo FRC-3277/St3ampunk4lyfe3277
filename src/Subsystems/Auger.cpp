@@ -127,7 +127,7 @@ void Auger::AugerDelay() {
 //	Ramp up speed starting with minimum and up to maximum and then back down to minimum.  Rinse lather repeat.
 void Auger::AugerWashingMachineWashingMachine(double maxSpeed, double minSpeed)
 {
-	if(augerCurrentSpeed < maxSpeed && augerCurrentSpeed < 1)
+	if(augerCurrentSpeed < maxSpeed && augerCurrentSpeed < .54)
 	{
 		augerCurrentSpeed = augerCurrentSpeed + .005;
 	}

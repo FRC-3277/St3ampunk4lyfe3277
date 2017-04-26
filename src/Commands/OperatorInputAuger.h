@@ -20,8 +20,8 @@ private:
 	int direction = 0;
 	double shooterSpeed = 0;
 
-	double augerSpeedScale = 0.8;
-	double augerBaseSpeed = 0.5;
+	double augerSpeedScale = 0.2;
+	double augerBaseSpeed = 0.2;
 	double augerMinSpeed = augerBaseSpeed;
 	double augerMaxSpeed = augerMinSpeed + augerSpeedScale;
 };

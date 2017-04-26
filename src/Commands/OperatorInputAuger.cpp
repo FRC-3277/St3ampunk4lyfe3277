@@ -30,7 +30,7 @@ void OperatorInputAuger::Execute() {
 		}
 		else if(direction == 0)
 		{
-			augerMinSpeed = augerBaseSpeed + (((Robot::oi->getAirforceOne()->GetRawAxis(AUGER_SPEED) * -1) + 1) * .425);
+			augerMinSpeed = augerBaseSpeed + (((Robot::oi->getAirforceOne()->GetRawAxis(AUGER_SPEED) * -1) + 1) * .27);
 			augerMaxSpeed = augerMinSpeed + augerSpeedScale;
 			//Robot::auger->AugerAllShesGotCaptain(augerMinSpeed + .1);
 			Robot::auger->AugerWashingMachineWashingMachine(augerMaxSpeed, augerMinSpeed);

@@ -34,8 +34,8 @@ void AutonomousCommand::Execute() {
 		if(autoCommand == 1)
 		{
 			AutonomousShoota(ColorRed);
-			Robot::shooter->AdjustServoShooterLeft(leftServoRed);
-			Robot::shooter->AdjustServoShooterRight(rightServoRed);
+			//Robot::shooter->AdjustServoShooterLeft(leftServoRed);
+			//Robot::shooter->AdjustServoShooterRight(rightServoRed);
 			AutonomousAuger();
 			AutonomousAgitator();
 			//AutonomousReload(7);
@@ -73,8 +73,8 @@ void AutonomousCommand::Execute() {
 		else if(autoCommand == 4)
 		{
 			AutonomousShoota(ColorBlue);
-			Robot::shooter->AdjustServoShooterLeft(leftServoBlue);
-			Robot::shooter->AdjustServoShooterRight(rightServoBlue);
+			//Robot::shooter->AdjustServoShooterLeft(leftServoBlue);
+			//Robot::shooter->AdjustServoShooterRight(rightServoBlue);
 			AutonomousAuger();
 			AutonomousAgitator();
 			//AutonomousReload(7);
