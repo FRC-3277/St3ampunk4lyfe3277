@@ -197,6 +197,14 @@ void Shooter::AutonomousSpeedControlShooter(double speedControlValue, int Color)
 	{
 		shooterTalon->Set(speedControlValue+2);
 	}
+	else if(Color == 2)
+	{
+		shooterTalon->Set(speedControlValue+1200);
+	}
+	else if(Color == 3)
+	{
+		shooterTalon->Set(speedControlValue+1430);
+	}
 	//dumpEncoderLogging();
 }
 

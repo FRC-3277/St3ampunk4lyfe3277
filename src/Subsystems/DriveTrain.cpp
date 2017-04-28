@@ -100,14 +100,14 @@ void DriveTrain::SetTalonStartPosition()
 
 void DriveTrain::SetTalonForward()
 {
-	portTalon->Set(-0.35);
-	starboardTalon->Set(0.35);
+	portTalon->Set(-0.45);
+	starboardTalon->Set(0.45);
 }
 
 void DriveTrain::SetTalonBackwards()
 {
-	portTalon->Set(0.35);
-	starboardTalon->Set(-0.35);
+	portTalon->Set(0.45);
+	starboardTalon->Set(-0.45);
 }
 
 void DriveTrain::SetTalonStop()

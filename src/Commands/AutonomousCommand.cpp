@@ -23,6 +23,8 @@ void AutonomousCommand::Execute() {
 
 		int _90DegreeTurn = 1000;
 		int OneRevolutionOfTheWheel = 848;
+		int HopperBoost = 3;
+		int HopperMax = 2;
 		int ColorRed = 1;
 		int ColorBlue = 0;
 
@@ -44,30 +46,32 @@ void AutonomousCommand::Execute() {
 			//AutonomousReload(2);
 			//AutonomousAuger();
 		}
-		//Red team shoot and gear
+		//Red team hopper prototype
 		else if(autoCommand == 2)
 		{
-			AutonomousTurnRight(_90DegreeTurn);
-			AutonomousShoota(ColorRed);
+			AutonomousMoveBackwards(4000);
+			AutonomousTurnLeft(4200);
+			AutonomousMoveForward(4250);
+			AutonomousTurnRight(4300);
+			AutonomousMoveForward(4350);
+			AutonomousTurnRight(4400);
+			AutonomousShoota(HopperBoost);
 			AutonomousAuger();
-			AutonomousReload(5);
-			AutonomousAugerStop();
-			AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn);
-			AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
-			AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
-			AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
+			AutonomousAgitator();
 		}
 		//Red team gear and shoot
 		else if(autoCommand == 3)
 		{
-			AutonomousMoveBackwards(2000);
-			AutonomousReload(5);
-			AutonomousMoveForward(1000);
-			AutonomousTurnLeft(1000);
-			AutonomousMoveForward(2000);
-			AutonomousTurnRight(500);
-			AutonomousShoota(ColorRed);
+			AutonomousShoota(HopperBoost);
+			//Robot::shooter->AdjustServoShooterLeft(leftServoRed);
+			//Robot::shooter->AdjustServoShooterRight(rightServoRed);
 			AutonomousAuger();
+			AutonomousAgitator();
+			//AutonomousReload(7);
+			//AutonomousAugerStop();
+			//Robot::driveTrain->SetStartTime();
+			//AutonomousReload(2);
+			//AutonomousAuger();
 		}
 		//Blue team shoot and hopper
 		else if(autoCommand == 4)
@@ -83,28 +87,32 @@ void AutonomousCommand::Execute() {
 			//AutonomousReload(2);
 			//AutonomousAuger();
 		}
-		//Blue team shoot and gear
+		//Blue team hopper prototype
 		else if(autoCommand == 5)
 		{
-			AutonomousTurnLeft(_90DegreeTurn);
-			AutonomousShoota(ColorBlue);
+			AutonomousMoveBackwards(5000);
+			AutonomousTurnRight(5500);
+			AutonomousMoveForward(7500);
+			AutonomousTurnLeft(7700);
+			AutonomousMoveForward(7900);
+			AutonomousTurnLeft(8300);
+			AutonomousShoota(HopperBoost);
 			AutonomousAuger();
-			AutonomousReload(5);
-			AutonomousAugerStop();
-			AutonomousTurnRight(_90DegreeTurn+_90DegreeTurn);
-			AutonomousMoveForward(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel);
-			AutonomousTurnLeft(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5));
-			AutonomousMoveBackwards(_90DegreeTurn+_90DegreeTurn+OneRevolutionOfTheWheel+(_90DegreeTurn*1.5)+OneRevolutionOfTheWheel);
+			AutonomousAgitator();
 		}
 		//Blue team gear and shoot
 		else if(autoCommand == 6)
 		{
-			AutonomousMoveBackwards(OneRevolutionOfTheWheel);
-			AutonomousReload(5);
-			AutonomousMoveForward(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel);
-			AutonomousTurnRight(OneRevolutionOfTheWheel+OneRevolutionOfTheWheel+(_90DegreeTurn*.75));
-			AutonomousShoota(ColorBlue);
+			AutonomousShoota(HopperBoost);
+			//Robot::shooter->AdjustServoShooterLeft(leftServoBlue);
+			//Robot::shooter->AdjustServoShooterRight(rightServoBlue);
 			AutonomousAuger();
+			AutonomousAgitator();
+			//AutonomousReload(7);
+			//AutonomousAugerStop();
+			//Robot::driveTrain->SetStartTime();
+			//AutonomousReload(2);
+			//AutonomousAuger();
 		}
 		//Testing autocommands
 		else if(autoCommand == 7)
@@ -116,6 +124,11 @@ void AutonomousCommand::Execute() {
 			Robot::driveTrain->SetStartTime();
 			AutonomousReload(2);
 			AutonomousAuger();
+		}
+		//Move Forward (Break Baseline)
+		else if(autoCommand == 8)
+		{
+			AutonomousMoveForward(4100);
 		}
 		lumberJack->dLog("AutoString" +to_string(autoCommand));
 		stopAuto = true;
