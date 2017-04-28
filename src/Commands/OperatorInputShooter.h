@@ -7,6 +7,7 @@
 
 class OperatorInputShooter : public Command {
 private:
+	double shooterSpeedStop = 0;
 	double shooterMinHardStop = 5;
 	double shooterMaxHardStop = 170;
 	double shooterSpeed = 0;

@@ -59,16 +59,23 @@ void OperatorInputShooter::Execute() {
 	}
 	else
 	{
-		double visionSuggestedSpeed = shooterSpeed;
-		//TODO: Get feedback from vision computer and adjust the speed.
-		//This does nothing right now obviously... Needs the return from vision.
-		visionSuggestedSpeed = visionSuggestedSpeed*1;
-		Robot::shooter->SetShooterSpeed(visionSuggestedSpeed);
+		if(Robot::oi->getAirforceOne()->GetRawButton(STOP_SHOOTA) == true)
+		{
+			Robot::shooter->SpeedControlShooter(shooterSpeedStop);
+		}
+		else
+		{
+			double visionSuggestedSpeed = shooterSpeed;
+			//TODO: Get feedback from vision computer and adjust the speed.
+			//This does nothing right now obviously... Needs the return from vision.
+			visionSuggestedSpeed = visionSuggestedSpeed*1;
+			Robot::shooter->SetShooterSpeed(visionSuggestedSpeed);
 
-		//TODO: Get the current speed of the motor from the encoder and adjust.
-		shooterSpeed = Robot::shooter->GetShooterSpeed();
+			//TODO: Get the current speed of the motor from the encoder and adjust.
+			shooterSpeed = Robot::shooter->GetShooterSpeed();
 
-		Robot::shooter->SpeedControlShooter(shooterSpeed);
+			Robot::shooter->SpeedControlShooter(shooterSpeed);
+		}
 	}
 }
 

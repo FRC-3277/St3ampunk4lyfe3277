@@ -50,6 +50,7 @@ OI::OI()
 	//Flight Power Controller
 	JoystickButton* buttonToggleStatusAgitator = new JoystickButton(airforceOne.get(), TOGGLE_STATUS_AGITATOR);
 	JoystickButton* buttonToggleStatusAugerReverseLever = new JoystickButton(airforceOne.get(), REVERSE_AUGER);
+	JoystickButton* buttonToggleStatusShootaSpeed = new JoystickButton(airforceOne.get(), STOP_SHOOTA);
 
 //	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_UP);
 //	JoystickButton* buttonIncreaseAugaSpeed = new JoystickButton(logitechExtreme.get(), AUGA_SPEED_DOWN);
