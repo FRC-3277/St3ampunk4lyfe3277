@@ -88,6 +88,7 @@ public:
 	void ZeroServoShooterRight();
 	void AdjustServoShooterRight(double adjustmentValue);
 	double GetCurrentServoPositionRight();
+	void SetShooterAllStop();
 };
 
 #endif

@@ -129,6 +129,8 @@ void AutonomousCommand::Execute() {
 		else if(autoCommand == 8)
 		{
 			AutonomousMoveForward(4100);
+			AutonomousTurnRight(4150);
+			AutonomousMoveForward(4250);
 		}
 		lumberJack->dLog("AutoString" +to_string(autoCommand));
 		stopAuto = true;

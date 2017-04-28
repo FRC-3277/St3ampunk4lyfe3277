@@ -61,7 +61,7 @@ void OperatorInputShooter::Execute() {
 	{
 		if(Robot::oi->getAirforceOne()->GetRawButton(STOP_SHOOTA) == true)
 		{
-			Robot::shooter->SpeedControlShooter(shooterSpeedStop);
+			Robot::shooter->SetShooterAllStop();
 		}
 		else
 		{

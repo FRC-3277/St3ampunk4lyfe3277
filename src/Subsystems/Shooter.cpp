@@ -287,6 +287,12 @@ void Shooter::AdjustServoShooterRight(double adjustmentValue)
 	servoRightCurrentPosition = adjustmentValue;
 }
 
+void Shooter::SetShooterAllStop()
+{
+	shooterTalon->SetControlMode(CANSpeedController::kPercentVbus);
+	shooterTalon->Set(RobotMap::ALL_STOP);
+}
+
 double Shooter::GetCurrentServoPositionLeft()
 {
 	return servoLeftCurrentPosition;
