@@ -34,7 +34,9 @@ void BallPicker::InitDefaultCommand() {
 void BallPicker::FuelRiserBeltOn()
 {
 	pickerTalon->Set(RobotMap::BALL_PICKA_SPEED);
-
+	float current = 0.0f;
+	current = pickerTalon->GetOutputCurrent();
+	SmartDashboard::PutString("DB/String 9", to_string(current));
 }
 
 void BallPicker::FuelRiserBeltOff()

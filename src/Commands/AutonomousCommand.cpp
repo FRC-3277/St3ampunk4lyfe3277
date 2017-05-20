@@ -28,6 +28,11 @@ void AutonomousCommand::Execute() {
 		int ColorRed = 1;
 		int ColorBlue = 0;
 
+		endTime = std::chrono::system_clock::now();
+		startTime = std::chrono::system_clock::now();
+		elapsedTime = endTime - startTime;
+		auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+
 		autoCommand = Robot::driveTrain->GetDashboard();
 		shooterSpeed = Robot::shooter->GetShootaStartingSpeed();
 		ResetPositions();
@@ -62,16 +67,23 @@ void AutonomousCommand::Execute() {
 		//Red team gear and shoot
 		else if(autoCommand == 3)
 		{
-			AutonomousShoota(HopperBoost);
-			//Robot::shooter->AdjustServoShooterLeft(leftServoRed);
-			//Robot::shooter->AdjustServoShooterRight(rightServoRed);
+			AutonomousShoota(ColorRed);
 			AutonomousAuger();
 			AutonomousAgitator();
-			//AutonomousReload(7);
-			//AutonomousAugerStop();
-			//Robot::driveTrain->SetStartTime();
-			//AutonomousReload(2);
-			//AutonomousAuger();
+			while(true)
+			{
+				endTime = std::chrono::system_clock::now();
+				elapsedTime = endTime - startTime;
+				auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+				SmartDashboard::PutString("DB/String 9", to_string(f_secs.count()));
+				if(f_secs.count() > 11)
+				{
+					break;
+				}
+			}
+			lumberJack->dLog(std::string("I made it"));
+			AutonomousTurnLeft(300);
+			AutonomousMoveForward(5300);
 		}
 		//Blue team shoot and hopper
 		else if(autoCommand == 4)
@@ -103,16 +115,23 @@ void AutonomousCommand::Execute() {
 		//Blue team gear and shoot
 		else if(autoCommand == 6)
 		{
-			AutonomousShoota(HopperBoost);
-			//Robot::shooter->AdjustServoShooterLeft(leftServoBlue);
-			//Robot::shooter->AdjustServoShooterRight(rightServoBlue);
+			AutonomousShoota(ColorBlue);
 			AutonomousAuger();
 			AutonomousAgitator();
-			//AutonomousReload(7);
-			//AutonomousAugerStop();
-			//Robot::driveTrain->SetStartTime();
-			//AutonomousReload(2);
-			//AutonomousAuger();
+			while(true)
+			{
+				endTime = std::chrono::system_clock::now();
+				elapsedTime = endTime - startTime;
+				auto f_secs = std::chrono::duration_cast<std::chrono::duration<float>>(elapsedTime);
+				SmartDashboard::PutString("DB/String 9", to_string(f_secs.count()));
+				if(f_secs.count() > 11)
+				{
+					break;
+				}
+			}
+			lumberJack->dLog(std::string("I made it"));
+			AutonomousTurnRight(300);
+			AutonomousMoveForward(5300);
 		}
 		//Testing autocommands
 		else if(autoCommand == 7)
@@ -128,7 +147,7 @@ void AutonomousCommand::Execute() {
 		//Move Forward (Break Baseline)
 		else if(autoCommand == 8)
 		{
-			AutonomousMoveForward(4100);
+			AutonomousMoveForward(4450);
 		}
 		lumberJack->dLog("AutoString" +to_string(autoCommand));
 		stopAuto = true;

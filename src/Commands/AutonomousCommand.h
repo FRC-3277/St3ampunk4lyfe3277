@@ -32,6 +32,10 @@ public:
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;
+	std::chrono::time_point<std::chrono::system_clock> startTime, endTime;
+	std::chrono::duration<float> elapsedTime;
+	int numberSecondsElapsed = 0;
+
 	double rightServoRed = 86;
 	double leftServoRed = 86;
 
