@@ -188,14 +188,15 @@ void Shooter::AutonomousSpeedControlShooter(double speedControlValue, int Color)
 	{
 		shooterTalon->SetControlMode(CANSpeedController::kSpeed);
 	}
-
+	// Red
 	if (Color == 1)
 	{
 		shooterTalon->Set(speedControlValue+35);
 	}
+	// Blue
 	else if(Color == 0)
 	{
-		shooterTalon->Set(speedControlValue+2);
+		shooterTalon->Set(speedControlValue-8);
 	}
 	else if(Color == 2)
 	{
