@@ -40,6 +40,7 @@ void AutonomousCommand::Execute() {
 			//Robot::shooter->AdjustServoShooterRight(rightServoRed);
 			AutonomousAuger();
 			AutonomousAgitator();
+			AutonomousPicker();
 			//AutonomousReload(7);
 			//AutonomousAugerStop();
 			//Robot::driveTrain->SetStartTime();
@@ -81,6 +82,7 @@ void AutonomousCommand::Execute() {
 			//Robot::shooter->AdjustServoShooterRight(rightServoBlue);
 			AutonomousAuger();
 			AutonomousAgitator();
+			AutonomousPicker();
 			//AutonomousReload(7);
 			//AutonomousAugerStop();
 			//Robot::driveTrain->SetStartTime();
@@ -250,4 +252,9 @@ void AutonomousCommand::AutonomousAgitator(){
 
 void AutonomousCommand::AutonomousAgitatorStop(){
 	Robot::agitator->AgitatorFullStop();
+}
+
+void AutonomousCommand::AutonomousPicker()
+{
+	Robot::ballPicker->FuelRiserBeltOn();
 }

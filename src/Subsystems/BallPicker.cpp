@@ -41,5 +41,3 @@ void BallPicker::FuelRiserBeltOff()
 {
 	pickerTalon->Set(RobotMap::ALL_STOP);
 }
-
-

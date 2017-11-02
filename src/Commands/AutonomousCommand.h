@@ -29,6 +29,7 @@ public:
 	void AutonomousReload(double timeDelay);
 	void AutonomousAgitator();
 	void AutonomousAgitatorStop();
+	void AutonomousPicker();
 
 private:
 	std::shared_ptr<LumberJack> lumberJack;

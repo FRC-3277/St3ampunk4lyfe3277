@@ -40,6 +40,7 @@ public:
 
 	void FuelRiserBeltOn();
 	void FuelRiserBeltOff();
+	void AutonomousPicker();
 };
 
 #endif
